@@ -1,18 +1,21 @@
-# Build and Release Folders
-bin-debug/
-bin-release/
-[Oo]bj/
-[Bb]in/
+api-gateway/.mvn/*
+api-gateway/.idea/*
+api-gateway/target/*
 
-# Other files and folders
-.settings/
+auth-service/.mvn/*
+auth-service/.idea/*
+auth-service/target/*
 
-# Executables
-*.swf
-*.air
-*.ipa
-*.apk
+core-service/.mvn/*
+core-service/.idea/*
+core-service/target/*
 
-# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
-# should NOT be excluded as they contain compiler settings and other important
-# information for Eclipse / Flash Builder.
+engine/.mvn/*
+engine/.idea/*
+engine/target/*
+
+docker/mysql/data/*
+*/mvnw
+*/mvnw.cmd
+*/HELP.md
+
