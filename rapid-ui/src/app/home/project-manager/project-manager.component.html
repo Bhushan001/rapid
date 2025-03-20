@@ -1,0 +1,35 @@
+<div class="container-fluid p-4 project-manager-layout">
+    <div class="row mb-4">
+      <div class="col text-center">
+        <h2 class="fw-bold"><i class='bx bx-category-alt me-2'></i> Project Manager</h2>
+      </div>
+    </div>
+  
+    <div class="row">
+      <!-- Workspaces -->
+      <div class="col-4 pe-3 border-end border-secondary">
+        <app-workspace
+          [workspaces]="workspaces"
+          [selectedWorkspace]="selectedWorkspace"
+          (selectWorkspace)="onWorkspaceSelect($event)">
+        </app-workspace>
+      </div>
+  
+      <!-- Projects -->
+      <div class="col-4 col-4 px-3 border-end border-secondary">
+        <app-project
+          [projects]="selectedWorkspace?.projects || []"
+          [selectedProject]="selectedProject"
+          (selectProject)="onProjectSelect($event)">
+        </app-project>
+      </div>
+  
+      <!-- Pages -->
+      <div class="col-4 ps-3">
+        <app-page
+          [pages]="selectedProject?.pages || []">
+        </app-page>
+      </div>
+    </div>
+  </div>
+  

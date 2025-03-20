@@ -19,3 +19,5 @@ docker/mysql/data/*
 */mvnw.cmd
 */HELP.md
 
+rapid-ui/.angular/*
+rapid-ui/node_modules/*

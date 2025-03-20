@@ -1,18 +1,22 @@
 package com.techie.rapid.auth.controller;
 
+import com.techie.rapid.auth.constants.ErrorConstants;
 import com.techie.rapid.auth.entity.User;
 import com.techie.rapid.auth.exception.DuplicateUserException;
-import com.techie.rapid.auth.model.AdminCreationRequest;
-import com.techie.rapid.auth.model.ApiResponse;
-import com.techie.rapid.auth.model.ErrorResponse;
-import com.techie.rapid.auth.model.SignupRequest;
+import com.techie.rapid.auth.exception.InvalidCredentialsException;
+import com.techie.rapid.auth.model.*;
+import com.techie.rapid.auth.security.JwtUtil;
 import com.techie.rapid.auth.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+
+
 
 @RestController
 @RequestMapping("/api/auth")
@@ -20,6 +24,8 @@ import java.util.List;
 public class AuthController {
 
     private final UserService userService;
+    private final JwtUtil jwtUtil;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/users")
     public ResponseEntity<ApiResponse<List<User>>> getAllUsers() {
@@ -73,5 +79,66 @@ public class AuthController {
         } catch (Exception e) {
             throw new RuntimeException("An unexpected error occurred.", e);
         }
+    }
+
+
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        try {
+            User user = userService.findByUsername(loginRequest.getUsername())
+                    .orElseThrow(() -> new InvalidCredentialsException(ErrorConstants.INVALID_CREDENTIALS_MESSAGE));
+
+            if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+                throw new InvalidCredentialsException(ErrorConstants.INVALID_CREDENTIALS_MESSAGE);
+            }
+
+            String token = jwtUtil.generateToken(user.getUsername());
+            UserProfile userProfile = new UserProfile(user.getId(), user.getUsername(), user.getFirstName(), user.getLastName(), user.getRole());
+
+            LoginResponse loginResponse = new LoginResponse(
+                    HttpStatus.OK.value(),
+                    HttpStatus.OK.getReasonPhrase(),
+                    userProfile,
+                    token);
+
+            return ResponseEntity.ok(loginResponse);
+
+        } catch (InvalidCredentialsException e) {
+            CustomErrorResponse errorResponse = new CustomErrorResponse(
+                    HttpStatus.UNAUTHORIZED.value(),
+                    HttpStatus.UNAUTHORIZED.getReasonPhrase(),
+                    ErrorConstants.INVALID_CREDENTIALS_CODE,
+                    e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+        } catch (Exception e) {
+            CustomErrorResponse errorResponse = new CustomErrorResponse(
+                    HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
+                    ErrorConstants.GENERAL_ERROR_CODE,
+                    ErrorConstants.GENERAL_ERROR_MESSAGE);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        }
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(Authentication authentication) {
+        if (authentication != null) {
+            SecurityContextHolder.clearContext();
+            ApiResponse<String> response = new ApiResponse<>(
+                    HttpStatus.OK.value(),
+                    HttpStatus.OK.getReasonPhrase(),
+                    "Logout successful"
+            );
+            return ResponseEntity.ok(response);
+        } else {
+            ApiResponse<String> response = new ApiResponse<>(
+                    HttpStatus.UNAUTHORIZED.value(),
+                    HttpStatus.UNAUTHORIZED.getReasonPhrase(),
+                    "User not authenticated"
+            );
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        }
+
     }
 }

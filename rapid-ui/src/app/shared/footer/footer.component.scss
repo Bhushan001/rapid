@@ -1,0 +1,27 @@
+.app-footer {
+  background-color: #0b0f19;
+  font-size: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+  .brand-name {
+    font-weight: 500;
+    font-size: 15px;
+  }
+
+  .footer-link {
+    color: #adb5bd;
+    text-decoration: none;
+    margin-left: 10px;
+    margin-right: 10px;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+  }
+
+  .separator {
+    color: #6c757d;
+  }
+}

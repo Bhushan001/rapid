@@ -8,6 +8,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CustomErrorResponse {
+    private int statusCode;
+    private String status;
     private String errorCode;
     private String message;
+
+    public CustomErrorResponse(String errorCode, String message) {
+        this.errorCode = errorCode;
+        this.message = message;
+    }
 }

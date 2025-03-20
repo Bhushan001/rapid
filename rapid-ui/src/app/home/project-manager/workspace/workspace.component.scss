@@ -1,0 +1,52 @@
+.workspace-card {
+    border: 1px solid #dee2e6;
+    transition: all 0.2s ease-in-out;
+  
+    &:hover {
+      background-color: #f8f9fa;
+      border-color: #adb5bd;
+    }
+  
+    &.selected {
+      background-color: #e9ecef;
+      border-color: #343a40;
+    }
+  
+    i {
+      font-size: 1.1rem;
+      transition: color 0.2s ease;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  
+    .cursor-pointer {
+      cursor: pointer;
+    }
+  }
+
+  .custom-dark-btn {
+    background-color: #343a40;
+    color: #fff;
+    border-color: #343a40;
+  
+    &:hover {
+      background-color: #495057;
+      color: #fff;
+    }
+  
+    &:disabled,
+    .disabled & {
+      background-color: #6c757d;
+      color: #fff;
+      cursor: not-allowed;
+    }
+  }
+  
+  .page-item.active .page-link.custom-dark-btn {
+    background-color: #212529;
+    border-color: #212529;
+    color: #fff;
+  }
+  
+  

@@ -1,0 +1,163 @@
+import { RouteInfo } from "./sidebar.metadata";
+
+//Sidebar menu Routes and data
+export const ROUTES: RouteInfo[] = [
+
+    {
+        path: '', title: 'Dashboard', icon: 'fa fa-home', class: 'sub', badge: '', badgeClass: '', isExternalLink: false, submenu: [
+            { path: '/dashboard/e-commerce', title: 'eCommerce', icon: 'fa fa-chevron-right', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/dashboard/analytics', title: 'Analytics', icon: 'fa fa-chevron-right', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+        ]
+    },
+    {
+        path: '', title: 'Application', icon: 'fa fa-th-large', class: 'sub', badge: '', badgeClass: '', isExternalLink: false,
+        submenu: [
+            { path: '/application/email-app', title: 'Email', icon: 'fa fa-envelope', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/application/chat-box', title: 'Chat Box', icon: 'fa fa-comments', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/application/file-manager', title: 'File Manager', icon: 'fa fa-folder-open', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/application/contatcs', title: 'Contacts', icon: 'fa fa-address-book', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/application/invoice', title: 'Invoice', icon: 'fa fa-file-invoice', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/application/calendar', title: 'Calendar', icon: 'fa fa-calendar', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+        ]
+    },
+    { path: '/widgets', title: 'Widgets', icon: 'fa fa-puzzle-piece', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+    {
+        path: '', title: 'eCommerce', icon: 'fa fa-shopping-cart', class: 'sub', badge: '', badgeClass: '', isExternalLink: false,
+        submenu: [
+            { path: '/ecommerce/products', title: 'Products', icon: 'fa fa-chevron-right', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/ecommerce/products-details', title: 'Products Details', icon: 'fa fa-chevron-right', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/ecommerce/add-new-products', title: 'Add New Products', icon: 'fa fa-plus-square', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/ecommerce/orders', title: 'Orders', icon: 'fa fa-list-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+        ]
+    },
+    {
+        path: '', title: 'Components', icon: 'fa fa-cubes', class: 'sub', badge: '', badgeClass: '', isExternalLink: false,
+        submenu: [
+            { path: '/components/alerts', title: 'Alerts', icon: 'fa fa-exclamation-triangle', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/components/badge', title: 'Badge', icon: 'fa fa-certificate', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/components/buttons', title: 'Buttons', icon: 'fa fa-mouse-pointer', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/components/cards', title: 'Cards', icon: 'fa fa-id-card', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/components/carousel', title: 'Carousel', icon: 'fa fa-images', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/components/acordians', title: 'Accordion', icon: 'fa fa-bars', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/components/list-groups', title: 'List Groups', icon: 'fa fa-list-ul', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/components/media-objects', title: 'Media Objects', icon: 'fa fa-photo-video', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/components/modals', title: 'Modals', icon: 'fa fa-window-restore', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/components/navs', title: 'Navs', icon: 'fa fa-compass', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/components/navbar', title: 'Navbar', icon: 'fa fa-bars', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/components/pagination', title: 'Pagination', icon: 'fa fa-ellipsis-h', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/components/progress-bar', title: 'Progress Bars', icon: 'fa fa-tasks', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/components/spinners', title: 'Spinners', icon: 'fa fa-spinner', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/components/avtars-chips', title: 'Avatars & Chips', icon: 'fa fa-user-circle', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+        ]
+    },
+    {
+        path: '', title: 'ng-Components', icon: 'fa fa-layer-group', class: 'sub', badge: '', badgeClass: '', isExternalLink: false,
+        submenu: [
+            { path: '/ng-components/accordion', title: 'Accordion', icon: 'fa fa-chevron-right', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/ng-components/alert', title: 'Alert', icon: 'fa fa-exclamation-triangle', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/ng-components/buttons', title: 'Buttons', icon: 'fa fa-mouse-pointer', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/ng-components/carousel', title: 'Carousel', icon: 'fa fa-images', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/ng-components/collapse', title: 'Collapse', icon: 'fa fa-compress', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/ng-components/datepicker', title: 'Datepicker', icon: 'fa fa-calendar', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/ng-components/dropdown', title: 'Dropdown', icon: 'fa fa-caret-down', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/ng-components/modal', title: 'Modal', icon: 'fa fa-window-restore', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/ng-components/nav', title: 'Nav', icon: 'fa fa-compass', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/ng-components/pagination', title: 'Pagination', icon: 'fa fa-ellipsis-h', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/ng-components/popovers', title: 'Popovers', icon: 'fa fa-comment', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/ng-components/progress-bar', title: 'Progressbar', icon: 'fa fa-tasks', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/ng-components/table', title: 'Table', icon: 'fa fa-table', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/ng-components/timepicker', title: 'Timepicker', icon: 'fa fa-clock-o', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/ng-components/toast', title: 'Toast', icon: 'fa fa-commenting', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/ng-components/tooltip', title: 'Tooltip', icon: 'fa fa-comment', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+        ]
+    },
+    {
+        path: '', title: 'Content', icon: 'fa fa-refresh', class: 'sub', badge: '', badgeClass: '', isExternalLink: false,
+        submenu: [
+            { path: '/content/grid-system', title: 'Grid System', icon: 'fa fa-th', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/content/typography', title: 'Typography', icon: 'fa fa-font', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/content/text-utilities', title: 'Text Utilities', icon: 'fa fa-text-width', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+        ]
+    },
+    {
+        path: '', title: 'Icons', icon: 'fa fa-tint', class: 'sub', badge: '', badgeClass: '', isExternalLink: false,
+        submenu: [
+            { path: '/icons/line-icons', title: 'Line Icons', icon: 'fa fa-chevron-right', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/icons/boxicons', title: 'Boxicons', icon: 'fa fa-chevron-right', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+        ]
+    },
+    {
+        path: '', title: 'Form', icon: 'fa fa-wpforms', class: 'sub', badge: '', badgeClass: '', isExternalLink: false,
+        submenu: [
+            { path: '/form/form-elements', title: 'Form Elements', icon: 'fa fa-list-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/form/input-groups', title: 'Input Groups', icon: 'fa fa-object-group', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/form/form-layouts', title: 'Forms Layouts', icon: 'fa fa-columns', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/form/form-validation', title: 'Form Validation', icon: 'fa fa-check-square-o', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/form/form-wizard', title: 'Form Wizard', icon: 'fa fa-magic', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/form/text-editor', title: 'Text Editor', icon: 'fa fa-pencil-square-o', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/form/file-upload', title: 'File Upload', icon: 'fa fa-upload', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/form/select2', title: 'Select2', icon: 'fa fa-caret-square-o-down', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+        ]
+    },
+    {
+        path: '/table/table', title: 'Table', icon: 'fa fa-table', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
+    },
+    {
+        path: '', title: 'Authentication', icon: 'fa fa-lock', class: 'sub', badge: '', badgeClass: '', isExternalLink: false,
+        submenu: [
+            { path: '/auth/sign-in', title: 'Sign In', icon: 'fa fa-sign-in', class: '', badge: '', badgeClass: '', isExternalLink: true, submenu: [] },
+            { path: '/auth/sign-up', title: 'Sign Up', icon: 'fa fa-user-plus', class: '', badge: '', badgeClass: '', isExternalLink: true, submenu: [] },
+            { path: '/auth/signin-with-header-footer', title: 'SignIn With Header Footer', icon: 'fa fa-sign-in', class: '', badge: '', badgeClass: '', isExternalLink: true, submenu: [] },
+            { path: '/auth/signup-with-header-footer', title: 'SignUp With Header Footer', icon: 'fa fa-user-plus', class: '', badge: '', badgeClass: '', isExternalLink: true, submenu: [] },
+            { path: '/auth/forgot-password', title: 'Forgot Password', icon: 'fa fa-key', class: '', badge: '', badgeClass: '', isExternalLink: true, submenu: [] },
+            { path: '/auth/reset-password', title: 'Reset Password', icon: 'fa fa-unlock-alt', class: '', badge: '', badgeClass: '', isExternalLink: true, submenu: [] },
+            { path: '/auth/lock-screen', title: 'Lock Screen', icon: 'fa fa-lock', class: '', badge: '', badgeClass: '', isExternalLink: true, submenu: [] },
+        ]
+    },
+    { path: '/user-profile', title: 'User Profile', icon: 'fa fa-user-circle', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+    { path: '/timeline', title: 'Timeline', icon: 'fa fa-video-camera', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+    {
+        path: '', title: 'Errors', icon: 'fa fa-exclamation-triangle', class: 'sub', badge: '', badgeClass: '', isExternalLink: false,
+        submenu: [
+            { path: '/error/error-404', title: '404 Error', icon: 'fa fa-chevron-right', class: '', badge: '', badgeClass: '', isExternalLink: true, submenu: [] },
+            { path: '/error/error-500', title: '500 Error', icon: 'fa fa-chevron-right', class: '', badge: '', badgeClass: '', isExternalLink: true, submenu: [] },
+            { path: '/error/coming-soon', title: 'Coming Soon', icon: 'fa fa-chevron-right', class: '', badge: '', badgeClass: '', isExternalLink: true, submenu: [] },
+        ]
+    },
+    { path: '/faq', title: 'FAQ', icon: 'fa fa-question-circle', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+    { path: '/pricing', title: 'Pricing', icon: 'fa fa-diamond', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+    { path: '/earnings', title: 'Earnings', icon: 'fa fa-dollar-sign', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+    { path: '/downloads', title: 'Downloads', icon: 'fa fa-download', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+    {
+        path: '', title: 'Charts', icon: 'fa fa-line-chart', class: 'sub', badge: '', badgeClass: '', isExternalLink: false,
+        submenu: [
+            { path: '/charts/apex-chart', title: 'Apex Charts', icon: 'fa fa-chevron-right', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/charts/chartjs', title: 'ChartJs', icon: 'fa fa-chevron-right', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/charts/highcharts', title: 'Highcharts', icon: 'fa fa-chevron-right', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+        ]
+    },
+    {
+        path: '', title: 'Maps', icon: 'fa fa-map-marker', class: 'sub', badge: '', badgeClass: '', isExternalLink: false,
+        submenu: [
+            { path: '/maps/google-maps', title: 'Google Maps', icon: 'fa fa-chevron-right', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/maps/fullscreen', title: 'Fullscreen Map', icon: 'fa fa-chevron-right', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+        ]
+    },
+    {
+        path: 'javascript:;', title: 'Menu Levels', icon: 'fa fa-bars', class: 'sub', badge: '', badgeClass: '', isExternalLink: false,
+        submenu: [
+            { path: 'javascript:;', title: 'Level 1', icon: 'fa fa-chevron-right', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            {
+                path: 'javascript:;', title: 'Level 1', icon: 'fa fa-chevron-right', class: 'sub', badge: '', badgeClass: '', isExternalLink: false,
+                submenu: [
+                    { path: 'javascript:;', title: 'level 2', icon: 'fa fa-chevron-right', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+                    { path: 'javascript:;', title: 'level 2', icon: 'fa fa-chevron-right', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+                ]
+            },
+        ]
+    }
+    // { path: 'https://codervent.com/syndron-angular/demo/vertical/docs/', title: 'Documentation', icon: 'bx bx-folder', class: '', badge: '', badgeClass: '', isExternalLink: true, submenu: [] },
+    // { path: 'https://themeforest.net/user/codewrrap/portfolio', title: 'Support', icon: 'bx bx-support', class: '', badge: '', badgeClass: '', isExternalLink: true, submenu: [] }
+
+
+];

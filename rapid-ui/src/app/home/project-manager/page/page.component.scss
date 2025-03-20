@@ -1,0 +1,22 @@
+.page-card {
+    border: 1px solid #dee2e6;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        background-color: #f8f9fa;
+        border-color: #adb5bd;
+    }
+
+    i {
+        font-size: 1.1rem;
+        transition: color 0.2s ease;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    .cursor-pointer {
+        cursor: pointer;
+    }
+}

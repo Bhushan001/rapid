@@ -9,6 +9,7 @@ import com.techie.rapid.auth.repository.UserRepository;
 import java.security.MessageDigest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
@@ -19,6 +20,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -28,7 +30,7 @@ public class UserService {
         try {
             User user = new User();
             user.setUsername(request.getUsername());
-            user.setPassword(hashPassword(request.getPassword()));
+            user.setPassword(passwordEncoder.encode(request.getPassword())); // Use BCryptPasswordEncoder
             user.setRole("USER");
             user.setFirstName(request.getFirstName());
             user.setLastName(request.getLastName());
@@ -44,7 +46,7 @@ public class UserService {
         try {
             User user = new User();
             user.setUsername(request.getUsername());
-            user.setPassword(hashPassword(request.getPassword()));
+            user.setPassword(passwordEncoder.encode(request.getPassword())); // Use BCryptPasswordEncoder
             user.setRole("ADMIN");
             user.setFirstName(request.getFirstName());
             user.setLastName(request.getLastName());
