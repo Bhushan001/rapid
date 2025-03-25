@@ -1,4 +1,4 @@
-package com.techie.rapid.auth.exception;
+package com.techie.rapid.exceptions;
 
 public class InvalidCredentialsException extends RuntimeException {
 

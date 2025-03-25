@@ -1,7 +1,7 @@
 <aside id="sidebar" [class.expand]="isSidebarExpanded">
     <div class="d-flex justify-content-between p-4">
         <div class="sidebar-logo">
-            <a href="#">Rapid</a>
+            <a [routerLink]="['/home/project-manager']">Rapid</a>
         </div>
         <button class="toggle-btn border-0" type="button" (click)="toggleSidebar()">
             <i id="icon" [class]="isSidebarExpanded ? 'bx bxs-chevrons-left' : 'bx bxs-chevrons-right'"></i>

@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { UserService } from '../../services/user.service';
+import { ToastService } from '../../services/toast.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-signup',
@@ -24,7 +29,12 @@ export class SignupComponent implements OnInit {
   }>;
   showPassword = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private _userService: UserService,
+    private toast: ToastService,
+    private _router: Router
+  ) {
     this.signupForm = new FormGroup({
       username: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(4)] }),
       password: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(6)] }),
@@ -52,10 +62,21 @@ export class SignupComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
-  onSubmit() {
-    if (this.signupForm.valid) {
-      console.log('Form Submitted', this.signupForm.value);
-    }
+  onSubmit(): void {
+    if (this.signupForm.invalid) return;
+
+    const { confirmPassword, ...payload } = this.signupForm.value;
+    this._userService.signup(payload).subscribe({
+      next: (res) => {
+        this.toast.showToast('Success', 'User registered successfully', 'success');
+        this.signupForm.reset();
+        this._router.navigate(['auth','login']);
+      },
+      error: (err) => {
+        this.toast.showToast('Error', 'Signup failed. Please try again.', 'danger');
+        console.error(err);
+      }
+    });
   }
 
   get f() {

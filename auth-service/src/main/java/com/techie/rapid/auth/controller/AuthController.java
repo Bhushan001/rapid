@@ -1,12 +1,12 @@
 package com.techie.rapid.auth.controller;
-
-import com.techie.rapid.auth.constants.ErrorConstants;
 import com.techie.rapid.auth.entity.User;
-import com.techie.rapid.auth.exception.DuplicateUserException;
-import com.techie.rapid.auth.exception.InvalidCredentialsException;
 import com.techie.rapid.auth.model.*;
 import com.techie.rapid.auth.security.JwtUtil;
 import com.techie.rapid.auth.service.UserService;
+import com.techie.rapid.constants.ErrorConstants;
+import com.techie.rapid.exceptions.DuplicateUserException;
+import com.techie.rapid.exceptions.InvalidCredentialsException;
+import com.techie.rapid.model.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +14,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -92,10 +94,11 @@ public class AuthController {
             if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
                 throw new InvalidCredentialsException(ErrorConstants.INVALID_CREDENTIALS_MESSAGE);
             }
-
-            String token = jwtUtil.generateToken(user.getUsername());
-            UserProfile userProfile = new UserProfile(user.getId(), user.getUsername(), user.getFirstName(), user.getLastName(), user.getRole());
-
+            Map<String, Object> claims = new HashMap<>();
+            claims.put("roles", user.getRoles());
+            claims.put("userId", user.getId());
+            String token = jwtUtil.generateToken(user.getUsername(), claims);
+            UserProfile userProfile = new UserProfile(user.getId(), user.getUsername(), user.getFirstName(), user.getLastName(), user.getRoles());
             LoginResponse loginResponse = new LoginResponse(
                     HttpStatus.OK.value(),
                     HttpStatus.OK.getReasonPhrase(),

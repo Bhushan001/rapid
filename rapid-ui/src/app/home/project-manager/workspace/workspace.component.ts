@@ -1,15 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ProjectComponent } from '../project/project.component';
-import { PageComponent } from '../page/page.component';
 
 @Component({
   selector: 'app-workspace',
   imports: [
-    CommonModule,
-    WorkspaceComponent,
-    ProjectComponent,
-    PageComponent
+    CommonModule
   ],
   templateUrl: './workspace.component.html',
   styleUrl: './workspace.component.scss'

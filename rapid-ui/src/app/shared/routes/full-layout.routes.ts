@@ -8,14 +8,16 @@ import { AuthComponent } from '../../auth/auth.component';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { ContentComponent } from '../../content/content.component';
 import { ProjectManagerComponent } from '../../home/project-manager/project-manager.component';
+import { HomeComponent } from '../../home/home.component';
 
 export const Full_ROUTES: Routes = [
   {
     path: 'home',
-    component: DashboardComponent,
+    component: HomeComponent,
+    data: { roles: ['USER'] },
     children: [
       {
-        path: 'project-manager',
+        path: 'project-manager', 
         component: ProjectManagerComponent
       }
     ]

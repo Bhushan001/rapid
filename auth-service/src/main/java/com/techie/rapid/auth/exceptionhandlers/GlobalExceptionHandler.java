@@ -1,9 +1,10 @@
 package com.techie.rapid.auth.exceptionhandlers;
 
 
-import com.techie.rapid.auth.constants.ErrorConstants;
-import com.techie.rapid.auth.exception.DuplicateUserException;
+
 import com.techie.rapid.auth.model.CustomErrorResponse;
+import com.techie.rapid.constants.ErrorConstants;
+import com.techie.rapid.exceptions.DuplicateUserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

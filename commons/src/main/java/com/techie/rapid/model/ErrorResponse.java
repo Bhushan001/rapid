@@ -1,4 +1,4 @@
-package com.techie.rapid.auth.model;
+package com.techie.rapid.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

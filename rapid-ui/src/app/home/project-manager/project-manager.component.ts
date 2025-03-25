@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { WorkspaceComponent } from './workspace/workspace.component';
 import { ProjectComponent } from './project/project.component';
 import { PageComponent } from './page/page.component';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-project-manager',
@@ -16,35 +17,21 @@ import { PageComponent } from './page/page.component';
   styleUrl: './project-manager.component.scss'
 })
 export class ProjectManagerComponent implements OnInit {
-  workspaces = Array.from({ length: 20 }, (_, i) => ({
-    name: `Workspace ${i + 1}`,
-    description: `Description for workspace ${i + 1}`,
-    createdDate: new Date(2024, 0, i + 1).toLocaleDateString(),
-    projects: Array.from({ length: 20 }, (_, j) => ({
-      name: `Project ${j + 1} of WS ${i + 1}`,
-      description: `Description for project ${j + 1}`,
-      createdDate: new Date(2024, 0, j + 1).toLocaleDateString(),
-      pages: Array.from({ length: 20 }, (_, k) => ({
-        name: `Page ${k + 1}`,
-        description: `Page ${k + 1} details`,
-        createdDate: new Date(2024, 0, k + 1).toLocaleDateString()
-      }))
-    }))
-  }));
+  workspaces = [];
 
   selectedWorkspace: any = null;
   selectedProject: any = null;
 
-  constructor() { }
+  constructor(
+    private userService: UserService
+  ) { }
 
   ngOnInit(): void {
-
   }
 
   onWorkspaceSelect(workspace: any) {
     this.selectedWorkspace = workspace;
     console.log(this.selectedWorkspace);
-    
     this.selectedProject = null; // Reset project on workspace change
   }
 

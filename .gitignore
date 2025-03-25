@@ -21,3 +21,8 @@ docker/mysql/data/*
 
 rapid-ui/.angular/*
 rapid-ui/node_modules/*
+
+
+commons/.mvn/*
+commons/.idea/*
+commons/target/*
