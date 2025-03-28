@@ -1,6 +1,8 @@
 package com.techie.rapid.core.repository;
 
 import com.techie.rapid.core.entity.Page;
+import com.techie.rapid.core.entity.Project;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -11,4 +13,6 @@ public interface PageRepository extends JpaRepository<Page, UUID> {
     // You can add custom query methods here if needed
     List<Page> findByProjectId(UUID projectId);
     Optional<Page> findFirstByProjectId(UUID projectId);
+    void deleteByProjectId(UUID projectId);
+    org.springframework.data.domain.Page<Page> findByProjectId(UUID projectId, Pageable pageable);
 }

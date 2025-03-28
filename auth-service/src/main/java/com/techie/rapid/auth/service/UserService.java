@@ -1,5 +1,6 @@
 package com.techie.rapid.auth.service;
 
+import com.techie.rapid.auth.dto.UserDto;
 import com.techie.rapid.auth.entity.User;
 import com.techie.rapid.auth.model.AdminCreationRequest;
 import com.techie.rapid.auth.model.SignupRequest;
@@ -9,6 +10,8 @@ import java.security.MessageDigest;
 import com.techie.rapid.constants.ErrorConstants;
 import com.techie.rapid.exceptions.DuplicateUserException;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,15 +20,26 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private ModelMapper modelMapper;
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    public UserDto getUserDtoById(UUID userId) {
+        User user = userRepository.findById(userId).orElse(null);
+        if(user == null) {
+            return null;
+        }
+        return modelMapper.map(user, UserDto.class);
     }
 
     public User signup(SignupRequest request) {

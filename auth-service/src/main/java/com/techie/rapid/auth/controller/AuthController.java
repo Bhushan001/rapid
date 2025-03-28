@@ -1,4 +1,5 @@
 package com.techie.rapid.auth.controller;
+import com.techie.rapid.auth.dto.UserDto;
 import com.techie.rapid.auth.entity.User;
 import com.techie.rapid.auth.model.*;
 import com.techie.rapid.auth.security.JwtUtil;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 
 @RestController
@@ -82,8 +84,6 @@ public class AuthController {
             throw new RuntimeException("An unexpected error occurred.", e);
         }
     }
-
-
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {

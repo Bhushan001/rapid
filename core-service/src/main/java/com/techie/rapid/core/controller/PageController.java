@@ -1,16 +1,22 @@
 package com.techie.rapid.core.controller;
 
+import com.techie.rapid.core.dto.PageDto;
+import com.techie.rapid.core.dto.ProjectDto;
 import com.techie.rapid.core.entity.Page;
 import com.techie.rapid.core.service.PageService;
 import com.techie.rapid.model.ApiResponse;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -49,15 +55,11 @@ public class PageController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Page>>> getAllPagesByProject(@PathVariable UUID projectId) {
-        try {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            Claims claims = (Claims) authentication.getCredentials();
-            List<Page> pages = pageService.getAllPagesByProject(projectId, claims);
-            return ResponseEntity.ok(new ApiResponse<>(HttpStatus.OK.value(), "Pages retrieved successfully", pages));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Failed to retrieve pages", null));
-        }
+    public ResponseEntity<ApiResponse<org.springframework.data.domain.Page<PageDto>>> getAllPages(@PathVariable UUID projectId, Authentication authentication, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+        Claims claims = (Claims) authentication.getCredentials();
+        org.springframework.data.domain.Page<PageDto> pageDtosPage = pageService.getAllPagesByProjectId(projectId, pageable, claims);
+        ApiResponse<org.springframework.data.domain.Page<PageDto>> response = new ApiResponse<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), pageDtosPage);
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{pageId}")
