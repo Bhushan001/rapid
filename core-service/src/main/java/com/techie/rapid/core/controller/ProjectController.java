@@ -1,11 +1,17 @@
 package com.techie.rapid.core.controller;
 
+import com.techie.rapid.core.dto.ProjectDto;
+import com.techie.rapid.core.dto.WorkspaceDto;
 import com.techie.rapid.core.entity.Project;
 import com.techie.rapid.core.service.ProjectService;
 import com.techie.rapid.model.ApiResponse;
 import com.techie.rapid.model.ErrorResponse;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -16,7 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
 @RestController
 @RequestMapping("/api/workspaces/{workspaceId}/projects")
 @RequiredArgsConstructor
@@ -59,18 +64,20 @@ public class ProjectController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllProjects(
-            @PathVariable UUID workspaceId
-    ) {
-        try {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            Claims claims = (Claims) authentication.getCredentials();
+    public ResponseEntity<ApiResponse<Page<ProjectDto>>> getAllProjects(
+            @PathVariable UUID workspaceId,
+            Authentication authentication,
+            @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 
-            List<Project> projects = projectService.getAllProjectsByWorkspace(workspaceId, claims);
-            return ResponseEntity.ok(new ApiResponse<>(HttpStatus.OK.value(), "OK", projects));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Internal Server Error", e.getMessage()));
-        }
+        Claims claims = (Claims) authentication.getCredentials();
+        Page<ProjectDto> projectDtosPage = projectService.getAllProjectsByWorkspace(workspaceId,pageable, claims);
+
+        ApiResponse<Page<ProjectDto>> response = new ApiResponse<>(
+                HttpStatus.OK.value(),
+                HttpStatus.OK.getReasonPhrase(),
+                projectDtosPage
+        );
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{projectId}")

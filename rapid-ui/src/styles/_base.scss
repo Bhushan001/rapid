@@ -208,3 +208,113 @@ button {
     }
   }
 }
+
+.entity-card {
+  padding: 10px; // Reduced padding
+  margin-bottom: 8px; // Reduced margin
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #e9ecef;
+  }
+
+  &.selected-workspace {
+    background-color: #d1e7dd; // Light green for selection
+    border-color: #badbcc;
+  }
+
+  .d-flex {
+    display: flex;
+  }
+
+  .justify-content-between {
+    justify-content: space-between;
+  }
+
+  .align-items-start {
+    align-items: flex-start;
+  }
+
+  .align-items-center {
+    align-items: center;
+  }
+
+  strong {
+    font-size: 14px; // Smaller font for name
+    margin-bottom: 4px; // Reduced margin
+    display: block; // Ensures it takes full width of its line
+  }
+
+  .small {
+    font-size: 12px; // Smaller font for description and details
+    margin-bottom: 2px; // Reduced margin
+    line-height: 1.4; // Tighter line height
+  }
+
+  .text-secondary {
+    color: #6c757d;
+  }
+
+  .workspace-icon {
+    font-size: 18px; // Slightly larger icons
+    margin-left: 5px; // Reduced margin between icons
+    cursor: pointer;
+
+    &:first-child {
+      margin-left: 0; // Remove left margin for the first icon
+    }
+  }
+}
+
+.list-container{
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  .list-section{
+    height: 90%;
+  }
+  .pagination-section{
+    height: 10%;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+
+/* Custom Modal Styling */
+.modal-content {
+  border-radius: 10px;
+  border: 1px solid #dee2e6;
+}
+
+.modal-header {
+  background-color: #343a40;
+  color: white;
+}
+
+.modal-body {
+  background-color: #f8f9fa;
+}
+
+.modal-footer {
+  background-color: #f8f9fa;
+}
+
+button.btn.custom-dark-btn {
+  background-color: #343a40;
+  color: white;
+  border: none;
+}
+
+button.btn.custom-dark-btn:hover {
+  background-color: #495057;
+}
+
+button.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}

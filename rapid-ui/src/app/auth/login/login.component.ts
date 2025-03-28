@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ToastService } from '../../services/toast.service';
 
 @Component({
@@ -11,6 +11,7 @@ import { ToastService } from '../../services/toast.service';
   styleUrls: ['./login.component.scss'],
   imports:[
     CommonModule,
+    RouterModule,
     FormsModule,
     ReactiveFormsModule
   ]
