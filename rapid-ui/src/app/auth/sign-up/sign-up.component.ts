@@ -55,7 +55,6 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("loaded");
   }
 
   togglePasswordVisibility() {

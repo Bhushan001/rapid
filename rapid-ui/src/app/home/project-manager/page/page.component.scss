@@ -1,22 +1,10 @@
-.page-card {
-    border: 1px solid #dee2e6;
-    transition: all 0.2s ease-in-out;
+.page-icon {
+    cursor: pointer;
+}
 
-    &:hover {
-        background-color: #f8f9fa;
-        border-color: #adb5bd;
-    }
 
-    i {
-        font-size: 1.1rem;
-        transition: color 0.2s ease;
-
-        &:hover {
-            opacity: 0.8;
-        }
-    }
-
-    .cursor-pointer {
-        cursor: pointer;
-    }
+.selected-page {
+    background-color: rgb(160 232 126 / 37%)  !important; // Light grey
+    border: 2px solid #dee2e6; // Subtle border effect
+    transition: ease-out 0.3s ease;
 }

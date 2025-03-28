@@ -1,17 +1,25 @@
 package com.techie.rapid.core.controller;
 
 import com.techie.rapid.constants.ErrorConstants;
+import com.techie.rapid.core.dto.WorkspaceDto;
 import com.techie.rapid.core.entity.Workspace;
 import com.techie.rapid.core.service.WorkspaceService;
 import com.techie.rapid.model.ApiResponse;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/workspaces")
@@ -19,6 +27,9 @@ import java.util.UUID;
 public class WorkspaceController {
 
     private final WorkspaceService workspaceService;
+
+    @Autowired
+    private ModelMapper modelMapper; // Inject ModelMapper
 
     @PostMapping
     public ResponseEntity<ApiResponse<Workspace>> createWorkspace(@RequestBody Workspace workspace, Authentication authentication) {
@@ -45,13 +56,17 @@ public class WorkspaceController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Workspace>>> getAllWorkspaces(Authentication authentication) {
+    public ResponseEntity<ApiResponse<Page<WorkspaceDto>>> getAllWorkspaces(
+            Authentication authentication,
+            @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+
         Claims claims = (Claims) authentication.getCredentials();
-        List<Workspace> workspaces = workspaceService.getAllWorkspaces(claims);
-        ApiResponse<List<Workspace>> response = new ApiResponse<>(
+        Page<WorkspaceDto> workspaceDtosPage = workspaceService.getAllWorkspaces(claims, pageable);
+
+        ApiResponse<Page<WorkspaceDto>> response = new ApiResponse<>(
                 HttpStatus.OK.value(),
                 HttpStatus.OK.getReasonPhrase(),
-                workspaces
+                workspaceDtosPage
         );
         return ResponseEntity.ok(response);
     }
