@@ -8,6 +8,13 @@ export const ROUTES: RouteInfo[] = [
         ]
     },
     {
+        path: '', title: 'Mapper', icon: 'bx bx-home-alt', class: 'sub', badge: '', badgeClass: '', isExternalLink: false, submenu: [
+            { path: '/home/mapper/request-schema', title: 'Request Schema', icon: 'bx bx-briefcase', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/home/mapper/s1-schema', title: 'S1 Schema', icon: 'bx bx-briefcase', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/home/mapper/mapping', title: 'Mapping', icon: 'bx bx-briefcase', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+        ]
+    },
+    {
         path: '', title: 'Dashboard', icon: 'bx bx-grid-alt', class: 'sub', badge: '', badgeClass: '', isExternalLink: false, submenu: [
             { path: '/dashboard/e-commerce', title: 'eCommerce', icon: 'bx bx-bar-chart-alt-2', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
         ]

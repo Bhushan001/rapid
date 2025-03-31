@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SidebarService } from '../sidebar/sidebar.service';
 import { UserService } from '../../services/user.service';
 import { ToastService } from '../../services/toast.service';
@@ -10,7 +10,9 @@ import { Router } from '@angular/router';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
+
+  userProfile: any;
 
   constructor(
     private userService: UserService,
@@ -19,6 +21,18 @@ export class NavbarComponent {
   ) {
 
   }
+
+
+  ngOnInit(): void {
+    const userProfileString = localStorage.getItem("userProfile");
+    if (userProfileString !== null) {
+      this.userProfile = JSON.parse(userProfileString);
+    } else {
+      console.log("userProfile not found in localStorage.");
+      // Handle the case where userProfile is not found (e.g., set default value, show error message)
+    }
+  }
+
   onLogout() {
     this.userService.logout().subscribe({
       next: (response) => {
@@ -26,7 +40,7 @@ export class NavbarComponent {
         console.log('Logout successful', response);
         localStorage.clear();
         this.toast.showToast('Success', 'User logged out successfully', 'success');
-        this.router.navigate(['auth','login']);
+        this.router.navigate(['auth', 'login']);
 
       },
       error: (error) => {
@@ -34,7 +48,7 @@ export class NavbarComponent {
         console.error('Logout failed', error);
         localStorage.clear();
         this.toast.showToast('Failed', 'User could not be logged out', 'error');
-        this.router.navigate(['auth','login']);
+        this.router.navigate(['auth', 'login']);
       }
     });
   }

@@ -22,6 +22,8 @@ public class ErrorConstants {
 
     // Success Messages
     public static final String WORKSPACE_CREATED_MESSAGE = "Workspace created successfully.";
+    public static final String REQUEST_SCHEMA_CREATED_MESSAGE = "Request Schema created successfully.";
+    public static final String S1_SCHEMA_CREATED_MESSAGE = "S1 Schema created successfully.";
     public static final String WORKSPACE_UPDATED_MESSAGE = "Workspace updated successfully.";
     public static final String WORKSPACE_DELETED_MESSAGE = "Workspace deleted successfully.";
 

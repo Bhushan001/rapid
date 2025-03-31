@@ -14,4 +14,6 @@ public class UserProfile {
     private String firstName;
     private String lastName;
     private List<String> roles;
+    private UUID clientId;
+    private String clientName;
 }

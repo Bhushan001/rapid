@@ -4,6 +4,8 @@ import { ContentLayoutComponent } from './layouts/content-layout/content-layout.
 import { Full_ROUTES } from './shared/routes/full-layout.routes';
 import { CONTENT_ROUTES } from './shared/routes/content-layout.routes';
 import { AuthGuard } from './auth/guards/auth.guard';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { ADMIN_ROUTES } from './shared/routes/admin-layout.routes';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -12,6 +14,12 @@ export const routes: Routes = [
     data: { title: 'full Views' },
     canActivate: [AuthGuard],
     children: Full_ROUTES
+  },
+  {
+    path: '', component: AdminLayoutComponent,
+    data: { title: 'Admin Views' },
+    canActivate: [AuthGuard],
+    children: ADMIN_ROUTES
   },
   { path: '', component: ContentLayoutComponent, data: { title: 'content Views' }, children: CONTENT_ROUTES },
   { path: '**', redirectTo: 'auth/login' }

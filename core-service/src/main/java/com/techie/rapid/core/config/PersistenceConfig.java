@@ -26,7 +26,6 @@ public class PersistenceConfig {
             }
 
             Claims claims = (Claims) authentication.getCredentials();
-            System.out.println(claims);
             UUID userId = UUID.fromString(claims.get("userId", String.class));
             return Optional.of(userId);
         };
