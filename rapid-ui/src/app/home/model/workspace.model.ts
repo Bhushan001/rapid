@@ -10,4 +10,3 @@ export interface Workspace {
     updatedByName?: string;
     updatedOn?: any;
 }
-

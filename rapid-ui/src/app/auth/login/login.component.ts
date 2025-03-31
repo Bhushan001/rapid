@@ -52,9 +52,15 @@ export class LoginComponent {
         next: (response) => {
           // Handle successful login
           console.log('Login successful', response);
+          const role: string = response.userProfile.roles[0];
           localStorage.setItem("authToken", response.token);
+          localStorage.setItem("userProfile", JSON.stringify(response.userProfile));
           this.validateAuthToken();
-          this._router.navigate(['home','project-manager']);
+          if(role === "SUPER_ADMIN") {
+            this._router.navigate(['admin','home']);
+          } else {
+            this._router.navigate(['home','project-manager']);
+          }
           this.toastr.showToast('Success', 'Loggen In Successfully', 'success'); // Display toast message
         },
         error: (error) => {
