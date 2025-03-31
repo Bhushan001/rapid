@@ -1,0 +1,35 @@
+<div class="container-fluid rapid-container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-title">
+                    <h5>Create Client</h5>
+                </div>
+                <hr class="card-separator" />
+                <div class="card-body">
+                    <div>
+                        <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+                            <div class="mb-3">
+                                <label for="clientName" class="form-label">Client Name</label>
+                                <input type="text" class="form-control" id="clientName" formControlName="clientName">
+                                <div *ngIf="clientForm.get('clientName')?.invalid && (clientForm.get('clientName')?.dirty || clientForm.get('clientName')?.touched)"
+                                     class="text-danger">
+                                    <small *ngIf="clientForm.get('clientName')?.errors?.['required']">Client Name is required.</small>
+                                    <small *ngIf="clientForm.get('clientName')?.errors?.['pattern']">Client Name must be uppercase letters only.</small>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="clientDescription" class="form-label">Client Description</label>
+                                <textarea class="form-control" id="clientDescription"
+                                    formControlName="clientDescription"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

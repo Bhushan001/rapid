@@ -1,0 +1,14 @@
+// full-layout.component.scss
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: hidden;
+    transition: all 0.25s ease-in-out;
+    background-color: #d6cfcf;
+}

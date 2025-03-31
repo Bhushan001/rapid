@@ -3,8 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { ToastService } from '../../services/toast.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { RegisterService } from '../../services/register.service';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { Client } from '../../model/client.model';
 
 
 @Component({
@@ -14,7 +16,8 @@ import { Router } from '@angular/router';
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelectModule
   ]
 })
 export class SignupComponent implements OnInit {
@@ -26,14 +29,18 @@ export class SignupComponent implements OnInit {
     lastName: FormControl<string>;
     birthDate: FormControl<string>;
     country: FormControl<string>;
+    clientId: FormControl<string>;
   }>;
+
+  clients: Client[] = [];
   showPassword = false;
 
   constructor(
     private fb: FormBuilder,
     private _userService: UserService,
     private toast: ToastService,
-    private _router: Router
+    private _router: Router,
+    private _registerService: RegisterService
   ) {
     this.signupForm = new FormGroup({
       username: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(4)] }),
@@ -43,9 +50,25 @@ export class SignupComponent implements OnInit {
       lastName: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
       birthDate: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
       country: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      clientId: new FormControl('', { nonNullable: true, validators: [Validators.required] }) // Initialize clientId
     },{
       validators: this.passwordsMatchValidator
     });
+  }
+
+  ngOnInit(): void {
+    this.getClients();
+  }
+
+  getClients(): void {
+    this._registerService.getClients().subscribe(
+      (res: any)=>{
+        this.clients = res.body;        
+      },
+      (err)=>{
+        console.log(err);        
+      }
+    );
   }
 
   passwordsMatchValidator(group: AbstractControl): ValidationErrors | null {
@@ -54,8 +77,7 @@ export class SignupComponent implements OnInit {
     return password === confirmPassword ? null : { passwordsMismatch: true };
   }
 
-  ngOnInit(): void {
-  }
+  
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
