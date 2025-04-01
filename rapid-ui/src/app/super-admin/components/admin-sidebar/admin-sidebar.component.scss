@@ -123,6 +123,7 @@ a.sidebar-link {
         .sidebar-link[data-bs-toggle='collapse'].collapsed::after {
             transform: rotate(45deg);
             transition: all 0.2s ease-out;
+            margin-top: -5px;
         }
     }
 }

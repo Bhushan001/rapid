@@ -4,17 +4,16 @@ export const ADMINROUTES: RouteInfo[] = [
     {
         path: '/admin/home', title: 'Home', icon: 'bx bx-home-alt', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
     },
-    {
-        path: '', title: 'Dashboard', icon: 'bx bx-line-chart', class: 'sub', badge: '', badgeClass: '', isExternalLink: false, submenu: [
-            { path: '/admin/metrics', title: 'Key Metrics', icon: 'bx bx-bar-chart-alt-2', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-            { path: '/admin/reports', title: 'Reports', icon: 'bx bx-file-blank', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-            { path: '/admin/export', title: 'Export Data', icon: 'bx bx-export', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-        ]
-    },
+    // {
+    //     path: '', title: 'Dashboard', icon: 'bx bx-line-chart', class: 'sub', badge: '', badgeClass: '', isExternalLink: false, submenu: [
+    //         { path: '/admin/metrics', title: 'Key Metrics', icon: 'bx bx-bar-chart-alt-2', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+    //         { path: '/admin/reports', title: 'Reports', icon: 'bx bx-file-blank', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+    //         { path: '/admin/export', title: 'Export Data', icon: 'bx bx-export', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+    //     ]
+    // },
     {
         path: '', title: 'Manage Clients', icon: 'bx bx-group', class: 'sub', badge: '', badgeClass: '', isExternalLink: false, submenu: [
-            { path: '/admin/manage-clients/list-clients', title: 'List Clients', icon: 'bx bx-bar-chart-alt-2', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-            { path: '/admin/manage-clients/create-client', title: 'Create Client', icon: 'bx bx-file-blank', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+            { path: '/admin/manage-clients/list-clients', title: 'List Clients', icon: 'bx bx-bar-chart-alt-2', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] }
         ]
     },
     {

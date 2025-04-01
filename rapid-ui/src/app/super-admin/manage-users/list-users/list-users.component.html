@@ -3,15 +3,18 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-title">
-                    <h5>List Clients</h5>
+                    <h5>List Users</h5>
                 </div>
                 <hr class="card-separator" />
                 <div class="card-body">
                     <div class="row">
                         <div class="col-4">
                             <div class="rapid-toolbar">
+                                <button type="button" class="btn btn-primary rapid-create-button" (click)="openCreateModal(editClientModal)">
+                                    Create User
+                                </button>
                                 <div class="rapid-search">
-                                    <input type="text" class="form-control rapid-input" placeholder="Search Clients..."
+                                    <input type="text" class="form-control rapid-input" placeholder="Search Users..."
                                         [(ngModel)]="searchText" (input)="search()" />
                                 </div>
                             </div>
@@ -74,3 +77,47 @@
         </div>
     </div>
 </div>
+
+<ng-template #editClientModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" *ngIf="editMode">Edit User</h5>
+        <h5 class="modal-title" *ngIf="!editMode">Create User</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="userForm">
+            <!-- <div class="mb-3">
+                <label for="clientName" class="form-label">Client Name</label>
+                <input type="text" formControlName="clientName" class="form-control" id="clientName">
+                <div *ngIf="userForm.get('clientName')?.invalid && (userForm.get('clientName')?.dirty || userForm.get('clientName')?.touched)"
+                                     class="text-danger">
+                                    <small *ngIf="userForm.get('clientName')?.errors?.['required']">Client Name is required.</small>
+                                    <small *ngIf="userForm.get('clientName')?.errors?.['pattern']">Client Name must be uppercase letters only.</small>
+                                </div>
+            </div>
+            <div class="mb-3">
+                <label for="clientDescription" class="form-label">Description</label>
+                <textarea formControlName="clientDescription" class="form-control" id="clientDescription"></textarea>
+            </div> -->
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" *ngIf="!editMode" (click)="saveUser(modal)" [disabled]="userForm.pristine">Save User</button>
+        <button type="button" class="btn btn-primary" *ngIf="editMode" (click)="updateUser(modal)" [disabled]="userForm.pristine">Update User</button>
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
+    </div>
+</ng-template>
+
+<ng-template #deleteConfirmModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Confirm Delete</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        Are you sure you want to delete this client?
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="modal.close('confirm')">Delete</button>
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
+    </div>
+</ng-template>

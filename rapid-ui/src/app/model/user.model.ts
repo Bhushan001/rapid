@@ -1,6 +1,6 @@
 import { Client } from "./client.model";
 export interface User {
-    userId?: string;
+    userId: string;
     username: string;
     firstName?: string;
     lastName?: string;
