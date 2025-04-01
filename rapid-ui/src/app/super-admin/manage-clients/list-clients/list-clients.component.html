@@ -10,6 +10,9 @@
                     <div class="row">
                         <div class="col-4">
                             <div class="rapid-toolbar">
+                                <button type="button" class="btn btn-primary rapid-create-button" (click)="openCreateModal(editClientModal)">
+                                    Create Client
+                                </button>
                                 <div class="rapid-search">
                                     <input type="text" class="form-control rapid-input" placeholder="Search Clients..."
                                         [(ngModel)]="searchText" (input)="search()" />
@@ -66,7 +69,8 @@
 
 <ng-template #editClientModal let-modal>
     <div class="modal-header">
-        <h5 class="modal-title">Edit Client</h5>
+        <h5 class="modal-title" *ngIf="editMode">Edit Client</h5>
+        <h5 class="modal-title" *ngIf="!editMode">Create Client</h5>
         <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
     </div>
     <div class="modal-body">
@@ -87,7 +91,8 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="modal.close('save')" [disabled]="editForm.pristine">Save</button>
+        <button type="button" class="btn btn-primary" *ngIf="!editMode" (click)="saveClient(modal)" [disabled]="editForm.pristine">Save Client</button>
+        <button type="button" class="btn btn-primary" *ngIf="editMode" (click)="updateClient(modal)" [disabled]="editForm.pristine">Update Client</button>
         <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
     </div>
 </ng-template>

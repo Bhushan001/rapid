@@ -25,6 +25,7 @@ export class ListClientsComponent implements OnInit {
   selectedClientId: string = "";
 
   editForm: FormGroup;
+  editMode: boolean = false;
 
   page = 1;
   pageSize = 5;
@@ -81,30 +82,54 @@ export class ListClientsComponent implements OnInit {
     );
   }
 
+  openCreateModal(content: TemplateRef<any>) {
+    this.selectedClientId = "";
+    this.editForm.reset();
+    this.editMode = false;
+    this.modalService.open(content, { centered: true, size: 'lg', backdrop: 'static' });
+  }
+
   openEditModal(event: Event, client: Client, editModal: TemplateRef<any>) {
     this.selectedClientId = client.clientId;
+    this.editMode = true;
     event.stopPropagation();
     this.editForm.patchValue(client);
     this.modalService.open(editModal, { centered: true, size: 'lg', backdrop: 'static' })
-      .result.then((result) => {
-        if (result === 'save') {
-          this.saveClient(this.selectedClientId, this.editForm.value);
+  }
+
+  saveClient(modal: any): void {
+    if (this.editForm.valid) {
+      this._clientService.createClient(this.editForm.value).subscribe(
+        (res) => {
+          this.getAllClients();
+          this.toastr.showToast('Success', `Client updated successfully.`, 'success');
+          this.editForm.reset();
+          modal.dismiss();
+        },
+        (err) => {
+          console.log(err);
+          this.toastr.showToast('Failed', `Client could not be updated`, 'danger');
         }
-      }, () => { });
+      );
+    }
   }
 
 
-  saveClient(clientId: string, client: Client): void {
-    this._clientService.updateClient(clientId, client).subscribe(
-      (res) => {
-        this.getAllClients();
-        this.toastr.showToast('Success', `Client updated successfully.`, 'success');
-      },
-      (err) => {
-        console.log(err);
-        this.toastr.showToast('Failed', `Client could not be updated`, 'danger');
-      }
-    );
+  updateClient(modal: any): void {
+    if (this.editForm.valid && this.editMode) {
+      this._clientService.updateClient(this.selectedClientId, this.editForm.value).subscribe(
+        (res) => {
+          this.getAllClients();
+          this.toastr.showToast('Success', `Client updated successfully.`, 'success');
+          this.editForm.reset();
+          modal.dismiss();
+        },
+        (err) => {
+          console.log(err);
+          this.toastr.showToast('Failed', `Client could not be updated`, 'danger');
+        }
+      );
+    }
   }
 
 
