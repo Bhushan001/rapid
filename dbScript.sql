@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS mydb.user_roles (
     PRIMARY KEY (user_id, role_id)
 );
 
-INSERT INTO mydb.Clients (clientId, clientName, clientDescription) VALUES
+INSERT INTO mydb.Clients (client_id, client_name, client_description) VALUES
 (UUID_TO_BIN('123e4567-e89b-12d3-a456-426614174456'), 'RAPID', 'The main client');
 
 INSERT INTO mydb.roles (id, name) VALUES
@@ -31,19 +31,23 @@ INSERT INTO mydb.roles (id, name) VALUES
 
 
 
-select * from workspaces;
-select * from projects;
-select * from pages;
+select * from clients;
 select * from roles;
 select * from user_roles;
 select * from users;
+select * from workspaces;
+select * from projects;
+select * from pages;
+select * from requestschemas;
+select * from s1schemas;
+select * from mapping;
+
 
 SET FOREIGN_KEY_CHECKS = 0;
-TRUNCATE TABLE roles;
-drop table clients;
+TRUNCATE TABLE clients;
+TRUNCATE TABLE users;
+TRUNCATE TABLE user_roles;
 SET FOREIGN_KEY_CHECKS = 1;
-
-INSERT INTO roles (id, name) VALUES ('test-uuid', 'TEST');
 
 CREATE TABLE Clients (
     clientId CHAR(36) PRIMARY KEY,

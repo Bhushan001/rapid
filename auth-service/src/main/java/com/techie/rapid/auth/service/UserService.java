@@ -102,8 +102,14 @@ public class UserService {
 
         user.setRoles(roles);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User savedUser = new User();
+        try {
+           user =  userRepository.save(user);
+        } catch(Exception e) {
+          e.printStackTrace();
+        }
 
-        return userRepository.save(user);
+        return user;
     }
 
     public Optional<User> findByUsername(String username) {
