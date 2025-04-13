@@ -1,5 +1,5 @@
 package com.techie.rapid.enums;
 
 public enum UserRole {
-    ADMIN, USER, GUEST
+    SUPER_ADMIN, ADMIN, MANAGER, USER, GUEST
 }

@@ -1,6 +1,5 @@
 package com.techie.rapid.auth.model;
 
-import com.techie.rapid.auth.entity.Client;
 import com.techie.rapid.auth.entity.User;
 import lombok.Data;
 

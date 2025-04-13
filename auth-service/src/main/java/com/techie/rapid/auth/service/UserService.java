@@ -1,30 +1,30 @@
 package com.techie.rapid.auth.service;
 
-import ch.qos.logback.core.net.SMTPAppenderBase;
-import com.techie.rapid.auth.dto.UserDto;
 import com.techie.rapid.auth.entity.Role;
 import com.techie.rapid.auth.entity.User;
-import com.techie.rapid.auth.model.AdminCreationRequest;
-import com.techie.rapid.auth.model.SignupRequest;
+import com.techie.rapid.auth.model.LoginRequest;
+import com.techie.rapid.auth.model.LoginResponse;
+import com.techie.rapid.auth.model.UserProfile;
 import com.techie.rapid.auth.repository.RoleRepository;
 import com.techie.rapid.auth.repository.UserRepository;
-import java.security.MessageDigest;
-
-import com.techie.rapid.constants.ErrorConstants;
-import com.techie.rapid.exceptions.DuplicateUserException;
+import com.techie.rapid.auth.security.JwtUtil;
+import com.techie.rapid.dto.UserDto;
+import com.techie.rapid.exceptions.GeneralException;
+import com.techie.rapid.exceptions.user.InvalidCredentialsException;
+import com.techie.rapid.exceptions.user.UserAlreadyExistsException;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.security.NoSuchAlgorithmException;
+import javax.management.relation.RoleNotFoundException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -34,13 +34,11 @@ import java.util.stream.Collectors;
 public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
+    private final PasswordEncoder passwordEncoder;
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
     @Autowired
     private ModelMapper modelMapper;
-
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
 
     public Page<UserDto> getAllUsersByPage(Claims claims, Pageable pageable) {
         UUID userId = UUID.fromString(claims.get("userId", String.class));
@@ -71,10 +69,6 @@ public class UserService {
         return new PageImpl<>(userDtos, pageable, usersPage.getTotalElements());
     }
 
-    private List<String> mapRolesToNames(Set<Role> roles) {
-        return roles.stream().map(Role::getName).collect(Collectors.toList());
-    }
-
     public UserDto getUserDtoById(UUID userId) {
         User user = userRepository.findById(userId).orElse(null);
         if(user == null) {
@@ -83,51 +77,114 @@ public class UserService {
         return modelMapper.map(user, UserDto.class);
     }
 
-    public User registerUser(User user, String roleName) throws DuplicateUserException {
+    public UserDto registerUser(User user, String roleCode) throws UserAlreadyExistsException, RoleNotFoundException {
         // Check for duplicate username
         Optional<User> existingUser = userRepository.findByUsername(user.getUsername());
         if (existingUser.isPresent()) {
-            throw new DuplicateUserException("Username already exists");
+            throw new UserAlreadyExistsException(user.getUsername());
         }
-
-        Optional<Role> roleOptional = roleRepository.findByName(roleName);
+        Optional<Role> roleOptional = roleRepository.findByCode(roleCode);
         if (roleOptional.isEmpty()) {
-            throw new RuntimeException("Role not found: " + roleName);
+            throw new RoleNotFoundException(roleCode);
         }
-
         Role role = roleOptional.get();
-
         Set<Role> roles = new HashSet<>();
         roles.add(role);
-
         user.setRoles(roles);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        User savedUser = new User();
-        try {
-           user =  userRepository.save(user);
-        } catch(Exception e) {
-          e.printStackTrace();
-        }
+        User savedUser = userRepository.save(user);
+        return convertToDto(savedUser);
+    }
 
-        return user;
+    private UserDto convertToDto(User user) {
+        if (user == null) {
+            return null; // Or throw an exception
+        }
+        UserDto dto = new UserDto(
+                user.getId(),
+                user.getUsername(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getBirthDate(),
+                user.getCountry(),
+                user.getRoles() != null ? user.getRoles().stream()
+                        .map(Role::getCode)
+                        .collect(Collectors.toList()) : null,
+                user.getClient() != null ? user.getClient().getId() : null,
+                user.getCreatedOn(),
+                user.getUpdatedOn(),
+                user.getCreatedBy(),
+                user.getUpdatedBy()
+        );
+//        if (client.getCreatedBy() != null) {
+//            try {
+//                String createdByName = userService.getUserDtoById(client.getCreatedBy()).getUsername();
+//                if (createdByName != null) {
+//                    dto.setCreatedByName(createdByName);
+//                } else {
+//                    log.warn("Username not found for createdBy: {}", client.getCreatedBy());
+//                }
+//            } catch (Exception e) {
+//                log.error("Error fetching createdBy username for id: {}", client.getCreatedBy(), e);
+//            }
+//        }
+
+//        if (client.getUpdatedBy() != null) {
+//            try {
+//                String updatedByName = userService.getUserDtoById(client.getUpdatedBy()).getUsername();
+//                if (updatedByName != null) {
+//                    dto.setUpdatedByName(updatedByName);
+//                } else {
+//                    log.warn("Username not found for updatedBy: {}", client.getUpdatedBy());
+//                }
+//            } catch (Exception e) {
+//                log.error("Error fetching updatedBy username for id: {}", client.getUpdatedBy(), e);
+//            }
+//        }
+        return dto;
+    }
+
+    public LoginResponse login(LoginRequest loginRequest) {
+        // Implement your login logic here
+        try {
+            User user = findByUsername(loginRequest.getUsername())
+                    .orElseThrow(InvalidCredentialsException::new);
+
+            if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+                throw new InvalidCredentialsException();
+            }
+
+            Map<String, Object> claims = new HashMap<>();
+            claims.put("roles", mapRolesToNames(user.getRoles()));
+            claims.put("userId", user.getId());
+
+            // Fetch clientId from User entity
+            if (user.getClient() != null) {
+                claims.put("clientId", user.getClient().getId().toString()); // Assuming Client ID is UUID
+                claims.put("clientName", user.getClient().getName()); //
+            } else {
+                logger.warn("User {} does not have an associated client.", user.getUsername());
+            }
+
+            String token = jwtUtil.generateToken(user.getUsername(), claims);
+
+            UserProfile userProfile = new UserProfile(user.getId(), user.getUsername(), user.getFirstName(), user.getLastName(), mapRolesToNames(user.getRoles()), user.getClient().getId(), user.getClient().getName());
+
+            return new LoginResponse(
+                    userProfile,
+                    token);
+
+        }  catch (Exception e) {
+            logger.error("An unexpected error occurred during login", e);
+            throw new GeneralException();
+        }
+    }
+
+    private List<String> mapRolesToNames(Set<Role> roles) {
+        return roles.stream().map(Role::getCode).collect(Collectors.toList());
     }
 
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
-    }
-
-    public String hashPassword(String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-1");
-            byte[] messageDigest = md.digest(password.getBytes());
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : messageDigest) {
-                hexString.append(String.format("%02x", b));
-            }
-            return hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            System.err.println("SHA-1 algorithm not available: " + e.getMessage());
-            throw new RuntimeException(e);
-        }
     }
 }

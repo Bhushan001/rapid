@@ -2,44 +2,23 @@ package com.techie.rapid.auth.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import lombok.EqualsAndHashCode;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-@Table(name = "clients")
-@EntityListeners(AuditingEntityListener.class)
-public class Client {
+@Table(name = "rapid_clients")
+public class Client extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID clientId;
+    private UUID id;
 
-    @Column(nullable = false)
-    private String clientName;
+    @Column(unique = true, nullable = false)
+    private String name;
 
     @Column(columnDefinition = "TEXT")
-    private String clientDescription;
-
-    @CreatedBy
-    @Column(name = "created_by", nullable = true, columnDefinition = "BINARY(16)") //Allow Null if needed, or change to not null and handle the creation
-    private UUID createdBy;
-
-    @CreatedDate
-    @Column(name = "created_on", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime createdOn;
-
-    @LastModifiedBy
-    @Column(name = "updated_by", nullable = true, columnDefinition = "BINARY(16)") //Allow Null if needed, or change to not null and handle the creation
-    private UUID updatedBy;
-
-    @LastModifiedDate
-    @Column(name = "updated_on", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime updatedOn;
+    private String description;
 }
