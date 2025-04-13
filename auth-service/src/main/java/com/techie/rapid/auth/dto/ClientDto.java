@@ -7,9 +7,9 @@ import java.util.UUID;
 
 @Data
 public class ClientDto {
-    private UUID clientId;
-    private String clientName;
-    private String clientDescription;
+    private UUID id;
+    private String name;
+    private String description;
     private UUID createdBy;
     private String createdByName;
     private LocalDateTime createdOn;
@@ -17,10 +17,10 @@ public class ClientDto {
     private String updatedByName;
     private LocalDateTime updatedOn;
 
-    public ClientDto(UUID clientId, String clientName, String clientDescription, LocalDateTime createdOn, LocalDateTime updatedOn, UUID createdBy, UUID updatedBy) {
-        this.clientId = clientId;
-        this.clientName = clientName;
-        this.clientDescription = clientDescription;
+    public ClientDto(UUID id, String name, String description, LocalDateTime createdOn, LocalDateTime updatedOn, UUID createdBy, UUID updatedBy) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
         this.createdOn = createdOn;
         this.updatedOn = updatedOn;
         this.createdBy = createdBy;

@@ -1,55 +1,47 @@
 package com.techie.rapid.constants;
 
 public class ErrorConstants {
+    // General error message
+    public static final String GENERAL_ERROR_CODE = "RAPID-01";
+    public static final String GENERAL_ERROR_MESSAGE = "An error occurred while processing your request.";
 
-    // Duplicate User Errors
-    public static final String DUPLICATE_USER_ERROR_CODE = "RAPID_409";
-    public static final String DUPLICATE_USER_ERROR_MESSAGE = "User with provided username already exists.";
+    // Client related error messages
+    public static final String CLIENT_ALREADY_EXISTS_ERROR_CODE = "RAPID-02";
+    public static final String CLIENT_ALREADY_EXISTS_ERROR_MESSAGE = "Client with id: %s already exists.";
+    public static final String CLIENT_NOT_FOUND_ERROR_CODE = "RAPID-03";
+    public static final String CLIENT_NOT_FOUND_ERROR_MESSAGE = "Client with id: %s not found.";
 
-    // General Errors
-    public static final String GENERAL_ERROR_CODE = "RAPID_500";
-    public static final String GENERAL_ERROR_MESSAGE = "An unexpected error occurred.";
+    // User related error messages
+    public static final String USER_ALREADY_EXISTS_ERROR_CODE = "RAPID-04";
+    public static final String USER_ALREADY_EXISTS_ERROR_MESSAGE = "User with username: %s already exists.";
+    public static final String USER_NOT_FOUND_ERROR_CODE = "RAPID-05";
+    public static final String USER_NOT_FOUND_ERROR_MESSAGE = "User with username: %s not found.";
+    public static final String USER_CREDENTIALS_INVALID_ERROR_CODE = "RAPID-06";
+    public static final String USER_CREDENTIALS_INVALID_ERROR_MESSAGE = "User with username: %s not found.";
+    public static final String USER_NOT_AUTHENTICATED_ERROR_CODE = "RAPID-07";
+    public static final String USER_NOT_AUTHENTICATED_ERROR_MESSAGE = "User is not authenticated.";
 
-    // Invalid Credentials Errors
-    public static final String INVALID_CREDENTIALS_CODE = "RAPID_401";
-    public static final String INVALID_CREDENTIALS_MESSAGE = "Invalid username or password.";
+    // Role related error messages
+    public static final String ROLE_ALREADY_EXISTS_ERROR_CODE = "RAPID-08";
+    public static final String ROLE_ALREADY_EXISTS_ERROR_MESSAGE = "Role with code: %s already exists.";
+    public static final String ROLE_NOT_FOUND_ERROR_CODE = "RAPID-09";
+    public static final String ROLE_NOT_FOUND_ERROR_MESSAGE = "Role with code: %s not found.";
 
-    public static final String WORKSPACE_NOT_FOUND_CODE = "WORKSPACE_404";
-    public static final String WORKSPACE_NOT_FOUND_MESSAGE = "Workspace not found.";
+    // Role related error messages
+    public static final String REQUESTSCHEMA_ALREADY_EXISTS_ERROR_CODE = "RAPID-10";
+    public static final String REQUESTSCHEMA_ALREADY_EXISTS_ERROR_MESSAGE = "Request Schema with name: %s already exists.";
+    public static final String REQUESTSCHEMA_NOT_FOUND_ERROR_CODE = "RAPID-11";
+    public static final String REQUESTSCHEMA_NOT_FOUND_ERROR_MESSAGE = "Role with code: %s not found.";
 
-    public static final String UNAUTHORIZED_ACCESS_CODE = "UNAUTHORIZED_403";
-    public static final String UNAUTHORIZED_ACCESS_MESSAGE = "Unauthorized access to workspace.";
+    // Role related error messages
+    public static final String S1SCHEMA_ALREADY_EXISTS_ERROR_CODE = "RAPID-12";
+    public static final String S1SCHEMA_ALREADY_EXISTS_ERROR_MESSAGE = "Request Schema with name: %s already exists.";
+    public static final String S1SCHEMA_NOT_FOUND_ERROR_CODE = "RAPID-13";
+    public static final String S1SCHEMA_NOT_FOUND_ERROR_MESSAGE = "Role with code: %s not found.";
 
-    // Success Messages
-    public static final String WORKSPACE_CREATED_MESSAGE = "Workspace created successfully.";
-    public static final String REQUEST_SCHEMA_CREATED_MESSAGE = "Request Schema created successfully.";
-    public static final String S1_SCHEMA_CREATED_MESSAGE = "S1 Schema created successfully.";
-    public static final String WORKSPACE_UPDATED_MESSAGE = "Workspace updated successfully.";
-    public static final String WORKSPACE_DELETED_MESSAGE = "Workspace deleted successfully.";
-
-
-    // Project related errors
-    public static final String PROJECT_NOT_FOUND_MESSAGE = "Project not found.";
-    public static final String PROJECT_NOT_FOUND_CODE = "PROJECT_404";
-
-
-    // User related errors
-    public static final String USER_NOT_FOUND_MESSAGE = "User not found.";
-    public static final String USER_NOT_FOUND_CODE = "USER_404";
-    public static final String USER_UNAUTHORIZED_MESSAGE = "User is not authorized to perform this action.";
-    public static final String USER_UNAUTHORIZED_CODE = "USER_401";
-
-    // Generic Errors
-    public static final String INTERNAL_SERVER_ERROR_MESSAGE = "Internal server error.";
-    public static final String INTERNAL_SERVER_ERROR_CODE = "INTERNAL_SERVER_ERROR_500";
-    public static final String BAD_REQUEST_MESSAGE = "Bad request.";
-    public static final String BAD_REQUEST_CODE = "BAD_REQUEST_400";
-    public static final String CONFLICT_MESSAGE = "Conflict.";
-    public static final String CONFLICT_CODE = "CONFLICT_409";
-    public static final String UNAUTHORIZED_MESSAGE = "Unauthorized.";
-    public static final String UNAUTHORIZED_CODE = "UNAUTHORIZED_401";
-
-    // Page related errors
-    public static final String PAGE_NOT_FOUND_MESSAGE = "Page not found.";
-    public static final String PAGE_NOT_FOUND_CODE = "PAGE_404";
+    // Role related error messages
+    public static final String MAPPING_ALREADY_EXISTS_ERROR_CODE = "RAPID-14";
+    public static final String MAPPING_ALREADY_EXISTS_ERROR_MESSAGE = "Request Schema with name: %s already exists.";
+    public static final String MAPPING_NOT_FOUND_ERROR_CODE = "RAPID-15";
+    public static final String MAPPING_NOT_FOUND_ERROR_MESSAGE = "Role with code: %s not found.";
 }
