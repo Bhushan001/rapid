@@ -43,39 +43,10 @@ export class UserService {
     }
 
     login(credentials: any): Observable<any> {
-        return this.http.post(`${this.apiUrl}/auth/login`, credentials)
-            .pipe(
-                catchError(this.handleError.bind(this)) // Bind 'this' to handleError
-            );
+        return this.http.post(`${this.apiUrl}/auth/login`, credentials);
     }
 
     logout(): Observable<any> {
-        return this.http.post(`${this.apiUrl}/auth/logout`, null) // Send a POST request to /logout
-            .pipe(
-                catchError(this.handleError.bind(this)) // Bind 'this' to handleError
-            );
-    }
-
-    private handleError(error: HttpErrorResponse) {
-        let errorMessage = 'An unknown error occurred; please try again later.';
-
-        if (error.status === 0) {
-            // A client-side or network error occurred.
-            console.error('An error occurred:', error.error);
-            errorMessage = 'Network error: Please check your connection.';
-        } else {
-            // The backend returned an unsuccessful response code.
-            console.error(
-                `Backend returned code ${error.status}, body was: `, error.error);
-            if (error.error && error.error.message) {
-                errorMessage = error.error.message;
-            } else if (error.error && typeof error.error === 'string') {
-                errorMessage = error.error;
-            } else {
-                errorMessage = `Backend error: ${error.status}`;
-            }
-        }
-        this.toastr.showToast('Failed', errorMessage, 'Error'); // Display toast message
-        return throwError(() => new Error(errorMessage));
+        return this.http.post(`${this.apiUrl}/auth/logout`, null);
     }
 }

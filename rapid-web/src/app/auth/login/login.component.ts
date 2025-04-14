@@ -63,10 +63,8 @@ export class LoginComponent {
           }
           this.toastr.showToast('Success', 'Loggen In Successfully', 'success'); // Display toast message
         },
-        error: (error) => {
-          // Error handling is now done in the service, toasts will be displayed
-          console.error('Login failed', error);
-          this.toastr.showToast('Failed', error.message, 'Error'); // Display toast message
+        error: (error) => {                   
+          this.toastr.showToast(error.error.errorCode, error.error.errorMessage, 'danger'); // Display toast message
         }
       });
     }

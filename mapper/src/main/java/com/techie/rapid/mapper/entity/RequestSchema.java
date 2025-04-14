@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.List;
 import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = true)
@@ -31,7 +32,7 @@ public class RequestSchema  extends Auditable{
 
     private String schemaFileName; //store the file name
 
-    @OneToOne(mappedBy = "requestSchema") // Add this line
-    @JsonManagedReference
-    private Mapping mapping;
+
+    @OneToMany(mappedBy = "requestSchema", cascade = CascadeType.ALL, orphanRemoval = true) // Add this line
+    private List<Mapping> mappings; // Add this line
 }

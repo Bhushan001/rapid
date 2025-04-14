@@ -11,6 +11,7 @@ import { S1SchemaComponent } from '../../home/schema-config/s1-schema/s1-schema.
 import { MappingConfigComponent } from '../../home/mapping-config/mapping-config.component';
 import { MappingComponent } from '../../home/mapping-config/mapping/mapping.component';
 import { MappingListComponent } from '../../home/mapping-config/mapping-list/mapping-list.component';
+import { AuthGuard } from '../../auth/guards/auth.guard';
 
 
 export const Full_ROUTES: Routes = [
