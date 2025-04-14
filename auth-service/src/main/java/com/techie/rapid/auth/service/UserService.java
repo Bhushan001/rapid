@@ -12,6 +12,7 @@ import com.techie.rapid.dto.UserDto;
 import com.techie.rapid.exceptions.GeneralException;
 import com.techie.rapid.exceptions.user.InvalidCredentialsException;
 import com.techie.rapid.exceptions.user.UserAlreadyExistsException;
+import com.techie.rapid.exceptions.user.UserNotFoundException;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.management.relation.RoleNotFoundException;
@@ -145,39 +147,50 @@ public class UserService {
     }
 
     public LoginResponse login(LoginRequest loginRequest) {
-        // Implement your login logic here
-        try {
-            User user = findByUsername(loginRequest.getUsername())
-                    .orElseThrow(InvalidCredentialsException::new);
+        User user = findAndValidateUser(loginRequest); // Use the optimized method from the previous response
 
-            if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
-                throw new InvalidCredentialsException();
-            }
-
-            Map<String, Object> claims = new HashMap<>();
-            claims.put("roles", mapRolesToNames(user.getRoles()));
-            claims.put("userId", user.getId());
-
-            // Fetch clientId from User entity
-            if (user.getClient() != null) {
-                claims.put("clientId", user.getClient().getId().toString()); // Assuming Client ID is UUID
-                claims.put("clientName", user.getClient().getName()); //
-            } else {
-                logger.warn("User {} does not have an associated client.", user.getUsername());
-            }
-
-            String token = jwtUtil.generateToken(user.getUsername(), claims);
-
-            UserProfile userProfile = new UserProfile(user.getId(), user.getUsername(), user.getFirstName(), user.getLastName(), mapRolesToNames(user.getRoles()), user.getClient().getId(), user.getClient().getName());
-
-            return new LoginResponse(
-                    userProfile,
-                    token);
-
-        }  catch (Exception e) {
-            logger.error("An unexpected error occurred during login", e);
-            throw new GeneralException();
+        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+            throw new InvalidCredentialsException();
         }
+
+        Map<String, Object> claims = buildClaims(user);
+        String token = jwtUtil.generateToken(user.getUsername(), claims);
+
+        UserProfile userProfile = createUserProfile(user);
+
+        return new LoginResponse(userProfile, token);
+    }
+
+    private User findAndValidateUser(LoginRequest loginRequest) {
+        return findByUsername(loginRequest.getUsername())
+                .orElseThrow(() -> new UserNotFoundException(loginRequest.getUsername()));
+    }
+
+    private Map<String, Object> buildClaims(User user) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("roles", mapRolesToNames(user.getRoles()));
+        claims.put("userId", user.getId());
+
+        if (user.getClient() != null) {
+            claims.put("clientId", user.getClient().getId().toString());
+            claims.put("clientName", user.getClient().getName());
+        } else {
+            logger.warn("User {} does not have an associated client.", user.getUsername());
+        }
+
+        return claims;
+    }
+
+    private UserProfile createUserProfile(User user) {
+        return new UserProfile(
+                user.getId(),
+                user.getUsername(),
+                user.getFirstName(),
+                user.getLastName(),
+                mapRolesToNames(user.getRoles()),
+                user.getClient() != null ? user.getClient().getId() : null,
+                user.getClient() != null ? user.getClient().getName() : null
+        );
     }
 
     private List<String> mapRolesToNames(Set<Role> roles) {

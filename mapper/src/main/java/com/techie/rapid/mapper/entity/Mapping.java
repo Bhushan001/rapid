@@ -30,8 +30,7 @@ public class Mapping extends Auditable {
 
     private String schemaFileName; //store the file name
 
-    @ManyToOne // Use ManyToOne if multiple mappings can refer to the same request schema
-    @JoinColumn(name = "request_schema_id", referencedColumnName = "id")
-    @JsonBackReference
+    @ManyToOne // Change to ManyToOne
+    @JoinColumn(name = "request_schema_id")
     private RequestSchema requestSchema;
 }

@@ -7,9 +7,13 @@ import com.techie.rapid.mapper.entity.Mapping;
 import com.techie.rapid.mapper.entity.RequestSchema;
 import com.techie.rapid.mapper.entity.S1Schema;
 import com.techie.rapid.mapper.repository.MappingRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.FlushModeType;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Session;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -26,10 +31,13 @@ import static com.techie.rapid.mapper.util.SchemaDataConverter.convertMappingDat
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class MappingService {
     private final MappingRepository mappingRepository;
     private final RequestSchemaService requestSchemaService;
     private final UserClientService userClientService;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -117,6 +125,14 @@ public class MappingService {
 
     @Transactional
     public void deleteMapping(UUID id) {
-        mappingRepository.deleteById(id);
+        Optional<Mapping> optionalMapping = mappingRepository.findById(id);
+        if (optionalMapping.isPresent()) {
+            Mapping mapping = optionalMapping.get();
+            mapping.setRequestSchema(null); // Break the relationship
+            mappingRepository.save(mapping);
+            entityManager.unwrap(Session.class).setFlushMode(FlushModeType.COMMIT);
+            entityManager.flush(); // Flush the persistence context
+            mappingRepository.deleteById(id);
+        }
     }
 }
