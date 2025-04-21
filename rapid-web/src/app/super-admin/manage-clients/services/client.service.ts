@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { PageableResponse } from '../../../home/model/pageable.model';
 
 interface ApiResponse<T> {
   statusCode: number;
@@ -27,9 +28,9 @@ interface Client {
   providedIn: 'root',
 })
 export class ClientService {
-  private apiUrl = environment.apiUrl+'/clients'; // Adjust if needed
+  private apiUrl = environment.apiUrl + '/clients'; // Adjust if needed
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   createClient(client: Client): Observable<ApiResponse<Client> | CustomErrorResponse> {
     return this.http.post<ApiResponse<Client> | CustomErrorResponse>(this.apiUrl, client);
@@ -46,5 +47,12 @@ export class ClientService {
 
   getAllClients(): Observable<ApiResponse<Client[]>> {
     return this.http.get<ApiResponse<Client[]>>(this.apiUrl);
+  }
+
+  getAllClientsPage(page: number, pageSize: number): Observable<PageableResponse<Client>> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', pageSize.toString());
+    return this.http.get<PageableResponse<Client>>(`${this.apiUrl}`, { params });
   }
 }

@@ -20,12 +20,17 @@ import { Client } from '../../../model/client.model';
 })
 export class ListClientsComponent implements OnInit {
   clients: Client[] = [];
-  filteredClients: Client[] = [];
   selectedClientId: string = "";
 
   editForm: FormGroup;
   editMode: boolean = false;
   searchText = '';
+
+  page = 1;
+  pageSize = 5;
+  totalItems = 0;
+
+  loading = false; // Add loading flag
 
   constructor(
     private modalService: NgbModal,
@@ -46,11 +51,19 @@ export class ListClientsComponent implements OnInit {
   search(): void {
   }
 
+  pageChanged(newPage: number) {
+    this.page = newPage;
+    this.getAllClients();
+  }
+
   getAllClients() {
+    this.loading = true;
     this.selectedClientId = "";
-    this._clientService.getAllClients().subscribe(
+    this._clientService.getAllClientsPage(this.page - 1, this.pageSize).subscribe(
       (res: any) => {
-        this.clients = res.body;
+        this.clients = res.body.content;
+        this.totalItems = res.body.page.totalElements;
+        this.loading = false;
       },
       (err) => {
         console.log(err);

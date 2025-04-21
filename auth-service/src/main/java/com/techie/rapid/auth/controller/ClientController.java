@@ -6,6 +6,10 @@ import com.techie.rapid.auth.service.ClientService;
 import com.techie.rapid.constants.MessageConstants;
 import com.techie.rapid.model.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +23,13 @@ public class ClientController {
 
     private final ClientService clientService;
 
+    @GetMapping
+    public ResponseEntity<ApiResponse<Page<ClientDto>>> getAllClientsPage(@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+        Page<ClientDto> clientDtosPage = clientService.getAllClientsPage(pageable);
+        ApiResponse<Page<ClientDto>> response = new ApiResponse<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), clientDtosPage);
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping
     public ResponseEntity<ApiResponse<ClientDto>> createClient(@RequestBody Client client) {
         ClientDto clientDto = clientService.createClient(client);
@@ -26,10 +37,12 @@ public class ClientController {
         return ResponseEntity.status(201).body(response);
     }
 
-    @GetMapping
+    @GetMapping("/dtos")
     public ResponseEntity<ApiResponse<List<ClientDto>>> getAllClients() {
         List<ClientDto> clientDtos = clientService.getAllClients();
         ApiResponse<List<ClientDto>> response = new ApiResponse<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), clientDtos);
         return ResponseEntity.ok(response);
     }
+
+
 }

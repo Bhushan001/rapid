@@ -8,6 +8,9 @@ import com.techie.rapid.exceptions.client.ClientAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -77,6 +80,12 @@ public class ClientService {
 
     public Optional<Client> getClientById(UUID clientId) {
         return clientRepository.findById(clientId);
+    }
+
+    public Page<ClientDto> getAllClientsPage(Pageable pageable) {
+        Page<Client> clientsPage = clientRepository.findAll(pageable);
+        List<ClientDto> clientDtos = clientsPage.getContent().stream().map(this::convertToDto).collect(Collectors.toList());
+        return new PageImpl<>(clientDtos, pageable, clientsPage.getTotalElements());
     }
 }
 
