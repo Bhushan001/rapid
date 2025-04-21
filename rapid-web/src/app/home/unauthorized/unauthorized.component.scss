@@ -1,0 +1,88 @@
+.unauthorized-container {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    padding: 20px; /* Add some padding around the container */
+  }
+  
+  .unauthorized-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column; /* Arrange header, body, footer vertically */
+  }
+  
+  .card-header {
+    padding: 20px;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    align-items: center;
+  }
+  
+  .unauthorized-icon {
+    font-size: 2rem;
+    color: #dc3545;
+    margin-right: 15px;
+  }
+  
+  .card-title {
+    color: #343a40;
+    margin: 0;
+    font-size: 1.75rem;
+  }
+  
+  .card-body {
+    padding: 20px;
+    color: #495057;
+    text-align: left; /* Align text to the left */
+  }
+  
+  .error-message {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+  
+  .details {
+    margin-bottom: 15px;
+  
+    strong {
+      font-weight: bold;
+      color: #343a40;
+    }
+  
+    ul {
+      padding-left: 20px;
+      margin-top: 5px;
+      list-style-type: disc; /* Use standard bullet points */
+    }
+  
+    li {
+      margin-bottom: 3px;
+    }
+  }
+  
+  .card-footer {
+    padding: 15px 20px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .back-button,
+  .home-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #0056b3;
+    }
+  }

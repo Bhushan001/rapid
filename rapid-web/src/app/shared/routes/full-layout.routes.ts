@@ -12,21 +12,25 @@ import { MappingConfigComponent } from '../../home/mapping-config/mapping-config
 import { MappingComponent } from '../../home/mapping-config/mapping/mapping.component';
 import { MappingListComponent } from '../../home/mapping-config/mapping-list/mapping-list.component';
 import { AuthGuard } from '../../auth/guards/auth.guard';
-
+import { RolesGuard } from '../../auth/guards/roles.guard';
+import { UnauthorizedComponent } from '../../home/unauthorized/unauthorized.component';
 
 export const Full_ROUTES: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    data: { roles: ['USER'] },
     children: [
       {
         path: 'project-manager', 
-        component: ProjectManagerComponent
+        component: ProjectManagerComponent,        
+        data: { roles: ['USER'] },
+        canActivate:[AuthGuard, RolesGuard],
       },
       {
         path: 'schema', 
         component: SchemaConfigComponent,
+        data: { roles: ['USER'] },
+        canActivate:[AuthGuard, RolesGuard],
         children: [
           {
             path: 'request-schema', 
@@ -39,7 +43,9 @@ export const Full_ROUTES: Routes = [
         ]
       },
       {
-        path: 'mapping', 
+        path: 'mapping',
+        data: { roles: ['USER'] },
+        canActivate:[AuthGuard, RolesGuard],
         component: MappingConfigComponent,
         children: [
           {
@@ -62,5 +68,6 @@ export const Full_ROUTES: Routes = [
       { path: 'typography', component: TypographyComponent },
       { path: 'text-utilities', component: TextUtilitiesComponent }
     ]
-  }
+  },
+  { path: 'unauthorized', component: UnauthorizedComponent }
 ];

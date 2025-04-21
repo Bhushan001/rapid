@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
 @Injectable({
     providedIn: 'root'
 })
-export class UserService {
+export class AuthService {
     private apiUrl = environment.apiUrl;
     private jwtHelper = new JwtHelperService();
 
@@ -28,7 +28,13 @@ export class UserService {
     }
 
     hasRole(role: string): boolean {
-        return this.getRoles().includes(role);
+        const userProfile: any = localStorage.getItem('userProfile');
+        return JSON.parse(userProfile)?.roles.includes(role) ?? false;
+    }
+
+    hasPermission(permission: string): boolean {
+        const userProfile: any = localStorage.getItem('userProfile');
+        return JSON.parse(userProfile)?.permissions.includes(permission) ?? false;
     }
 
     validateToken(): Observable<boolean> {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserService } from '../../../services/user.service';
+import { AuthService } from '../../../services/auth.service';
 import { ToastService } from '../../../services/toast.service';
 import { Router } from '@angular/router';
 
@@ -13,7 +13,7 @@ export class NavbarComponent {
   userProfile: any;
 
   constructor(
-    private userService: UserService,
+    private authService: AuthService,
     private toast: ToastService,
     private router: Router
   ) {
@@ -32,7 +32,7 @@ export class NavbarComponent {
   }
 
   onLogout() {
-    this.userService.logout().subscribe({
+    this.authService.logout().subscribe({
       next: (response) => {
         // Handle successful logout (e.g., redirect to login)
         console.log('Logout successful', response);

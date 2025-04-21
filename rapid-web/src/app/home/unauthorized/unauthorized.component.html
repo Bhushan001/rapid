@@ -1,0 +1,25 @@
+<div class="unauthorized-container">
+    <div class="unauthorized-card">
+        <div class="card-header">
+            <i class="fas fa-exclamation-triangle unauthorized-icon"></i>
+            <h2 class="card-title">Access Denied</h2>
+        </div>
+        <div class="card-body">
+            <p class="error-message">
+                You do not have the necessary permissions to view this page or perform this action.
+            </p>
+            <div class="details">
+                <p><strong>Reason:</strong> Insufficient Privileges</p>
+                <p><strong>What to do:</strong></p>
+                <ul>
+                    <li>Verify that you are logged in with the correct account.</li>
+                    <li>Contact your system administrator or support team if you believe you should have access.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="button" class="back-button" (click)="goBack()">Go Back</button>
+            <button type="button" class="home-button" (click)="goToHome()">Go to Homepage</button>
+        </div>
+    </div>
+</div>

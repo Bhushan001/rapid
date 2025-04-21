@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
-import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
 import { ToastService } from '../../services/toast.service';
 import { Router } from '@angular/router';
 import { RegisterService } from '../../services/register.service';
@@ -37,7 +37,7 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private _userService: UserService,
+    private _authService: AuthService,
     private toast: ToastService,
     private _router: Router,
     private _registerService: RegisterService
@@ -87,7 +87,7 @@ export class SignupComponent implements OnInit {
     if (this.signupForm.invalid) return;
 
     const { confirmPassword, ...payload } = this.signupForm.value;
-    this._userService.signup(payload).subscribe({
+    this._authService.signup(payload).subscribe({
       next: (res) => {
         this.toast.showToast('Success', 'User registered successfully', 'success');
         this.signupForm.reset();

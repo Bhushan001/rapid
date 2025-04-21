@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { ToastService } from '../../services/toast.service';
 
@@ -22,7 +22,7 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService,
+    private authService: AuthService,
     private _router: Router,
     private toastr: ToastService
   ) {
@@ -37,7 +37,7 @@ export class LoginComponent {
   }
 
   validateAuthToken() {
-    this.userService.validateToken().subscribe(
+    this.authService.validateToken().subscribe(
       (res)=>{
         if(res) {
           localStorage.setItem("isAuthenticated", JSON.stringify(true));
@@ -48,7 +48,7 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      this.userService.login(this.loginForm.value).subscribe({
+      this.authService.login(this.loginForm.value).subscribe({
         next: (response) => {
           // Handle successful login
           console.log('Login successful', response);

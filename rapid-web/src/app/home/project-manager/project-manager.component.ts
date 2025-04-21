@@ -3,15 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { WorkspaceComponent } from './workspace/workspace.component';
 import { ProjectComponent } from './project/project.component';
 import { PageComponent } from './page/page.component';
-import { UserService } from '../../services/user.service';
 import { WorkspaceService } from './services/workspace.service';
 import { Workspace } from '../model/workspace.model';
 import { ProjectService } from './services/project.service';
-import { Project } from '../model/project.model';
 import { PageService } from './services/page.service';
-import { Page } from '../model/page.model';
-import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
-import { PageableResponse } from '../model/pageable.model';
 
 @Component({
   selector: 'app-project-manager',
