@@ -14,15 +14,16 @@ import com.techie.rapid.exceptions.role.RoleAlreadyExistsException;
 import com.techie.rapid.exceptions.role.RoleNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,9 +35,6 @@ public class PermissionService {
     private final UserService userService;
     private final RoleRepository roleRepository;
     private final PermissionRepository permissionRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
 
     public PermissionDto createPermission(Permission permission) {
         try {
@@ -98,7 +96,7 @@ public class PermissionService {
     public Page<PermissionDto> getPermissionsByRoleId(UUID roleId, Pageable pageable) {
         Page<Permission> permissionsPage = permissionRepository.findAll(pageable);
         List<PermissionDto> permissionDtos = permissionsPage.getContent().stream().map(permission -> {
-            PermissionDto dto = modelMapper.map(permission, PermissionDto.class);
+            PermissionDto dto = convertToDto(permission);
 
             UUID createdById = permission.getCreatedBy();
             if (createdById != null) {
@@ -162,16 +160,13 @@ public class PermissionService {
 
     public List<PermissionDto> getAllPermissionsSortedByName() {
         List<Permission> permissions = permissionRepository.findAll();
-        return permissions.stream()
-                .map(this::convertToDto)
-                .sorted((p1, p2) -> p1.getName().compareToIgnoreCase(p2.getName()))
-                .collect(Collectors.toList());
+        return permissions.stream().map(this::convertToDto).sorted((p1, p2) -> p1.getName().compareToIgnoreCase(p2.getName())).collect(Collectors.toList());
     }
 
     public Page<PermissionDto> getAllPermissionsPage(Pageable pageable) {
         Page<Permission> permissionsPage = permissionRepository.findAll(pageable);
         List<PermissionDto> permissionDtos = permissionsPage.getContent().stream().map(permission -> {
-            PermissionDto dto = modelMapper.map(permission, PermissionDto.class);
+            PermissionDto dto = convertToDto(permission);
 
             UUID createdById = permission.getCreatedBy();
             if (createdById != null) {

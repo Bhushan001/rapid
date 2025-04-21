@@ -17,6 +17,7 @@ public class UserDto {
     private String country;
     private List<String> roles; // Corrected to Set<String>
     private UUID clientId;
+    private String clientName;
     private UUID createdBy;
     private String createdByName;
     private LocalDateTime createdOn;

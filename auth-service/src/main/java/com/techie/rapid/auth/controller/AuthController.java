@@ -128,11 +128,7 @@ public class AuthController {
     @GetMapping("/clients")
     public ResponseEntity<ApiResponse<List<ClientDto>>> getAllClients() {
         List<ClientDto> clientDtos = clientService.getAllClients();
-        ApiResponse<List<ClientDto>> response = new ApiResponse<>(
-                HttpStatus.OK.value(),
-                HttpStatus.OK.getReasonPhrase(),
-                clientDtos
-        );
+        ApiResponse<List<ClientDto>> response = new ApiResponse<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), clientDtos);
         return ResponseEntity.ok(response);
     }
 }

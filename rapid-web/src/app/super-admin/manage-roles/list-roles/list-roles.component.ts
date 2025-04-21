@@ -122,7 +122,7 @@ export class ListRolesComponent {
     this._roleService.getRolesPage(this.page - 1, this.pageSize).subscribe(
       (res: any) => {
         this.roles = res.body.content;
-        this.totalItems = res.body.totalElements;
+        this.totalItems = res.body.page.totalElements;
         this.loading = false; // Set loading to false after data is loaded
       },
       (error) => {

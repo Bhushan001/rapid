@@ -58,6 +58,7 @@ public class GlobalExceptionHandler {
     private static class ErrorDetails {
         String errorCode;
         HttpStatus httpStatus;
+
         ErrorDetails(String errorCode, HttpStatus httpStatus) {
             this.errorCode = errorCode;
             this.httpStatus = httpStatus;

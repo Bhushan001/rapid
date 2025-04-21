@@ -7,7 +7,7 @@ export interface User {
     birthDate?: string;
     country?: string;
     roles: string[];
-    client?: Client;
+    clientName?: string;
     createdBy?: string;
     createdByName?: string;
     createdOn?: any;

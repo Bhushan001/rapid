@@ -5,7 +5,6 @@ import com.techie.rapid.constants.MessageConstants;
 import com.techie.rapid.dto.UserDto;
 import com.techie.rapid.exceptions.user.UserNotAuthenticatedException;
 import com.techie.rapid.model.ApiResponse;
-import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -31,16 +30,9 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping()
-    public ResponseEntity<ApiResponse<Page<UserDto>>> getAllUsers(
-            Authentication authentication,
-            @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable
-    ) {
+    public ResponseEntity<ApiResponse<Page<UserDto>>> getAllUsers(Authentication authentication, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
         Page<UserDto> userDtosPage = userService.getAllUsersByPage(pageable);
-        ApiResponse<Page<UserDto>> response = new ApiResponse<>(
-                HttpStatus.OK.value(),
-                HttpStatus.OK.getReasonPhrase(),
-                userDtosPage
-        );
+        ApiResponse<Page<UserDto>> response = new ApiResponse<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), userDtosPage);
         return ResponseEntity.ok(response);
     }
 
@@ -63,11 +55,7 @@ public class UserController {
             SecurityContextHolder.clearContext();
             new SecurityContextLogoutHandler().logout(request, response, authentication); // Still call the handler
 
-            ApiResponse<String> apiResponse = new ApiResponse<>(
-                    HttpStatus.OK.value(),
-                    HttpStatus.OK.getReasonPhrase(),
-                    MessageConstants.USER_LOGOUT_MESSAGE
-            );
+            ApiResponse<String> apiResponse = new ApiResponse<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), MessageConstants.USER_LOGOUT_MESSAGE);
             return ResponseEntity.ok(apiResponse);
         } else {
             throw new UserNotAuthenticatedException();

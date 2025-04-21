@@ -17,3 +17,4 @@ public class UserProfile {
     private UUID clientId;
     private String clientName;
 }
+

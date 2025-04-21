@@ -18,6 +18,7 @@ import java.util.List;
 public class ClientController {
 
     private final ClientService clientService;
+
     @PostMapping
     public ResponseEntity<ApiResponse<ClientDto>> createClient(@RequestBody Client client) {
         ClientDto clientDto = clientService.createClient(client);
@@ -28,11 +29,7 @@ public class ClientController {
     @GetMapping
     public ResponseEntity<ApiResponse<List<ClientDto>>> getAllClients() {
         List<ClientDto> clientDtos = clientService.getAllClients();
-        ApiResponse<List<ClientDto>> response = new ApiResponse<>(
-                HttpStatus.OK.value(),
-                HttpStatus.OK.getReasonPhrase(),
-                clientDtos
-        );
+        ApiResponse<List<ClientDto>> response = new ApiResponse<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), clientDtos);
         return ResponseEntity.ok(response);
     }
 }

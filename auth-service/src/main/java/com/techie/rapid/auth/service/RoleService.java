@@ -8,17 +8,14 @@ import com.techie.rapid.exceptions.GeneralException;
 import com.techie.rapid.exceptions.role.RoleAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Hibernate;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -29,9 +26,6 @@ public class RoleService {
     private final UserService userService;
     private final RoleRepository roleRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
-
     public List<RoleDto> getAllRoleDtos() {
         List<Role> roles = roleRepository.findAll();
         if (roles.isEmpty()) {
@@ -41,33 +35,27 @@ public class RoleService {
     }
 
     public Page<RoleDto> getAllRoles(Pageable pageable) {
-        try {
-            Page<Role> rolesPage = roleRepository.findAllWithPermissions(pageable);
-            List<RoleDto> roleDtos = rolesPage.getContent().stream().map(role -> {
-                RoleDto dto = convertToDto(role);
-                UUID createdById = role.getCreatedBy();
-                dto.setPermissions(role.getPermissions().stream().map(Permission::getCode).collect(Collectors.toSet()));
-                if (createdById != null) {
-                    String createdByName = userService.getUserDtoById(createdById).getUsername();
-                    dto.setCreatedByName(createdByName);
-                } else {
-                    dto.setCreatedByName(null); // Or some other default value
-                }
-                UUID updatedById = role.getUpdatedBy();
-                if (updatedById != null) {
-                    String updatedByName = userService.getUserDtoById(updatedById).getUsername();
-                    dto.setUpdatedByName(updatedByName);
-                } else {
-                    dto.setUpdatedByName(null); // Or some other default value
-                }
-                return dto;
-            }).collect(Collectors.toList());
-            return new PageImpl<>(roleDtos, pageable, rolesPage.getTotalElements());
-        } catch (Exception e) {
-            e.printStackTrace();
-            log.error("Error fetching roles: {}", e.getMessage());
-            throw new GeneralException();
-        }
+        Page<Role> rolesPage = roleRepository.findAllWithPermissions(pageable);
+        List<RoleDto> roleDtos = rolesPage.getContent().stream().map(role -> {
+            RoleDto dto = convertToDto(role);
+            UUID createdById = role.getCreatedBy();
+            dto.setPermissions(role.getPermissions().stream().map(Permission::getCode).collect(Collectors.toSet()));
+            if (createdById != null) {
+                String createdByName = userService.getUserDtoById(createdById).getUsername();
+                dto.setCreatedByName(createdByName);
+            } else {
+                dto.setCreatedByName(null); // Or some other default value
+            }
+            UUID updatedById = role.getUpdatedBy();
+            if (updatedById != null) {
+                String updatedByName = userService.getUserDtoById(updatedById).getUsername();
+                dto.setUpdatedByName(updatedByName);
+            } else {
+                dto.setUpdatedByName(null); // Or some other default value
+            }
+            return dto;
+        }).collect(Collectors.toList());
+        return new PageImpl<>(roleDtos, pageable, rolesPage.getTotalElements());
     }
 
     RoleDto convertToDto(Role role) {

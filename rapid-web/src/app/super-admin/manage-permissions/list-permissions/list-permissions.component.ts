@@ -63,7 +63,7 @@ export class ListPermissionsComponent {
     this._permissionService.getPermissionsPage(this.page - 1, this.pageSize).subscribe(
       (res: any) => {
         this.permissions = res.body.content;
-        this.totalItems = res.body.totalElements;
+        this.totalItems = res.body.page.totalElements;
         this.loading = false; // Set loading to false after data is loaded
       },
       (error) => {

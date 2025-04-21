@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -29,7 +30,7 @@ public class ClientService {
         } catch (DataIntegrityViolationException e) {
             throw new ClientAlreadyExistsException(client.getName());
         } catch (Exception e) {
-           throw new GeneralException();
+            throw new GeneralException();
         }
     }
 
@@ -38,49 +39,39 @@ public class ClientService {
         if (clients.isEmpty()) {
             return List.of();
         }
-        return clients.stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
+        return clients.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
     private ClientDto convertToDto(Client client) {
         if (client == null) {
             return null; // Or throw an exception
         }
-        ClientDto dto = new ClientDto(
-                client.getId(),
-                client.getName(),
-                client.getDescription(),
-                client.getCreatedOn(),
-                client.getUpdatedOn(),
-                client.getCreatedBy(),
-                client.getUpdatedBy()
-        );
-//        if (client.getCreatedBy() != null) {
-//            try {
-//                String createdByName = userService.getUserDtoById(client.getCreatedBy()).getUsername();
-//                if (createdByName != null) {
-//                    dto.setCreatedByName(createdByName);
-//                } else {
-//                    log.warn("Username not found for createdBy: {}", client.getCreatedBy());
-//                }
-//            } catch (Exception e) {
-//                log.error("Error fetching createdBy username for id: {}", client.getCreatedBy(), e);
-//            }
-//        }
+        ClientDto dto = new ClientDto(client.getId(), client.getName(), client.getDescription(), client.getCreatedOn(), client.getUpdatedOn(), client.getCreatedBy(), client.getUpdatedBy());
+        if (client.getCreatedBy() != null) {
+            try {
+                String createdByName = userService.getUserDtoById(client.getCreatedBy()).getUsername();
+                if (createdByName != null) {
+                    dto.setCreatedByName(createdByName);
+                } else {
+                    log.warn("Username not found for createdBy: {}", client.getCreatedBy());
+                }
+            } catch (Exception e) {
+                log.error("Error fetching createdBy username for id: {}", client.getCreatedBy(), e);
+            }
+        }
 
-//        if (client.getUpdatedBy() != null) {
-//            try {
-//                String updatedByName = userService.getUserDtoById(client.getUpdatedBy()).getUsername();
-//                if (updatedByName != null) {
-//                    dto.setUpdatedByName(updatedByName);
-//                } else {
-//                    log.warn("Username not found for updatedBy: {}", client.getUpdatedBy());
-//                }
-//            } catch (Exception e) {
-//                log.error("Error fetching updatedBy username for id: {}", client.getUpdatedBy(), e);
-//            }
-//        }
+        if (client.getUpdatedBy() != null) {
+            try {
+                String updatedByName = userService.getUserDtoById(client.getUpdatedBy()).getUsername();
+                if (updatedByName != null) {
+                    dto.setUpdatedByName(updatedByName);
+                } else {
+                    log.warn("Username not found for updatedBy: {}", client.getUpdatedBy());
+                }
+            } catch (Exception e) {
+                log.error("Error fetching updatedBy username for id: {}", client.getUpdatedBy(), e);
+            }
+        }
         return dto;
     }
 

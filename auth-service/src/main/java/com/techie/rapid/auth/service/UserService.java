@@ -1,31 +1,29 @@
 package com.techie.rapid.auth.service;
 
+import com.techie.rapid.auth.entity.Client;
 import com.techie.rapid.auth.entity.Role;
 import com.techie.rapid.auth.entity.User;
 import com.techie.rapid.auth.model.LoginRequest;
 import com.techie.rapid.auth.model.LoginResponse;
 import com.techie.rapid.auth.model.UserProfile;
+import com.techie.rapid.auth.repository.ClientRepository;
 import com.techie.rapid.auth.repository.RoleRepository;
 import com.techie.rapid.auth.repository.UserRepository;
 import com.techie.rapid.auth.security.JwtUtil;
 import com.techie.rapid.dto.UserDto;
-import com.techie.rapid.exceptions.GeneralException;
 import com.techie.rapid.exceptions.user.InvalidCredentialsException;
 import com.techie.rapid.exceptions.user.UserAlreadyExistsException;
 import com.techie.rapid.exceptions.user.UserNotFoundException;
-import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import javax.management.relation.RoleNotFoundException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -36,45 +34,55 @@ import java.util.stream.Collectors;
 public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final ClientRepository clientRepository;
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
-    @Autowired
-    private ModelMapper modelMapper;
 
     public Page<UserDto> getAllUsersByPage(Pageable pageable) {
         Page<User> usersPage = userRepository.findAll(pageable);
-        List<UserDto> userDtos = usersPage.getContent().stream()
-                .map(user -> {
-                    UserDto dto = modelMapper.map(user, UserDto.class);
-                    String createdByName = getUserDtoById(user.getId()).getUsername();
-                    String updatedByName = getUserDtoById(user.getId()).getUsername();
+        List<UserDto> userDtos = usersPage.getContent().stream().map(user -> {
+            UserDto dto = convertToDto(user);
+            String createdByName = getUserDtoById(user.getId()).getUsername();
+            String updatedByName = getUserDtoById(user.getId()).getUsername();
+            String clientName = getClientDtoById(user.getClient().getId()).getName();
+            if (clientName != null) {
+                dto.setClientName(clientName);
+            } else {
+                log.warn("Client not found for user: {}", dto.getUsername());
+            }
 
-                    if(createdByName != null){
-                        dto.setCreatedByName(createdByName);
-                    } else {
-                        log.warn("Username not found for createdBy: {}", dto.getCreatedBy());
-                    }
+            if (createdByName != null) {
+                dto.setCreatedByName(createdByName);
+            } else {
+                log.warn("Username not found for createdBy: {}", dto.getCreatedBy());
+            }
 
-                    if(updatedByName != null){
-                        dto.setUpdatedByName(updatedByName);
-                    } else {
-                        log.warn("Username not found for updatedBy: {}", dto.getUpdatedBy());
-                    }
-                    dto.setRoles(mapRolesToNames(user.getRoles()));
-                    return dto;
-                })
-                .collect(Collectors.toList());
-
+            if (updatedByName != null) {
+                dto.setUpdatedByName(updatedByName);
+            } else {
+                log.warn("Username not found for updatedBy: {}", dto.getUpdatedBy());
+            }
+            dto.setRoles(mapRolesToNames(user.getRoles()));
+            return dto;
+        }).collect(Collectors.toList());
         return new PageImpl<>(userDtos, pageable, usersPage.getTotalElements());
     }
 
     public UserDto getUserDtoById(UUID userId) {
         User user = userRepository.findById(userId).orElse(null);
-        if(user == null) {
+        if (user == null) {
             return null;
         }
-        return modelMapper.map(user, UserDto.class);
+        return convertToDto(user);
+    }
+
+    public Client getClientDtoById(UUID clientId) {
+        Client client = clientRepository.findById(clientId).orElse(null);
+        if (client == null) {
+            return null;
+        }
+        return client;
     }
 
     public UserDto registerUser(User user, String roleCode) throws UserAlreadyExistsException, RoleNotFoundException {
@@ -100,47 +108,7 @@ public class UserService {
         if (user == null) {
             return null; // Or throw an exception
         }
-        UserDto dto = new UserDto(
-                user.getId(),
-                user.getUsername(),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getBirthDate(),
-                user.getCountry(),
-                user.getRoles() != null ? user.getRoles().stream()
-                        .map(Role::getCode)
-                        .collect(Collectors.toList()) : null,
-                user.getClient() != null ? user.getClient().getId() : null,
-                user.getCreatedOn(),
-                user.getUpdatedOn(),
-                user.getCreatedBy(),
-                user.getUpdatedBy()
-        );
-//        if (client.getCreatedBy() != null) {
-//            try {
-//                String createdByName = userService.getUserDtoById(client.getCreatedBy()).getUsername();
-//                if (createdByName != null) {
-//                    dto.setCreatedByName(createdByName);
-//                } else {
-//                    log.warn("Username not found for createdBy: {}", client.getCreatedBy());
-//                }
-//            } catch (Exception e) {
-//                log.error("Error fetching createdBy username for id: {}", client.getCreatedBy(), e);
-//            }
-//        }
-
-//        if (client.getUpdatedBy() != null) {
-//            try {
-//                String updatedByName = userService.getUserDtoById(client.getUpdatedBy()).getUsername();
-//                if (updatedByName != null) {
-//                    dto.setUpdatedByName(updatedByName);
-//                } else {
-//                    log.warn("Username not found for updatedBy: {}", client.getUpdatedBy());
-//                }
-//            } catch (Exception e) {
-//                log.error("Error fetching updatedBy username for id: {}", client.getUpdatedBy(), e);
-//            }
-//        }
+        UserDto dto = new UserDto(user.getId(), user.getUsername(), user.getFirstName(), user.getLastName(), user.getBirthDate(), user.getCountry(), user.getRoles() != null ? user.getRoles().stream().map(Role::getCode).collect(Collectors.toList()) : null, user.getClient() != null ? user.getClient().getId() : null, user.getCreatedOn(), user.getUpdatedOn(), user.getCreatedBy(), user.getUpdatedBy());
         return dto;
     }
 
@@ -160,8 +128,7 @@ public class UserService {
     }
 
     private User findAndValidateUser(LoginRequest loginRequest) {
-        return findByUsername(loginRequest.getUsername())
-                .orElseThrow(() -> new UserNotFoundException(loginRequest.getUsername()));
+        return findByUsername(loginRequest.getUsername()).orElseThrow(() -> new UserNotFoundException(loginRequest.getUsername()));
     }
 
     private Map<String, Object> buildClaims(User user) {
@@ -180,15 +147,7 @@ public class UserService {
     }
 
     private UserProfile createUserProfile(User user) {
-        return new UserProfile(
-                user.getId(),
-                user.getUsername(),
-                user.getFirstName(),
-                user.getLastName(),
-                mapRolesToNames(user.getRoles()),
-                user.getClient() != null ? user.getClient().getId() : null,
-                user.getClient() != null ? user.getClient().getName() : null
-        );
+        return new UserProfile(user.getId(), user.getUsername(), user.getFirstName(), user.getLastName(), mapRolesToNames(user.getRoles()), user.getClient() != null ? user.getClient().getId() : null, user.getClient() != null ? user.getClient().getName() : null);
     }
 
     private List<String> mapRolesToNames(Set<Role> roles) {

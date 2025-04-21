@@ -39,12 +39,8 @@ public class JwtUtil {
     private Claims extractAllClaims(String token) {
         SecretKey key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         try {
-            return Jwts.parser()
-                    .setSigningKey(key) // Correct usage
-                    .setAllowedClockSkewSeconds(30)
-                    .build()
-                    .parseClaimsJws(token)
-                    .getBody();
+            return Jwts.parser().setSigningKey(key) // Correct usage
+                    .setAllowedClockSkewSeconds(30).build().parseClaimsJws(token).getBody();
         } catch (ExpiredJwtException e) {
             throw new RuntimeException("Invalid JWT token: " + e.getMessage());
         }
@@ -57,13 +53,7 @@ public class JwtUtil {
 
     public String generateToken(String username, Date expiration, Map<String, Object> claims) {
         SecretKey key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
-        String token = Jwts.builder()
-                .setClaims(claims)
-                .setSubject(username)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(expiration)
-                .signWith(key, SignatureAlgorithm.HS256)
-                .compact();
+        String token = Jwts.builder().setClaims(claims).setSubject(username).setIssuedAt(new Date(System.currentTimeMillis())).setExpiration(expiration).signWith(key, SignatureAlgorithm.HS256).compact();
         return token;
     }
 

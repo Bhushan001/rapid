@@ -35,8 +35,7 @@ public class JwtFilter extends OncePerRequestFilter {
     private final CustomUserDetailsService userDetailsService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         String authorizationHeader = request.getHeader("Authorization");
 
@@ -44,19 +43,11 @@ public class JwtFilter extends OncePerRequestFilter {
             String token = authorizationHeader.substring(7);
             try {
                 SecretKey key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
-                Claims claims = Jwts.parser()
-                        .setSigningKey(key)
-                        .setAllowedClockSkewSeconds(30)
-                        .build()
-                        .parseClaimsJws(token)
-                        .getBody();
+                Claims claims = Jwts.parser().setSigningKey(key).setAllowedClockSkewSeconds(30).build().parseClaimsJws(token).getBody();
                 String username = claims.getSubject();
                 List<String> roles = (List<String>) claims.get("roles"); // Correct location
-                List<SimpleGrantedAuthority> authorities = roles.stream()
-                        .map(SimpleGrantedAuthority::new)
-                        .collect(Collectors.toList());
-                UsernamePasswordAuthenticationToken authenticationToken =
-                        new UsernamePasswordAuthenticationToken(username, claims, authorities); // Set claims as credentials
+                List<SimpleGrantedAuthority> authorities = roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, claims, authorities); // Set claims as credentials
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             } catch (ExpiredJwtException | MalformedJwtException | SignatureException | IllegalArgumentException e) {
                 e.printStackTrace();
