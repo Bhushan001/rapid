@@ -1,0 +1,114 @@
+<div class="container-fluid rapid-container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-title">
+                    <h5>List Permissions</h5>
+                </div>
+                <hr class="card-separator" />
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="rapid-toolbar">
+                                <button type="button" class="btn btn-primary custom-dark-btn" (click)="openCreateModal(editPermissionModal)">
+                                    Create Permission
+                                </button>
+                                <div class="rapid-search">
+                                    <input type="text" class="form-control rapid-input" placeholder="Search Permissions..."
+                                        [(ngModel)]="searchText" (input)="search()" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="table-container">
+                            <table class="table rapid-table">
+                                <thead>
+                                    <tr>
+                                        <th>Permission Name</th>
+                                        <th>Code</th>
+                                        <th>Created By</th>
+                                        <th>Created On</th>
+                                        <th>Updated By</th>
+                                        <th>Updated On</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let permission of permissions">
+                                        <td>{{ permission.name }}</td>
+                                        <td class="fixed-description" [title]="permission.code">
+                                            {{ permission.code }}
+                                        </td>
+                                        <td>{{ permission.createdByName || 'N/A' }}</td>
+                                        <td>{{ permission.createdOn | date: 'MMM d, y' }}</td>
+                                        <td>{{ permission.updatedByName || 'N/A' }}</td>
+                                        <td>{{ permission.updatedOn | date: 'MMM d, y' }}</td>
+                                        <td>
+                                            <i class='bx bx-edit text-primary rapid-action-icon rapid-action-icon-xl' (click)="openEditModal($event, permission, editPermissionModal)"></i>
+                                            <i class='bx bx-trash text-danger rapid-action-icon rapid-action-icon-xl' (click)="openDeleteConfirmationModal($event, permission, deleteConfirmModal)"></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="rapid-pagination" *ngIf="permissions.length > 0">
+                            <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="totalItems"
+                            (pageChange)="pageChanged($event)"></ngb-pagination>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<ng-template #editPermissionModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" *ngIf="editMode">Edit Permission</h5>
+        <h5 class="modal-title" *ngIf="!editMode">Create Permission</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="editForm">
+            <div class="mb-3">
+                <label for="permissionName" class="form-label">Permission Name</label>
+                <input type="text" formControlName="name" class="form-control" id="permissionName">
+                <div *ngIf="editForm.get('name')?.invalid && (editForm.get('name')?.dirty || editForm.get('name')?.touched)"
+                                     class="text-danger">
+                                    <small *ngIf="editForm.get('name')?.errors?.['required']">Permission Name is required.</small>
+                                </div>
+            </div>
+            <div class="mb-3">
+                <label for="permissionCode" class="form-label">Code</label>
+                <textarea formControlName="code" class="form-control" id="permissionCode"></textarea>
+                <div *ngIf="editForm.get('code')?.invalid && (editForm.get('code')?.dirty || editForm.get('code')?.touched)"
+                                     class="text-danger">
+                                    <small *ngIf="editForm.get('code')?.errors?.['required']">Permission Code is required.</small>
+                                    <small *ngIf="editForm.get('code')?.errors?.['pattern']">Permission Code must be lowercase letters & _ only.</small>
+                                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn custom-dark-btn" *ngIf="!editMode" (click)="savePermission(modal)" [disabled]="editForm.pristine">Save Permission</button>
+        <button type="button" class="btn custom-dark-btn" *ngIf="editMode" (click)="updatePermission(modal)" [disabled]="editForm.pristine">Update Permission</button>
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
+    </div>
+</ng-template>
+
+<ng-template #deleteConfirmModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Confirm Delete</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        Are you sure you want to delete this permission?
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn custom-dark-btn" (click)="modal.close('confirm')">Delete</button>
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
+    </div>
+</ng-template> 

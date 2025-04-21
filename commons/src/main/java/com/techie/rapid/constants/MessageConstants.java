@@ -18,17 +18,23 @@ public class MessageConstants {
     public static final String ROLE_UPDATED_MESSAGE = "Role updated successfully";
     public static final String ROLE_DELETED_MESSAGE = "Role deleted successfully";
 
+    // Permission related messages
+    public static final String PERMISSION_CREATION_MESSAGE = "Permission created successfully";
+    public static final String PERMISSION_UPDATED_MESSAGE = "Permission updated successfully";
+    public static final String PERMISSION_DELETED_MESSAGE = "Permission deleted successfully";
+    public static final String PERMISSION_ASSIGNED_MESSAGE = "Permission assigned to role: %s successfully";
+
     // Request Schema related messages
     public static final String REQUEST_SCHEMA_CREATED_MESSAGE = "Request Schema created successfully";
     public static final String REQUEST_SCHEMA_UPDATED_MESSAGE = "Request Schema updated successfully";
     public static final String REQUEST_SCHEMA_DELETED_MESSAGE = "Request Schema deleted successfully";
 
-    // Request Schema related messages
+    // S1 Schema related messages
     public static final String S1_SCHEMA_CREATED_MESSAGE = "S1 Schema created successfully";
     public static final String S1_SCHEMA_UPDATED_MESSAGE = "S1 Schema updated successfully";
     public static final String S1_SCHEMA_DELETED_MESSAGE = "S1 Schema deleted successfully";
 
-    // Request Schema related messages
+    // Mapping Schema related messages
     public static final String MAPPING_CREATED_MESSAGE = "Mapping created successfully";
     public static final String MAPPING_UPDATED_MESSAGE = "Mapping updated successfully";
     public static final String MAPPING_DELETED_MESSAGE = "Mapping deleted successfully";
@@ -38,12 +44,12 @@ public class MessageConstants {
     public static final String WORKSPACE_UPDATED_MESSAGE = "Workspace updated successfully";
     public static final String WORKSPACE_DELETED_MESSAGE = "Workspace deleted successfully";
 
-    // Workspace related messages
+    // Project related messages
     public static final String PROJECT_CREATED_MESSAGE = "Project created successfully";
     public static final String PROJECT_UPDATED_MESSAGE = "Project updated successfully";
     public static final String PROJECT_DELETED_MESSAGE = "Project deleted successfully";
 
-    // Workspace related messages
+    // Page related messages
     public static final String PAGE_CREATED_MESSAGE = "Page created successfully";
     public static final String PAGE_UPDATED_MESSAGE = "Page updated successfully";
     public static final String PAGE_DELETED_MESSAGE = "Page deleted successfully";

@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Page } from '../../model/page.model';
 import { ToastService } from '../../../services/toast.service';
-import { PageService } from '../../services/page.service';
+import { PageService } from '../services/page.service';
 
 @Component({
   selector: 'app-page',

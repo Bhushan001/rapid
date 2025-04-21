@@ -42,10 +42,8 @@ public class UserService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public Page<UserDto> getAllUsersByPage(Claims claims, Pageable pageable) {
-        UUID userId = UUID.fromString(claims.get("userId", String.class));
+    public Page<UserDto> getAllUsersByPage(Pageable pageable) {
         Page<User> usersPage = userRepository.findAll(pageable);
-
         List<UserDto> userDtos = usersPage.getContent().stream()
                 .map(user -> {
                     UserDto dto = modelMapper.map(user, UserDto.class);

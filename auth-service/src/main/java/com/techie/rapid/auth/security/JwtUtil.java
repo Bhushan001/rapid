@@ -50,19 +50,21 @@ public class JwtUtil {
         }
     }
 
+    // Example from JwtUtil (verify this logic)
     public String generateToken(String username, Map<String, Object> claims) {
         return generateToken(username, new Date(System.currentTimeMillis() + jwtExpirationInMs), claims);
     }
 
     public String generateToken(String username, Date expiration, Map<String, Object> claims) {
         SecretKey key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
-        return Jwts.builder()
+        String token = Jwts.builder()
                 .setClaims(claims)
                 .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(expiration)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
+        return token;
     }
 
     public boolean isTokenExpired(String token) {

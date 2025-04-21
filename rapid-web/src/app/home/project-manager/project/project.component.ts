@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Project } from '../../model/project.model';
 import { ToastService } from '../../../services/toast.service';
-import { ProjectService } from '../../services/project.service';
+import { ProjectService } from '../services/project.service';
 
 @Component({
   selector: 'app-project',

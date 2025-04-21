@@ -4,7 +4,10 @@ import { AdminHomeComponent } from "../../super-admin/admin-home/admin-home.comp
 import { ManageClientsComponent } from "../../super-admin/manage-clients/manage-clients.component";
 import { ListClientsComponent } from "../../super-admin/manage-clients/list-clients/list-clients.component";
 import { ListUsersComponent } from "../../super-admin/manage-users/list-users/list-users.component";
-import { ListRolesComponent } from "../../super-admin/manage-users/list-roles/list-roles.component";
+import { ManageRolesComponent } from "../../super-admin/manage-roles/manage-roles.component";
+import { ListRolesComponent } from "../../super-admin/manage-roles/list-roles/list-roles.component";
+import { ManagePermissionsComponent } from "../../super-admin/manage-permissions/manage-permissions.component";
+import { ListPermissionsComponent } from "../../super-admin/manage-permissions/list-permissions/list-permissions.component";
 
 
 
@@ -32,8 +35,23 @@ export const ADMIN_ROUTES: Routes = [
           component: ManageClientsComponent,
           children:[
             { path: '', redirectTo: 'list-users', pathMatch: 'full' },
-            { path: 'list-users', component: ListUsersComponent},
-            { path: 'list-roles', component: ListRolesComponent},
+            { path: 'list-users', component: ListUsersComponent}
+          ]
+        },
+        {
+          path: 'manage-roles', 
+          component: ManageRolesComponent,
+          children:[
+            { path: '', redirectTo: 'list-roles', pathMatch: 'full' },
+            { path: 'list-roles', component: ListRolesComponent}
+          ]
+        },
+        {
+          path: 'manage-permissions', 
+          component: ManagePermissionsComponent,
+          children:[
+            { path: '', redirectTo: 'list-permissions', pathMatch: 'full' },
+            { path: 'list-permissions', component: ListPermissionsComponent}
           ]
         }
       ]

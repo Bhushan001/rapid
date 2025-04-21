@@ -1,6 +1,6 @@
 // src/app/services/user.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '../../../model/user.model';
@@ -17,6 +17,9 @@ export class AdminService {
     ) { }
 
     getUsers(page: number, pageSize: number): Observable<PageableResponse<User>> {
-        return this.http.get<PageableResponse<User>>(`${environment.apiUrl}/api/users`);
+        const params = new HttpParams()
+            .set('page', page.toString())
+            .set('size', pageSize.toString());
+        return this.http.get<PageableResponse<User>>(`${environment.apiUrl}/users`, { params });
     }
 }

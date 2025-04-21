@@ -26,6 +26,16 @@ public class ErrorConstants {
     public static final String ROLE_ALREADY_EXISTS_ERROR_MESSAGE = "Role with code: %s already exists.";
     public static final String ROLE_NOT_FOUND_ERROR_CODE = "RAPID-09";
     public static final String ROLE_NOT_FOUND_ERROR_MESSAGE = "Role with code: %s not found.";
+    public static final String ROLE_ID_NOT_FOUND_ERROR_CODE = "RAPID-09";
+    public static final String ROLE_ID_NOT_FOUND_ERROR_MESSAGE = "Role with id: %s not found.";
+
+    // Role related error messages
+    public static final String PERMISSION_ALREADY_EXISTS_ERROR_CODE = "RAPID-08";
+    public static final String PERMISSION_ALREADY_EXISTS_ERROR_MESSAGE = "Permission with code: %s already exists.";
+    public static final String PERMISSION_NOT_FOUND_ERROR_CODE = "RAPID-09";
+    public static final String PERMISSION_NOT_FOUND_ERROR_MESSAGE = "Permission with code: %s not found.";
+    public static final String PERMISSION_ID_NOT_FOUND_ERROR_CODE = "RAPID-09";
+    public static final String PERMISSION_ID_NOT_FOUND_ERROR_MESSAGE = "Permission with id: %s not found.";
 
     // Request Schema related error messages
     public static final String REQUESTSCHEMA_ALREADY_EXISTS_ERROR_CODE = "RAPID-10";

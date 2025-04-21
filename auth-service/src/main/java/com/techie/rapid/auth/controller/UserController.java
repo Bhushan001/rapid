@@ -6,6 +6,9 @@ import com.techie.rapid.dto.UserDto;
 import com.techie.rapid.exceptions.user.UserNotAuthenticatedException;
 import com.techie.rapid.model.ApiResponse;
 import io.jsonwebtoken.Claims;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -31,9 +35,7 @@ public class UserController {
             Authentication authentication,
             @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable
     ) {
-        Claims claims = (Claims) authentication.getCredentials();
-        Page<UserDto> userDtosPage = userService.getAllUsersByPage(claims, pageable);
-
+        Page<UserDto> userDtosPage = userService.getAllUsersByPage(pageable);
         ApiResponse<Page<UserDto>> response = new ApiResponse<>(
                 HttpStatus.OK.value(),
                 HttpStatus.OK.getReasonPhrase(),
@@ -53,17 +55,20 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<ApiResponse<String>> logout(Authentication authentication) {
+    public ResponseEntity<ApiResponse<String>> logout(Authentication authentication, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
         System.out.println(authentication);
-        // Implement logout logic here
+
         if (authentication != null) {
+            session.invalidate();
             SecurityContextHolder.clearContext();
-            ApiResponse<String> response = new ApiResponse<>(
+            new SecurityContextLogoutHandler().logout(request, response, authentication); // Still call the handler
+
+            ApiResponse<String> apiResponse = new ApiResponse<>(
                     HttpStatus.OK.value(),
                     HttpStatus.OK.getReasonPhrase(),
                     MessageConstants.USER_LOGOUT_MESSAGE
             );
-            return ResponseEntity.ok(response);
+            return ResponseEntity.ok(apiResponse);
         } else {
             throw new UserNotAuthenticatedException();
         }

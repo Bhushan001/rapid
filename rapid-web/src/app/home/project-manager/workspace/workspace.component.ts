@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '
 import { NgbModal, NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Workspace } from '../../model/workspace.model';
-import { WorkspaceService } from '../../services/workspace.service';
+import { WorkspaceService } from '../services/workspace.service';
 import { ToastService } from '../../../services/toast.service';
 import { PageableResponse } from '../../model/pageable.model';
 

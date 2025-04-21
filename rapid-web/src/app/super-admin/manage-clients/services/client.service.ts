@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
 interface ApiResponse<T> {
   statusCode: number;
@@ -8,7 +9,7 @@ interface ApiResponse<T> {
   data: T;
 }
 
-interface CustomErrorResponse {
+export interface CustomErrorResponse {
   statusCode: number;
   status: string;
   errorCode: string;
@@ -26,7 +27,7 @@ interface Client {
   providedIn: 'root',
 })
 export class ClientService {
-  private apiUrl = 'http://localhost:8081/api/clients'; // Adjust if needed
+  private apiUrl = environment.apiUrl+'/clients'; // Adjust if needed
 
   constructor(private http: HttpClient) {}
 

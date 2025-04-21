@@ -42,11 +42,11 @@ public class JwtFilter extends OncePerRequestFilter {
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             String token = authorizationHeader.substring(7);
-
             try {
                 SecretKey key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
                 Claims claims = Jwts.parser()
                         .setSigningKey(key)
+                        .setAllowedClockSkewSeconds(30)
                         .build()
                         .parseClaimsJws(token)
                         .getBody();
@@ -59,6 +59,7 @@ public class JwtFilter extends OncePerRequestFilter {
                         new UsernamePasswordAuthenticationToken(username, claims, authorities); // Set claims as credentials
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             } catch (ExpiredJwtException | MalformedJwtException | SignatureException | IllegalArgumentException e) {
+                e.printStackTrace();
                 System.err.println("JWT parsing failed: " + e.getMessage());
                 return;
             }
