@@ -1,5 +1,6 @@
 package com.techie.rapid.auth.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,5 +29,6 @@ public class Role extends Auditable { // Extend Auditable
 
     @ManyToMany
     @JoinTable(name = "rapid_role_permissions", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "permission_id"))
+    @JsonManagedReference
     private List<Permission> permissions;
 }

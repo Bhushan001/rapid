@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -18,5 +19,9 @@ public interface RoleRepository extends JpaRepository<Role, UUID> {
 
     @Query("SELECT r FROM Role r LEFT JOIN FETCH r.permissions p")
     Page<Role> findAllWithPermissions(Pageable pageable);
+    @Query("SELECT r FROM Role r LEFT JOIN FETCH r.permissions p WHERE r.code = :roleCode")
+    Optional<Role> findByCodeWithPermissions(String roleCode);
+    @Query("SELECT r FROM Role r LEFT JOIN FETCH r.permissions p WHERE r.id = :roleId")
+    List<Role> findByIdWithPermissions(UUID roleId);
 }
 

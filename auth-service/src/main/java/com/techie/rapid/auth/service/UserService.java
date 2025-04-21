@@ -1,6 +1,7 @@
 package com.techie.rapid.auth.service;
 
 import com.techie.rapid.auth.entity.Client;
+import com.techie.rapid.auth.entity.Permission;
 import com.techie.rapid.auth.entity.Role;
 import com.techie.rapid.auth.entity.User;
 import com.techie.rapid.auth.model.LoginRequest;
@@ -35,6 +36,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final ClientRepository clientRepository;
+    private final UserProfileCreator userProfileCreator;
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
@@ -147,7 +149,7 @@ public class UserService {
     }
 
     private UserProfile createUserProfile(User user) {
-        return new UserProfile(user.getId(), user.getUsername(), user.getFirstName(), user.getLastName(), mapRolesToNames(user.getRoles()), user.getClient() != null ? user.getClient().getId() : null, user.getClient() != null ? user.getClient().getName() : null);
+        return userProfileCreator.createUserProfile(user);
     }
 
     private List<String> mapRolesToNames(Set<Role> roles) {

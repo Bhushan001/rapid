@@ -16,5 +16,6 @@ public class UserProfile {
     private List<String> roles;
     private UUID clientId;
     private String clientName;
+    private List<String> permissions;
 }
 

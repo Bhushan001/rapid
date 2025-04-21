@@ -1,5 +1,6 @@
 package com.techie.rapid.auth.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,5 +26,6 @@ public class Permission extends Auditable {
     private String code; // A unique code for programmatic checking
 
     @ManyToMany(mappedBy = "permissions")
+    @JsonBackReference
     private Set<Role> roles = new HashSet<>();
 }

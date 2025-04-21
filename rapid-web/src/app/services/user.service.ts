@@ -48,6 +48,6 @@ export class UserService {
     }
 
     logout(): Observable<any> {
-        return this.http.post(`${this.apiUrl}/auth/logout`, null);
+        return this.http.post(`${this.apiUrl}/users/logout`, null);
     }
 }
