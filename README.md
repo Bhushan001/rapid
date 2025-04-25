@@ -1,7 +1,31 @@
-export interface ActivityItem {
-  id: number;
-  description: string;
-  timestamp: string;
-  user?: string;
-  icon?: string;
-}
+<!-- recent-activity.component.html -->
+<div class="activity-container">
+    <h2 class="activity-header">
+      <i class="fas fa-history"></i>
+      Recent Activity
+    </h2>
+  
+    <div *ngIf="loading" class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading activity data...</p>
+    </div>
+  
+    <div *ngIf="!loading && activities.length === 0" class="no-data">
+      <i class="fas fa-info-circle"></i>
+      <p>No recent activity to display.</p>
+    </div>
+  
+    <div *ngIf="!loading && activities.length > 0" class="activity-list">
+      <div *ngFor="let activity of activities" class="activity-item">
+        <div class="activity-icon">
+          <i class="fas" [ngClass]="activity.icon || 'fa-circle'"></i>
+        </div>
+        <div class="activity-content">
+          <p class="activity-description">{{ activity.description }}</p>
+        </div>
+        <div class="activity-timestamp">
+          {{ activity.timestamp }}
+        </div>
+      </div>
+    </div>
+  </div>
