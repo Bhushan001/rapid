@@ -1,31 +1,140 @@
-<!-- recent-activity.component.html -->
-<div class="activity-container">
-    <h2 class="activity-header">
-      <i class="fas fa-history"></i>
-      Recent Activity
-    </h2>
+/* recent-activity.component.scss */
+.activity-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    margin-top: 24px;
+    overflow: hidden;
+  }
   
-    <div *ngIf="loading" class="loading-container">
-      <div class="loading-spinner"></div>
-      <p>Loading activity data...</p>
-    </div>
+  .activity-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #eaeaea;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    align-items: center;
+    
+    i {
+      margin-right: 8px;
+      font-size: 16px;
+      color: #555;
+    }
+  }
   
-    <div *ngIf="!loading && activities.length === 0" class="no-data">
-      <i class="fas fa-info-circle"></i>
-      <p>No recent activity to display.</p>
-    </div>
+  .activity-list {
+    padding: 0;
+  }
   
-    <div *ngIf="!loading && activities.length > 0" class="activity-list">
-      <div *ngFor="let activity of activities" class="activity-item">
-        <div class="activity-icon">
-          <i class="fas" [ngClass]="activity.icon || 'fa-circle'"></i>
-        </div>
-        <div class="activity-content">
-          <p class="activity-description">{{ activity.description }}</p>
-        </div>
-        <div class="activity-timestamp">
-          {{ activity.timestamp }}
-        </div>
-      </div>
-    </div>
-  </div>
+  .activity-item {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    &:hover {
+      background-color: #f9f9f9;
+    }
+  }
+  
+  .activity-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #e9f0f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 16px;
+    
+    i {
+      font-size: 14px;
+      color: #2c3e50;
+    }
+  }
+  
+  .activity-content {
+    flex: 1;
+  }
+  
+  .activity-description {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .activity-timestamp {
+    font-size: 12px;
+    color: #777;
+    white-space: nowrap;
+  }
+  
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    
+    p {
+      margin-top: 16px;
+      color: #666;
+    }
+  }
+  
+  .loading-spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 3px solid #3498db;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .no-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    color: #666;
+    
+    i {
+      font-size: 32px;
+      margin-bottom: 16px;
+      color: #999;
+    }
+    
+    p {
+      margin: 0;
+    }
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .activity-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .activity-icon {
+      margin-bottom: 12px;
+    }
+    
+    .activity-timestamp {
+      margin-top: 8px;
+      align-self: flex-start;
+    }
+  }
