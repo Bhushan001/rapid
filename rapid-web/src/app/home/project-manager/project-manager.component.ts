@@ -4,9 +4,9 @@ import { WorkspaceComponent } from './workspace/workspace.component';
 import { ProjectComponent } from './project/project.component';
 import { PageComponent } from './page/page.component';
 import { WorkspaceService } from './services/workspace.service';
-import { Workspace } from '../model/workspace.model';
 import { ProjectService } from './services/project.service';
 import { PageService } from './services/page.service';
+import { Workspace } from '../../model/workspace.model';
 
 @Component({
   selector: 'app-project-manager',

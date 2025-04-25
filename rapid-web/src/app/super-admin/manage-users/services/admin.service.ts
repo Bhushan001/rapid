@@ -1,11 +1,10 @@
 // src/app/services/user.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { User } from '../../../model/user.model';
-import { PageableResponse } from '../../../home/model/pageable.model';
 import { environment } from '../../../../environments/environment';
+import { PageableResponse } from '../../../model/pageable.model';
 
 @Injectable({
     providedIn: 'root'

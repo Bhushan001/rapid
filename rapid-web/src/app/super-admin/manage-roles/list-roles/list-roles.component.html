@@ -46,9 +46,9 @@
                                         <td>{{ role.updatedByName || 'N/A' }}</td>
                                         <td>{{ role.updatedOn | date: 'MMM d, y' }}</td>
                                         <td>
-                                            <i class='bx bx-edit text-primary rapid-action-icon rapid-action-icon-xl'
+                                            <i class="fa-solid fa-pen-to-square text-primary rapid-action-icon rapid-action-icon-xl"
                                                 (click)="openEditModal($event, role, editRoleModal)"></i>
-                                            <i class='bx bx-trash text-danger rapid-action-icon rapid-action-icon-xl'
+                                            <i class="fa-solid fa-trash text-danger rapid-action-icon rapid-action-icon-xl"
                                                 (click)="openDeleteConfirmationModal($event, role, deleteConfirmModal)"></i>
                                         </td>
                                     </tr>

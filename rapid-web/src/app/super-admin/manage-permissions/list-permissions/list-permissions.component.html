@@ -10,12 +10,14 @@
                     <div class="row">
                         <div class="col-4">
                             <div class="rapid-toolbar">
-                                <button type="button" class="btn btn-primary custom-dark-btn" (click)="openCreateModal(editPermissionModal)">
+                                <button type="button" class="btn btn-primary custom-dark-btn"
+                                    (click)="openCreateModal(editPermissionModal)">
                                     Create Permission
                                 </button>
                                 <div class="rapid-search">
-                                    <input type="text" class="form-control rapid-input" placeholder="Search Permissions..."
-                                        [(ngModel)]="searchText" (input)="search()" />
+                                    <input type="text" class="form-control rapid-input"
+                                        placeholder="Search Permissions..." [(ngModel)]="searchText"
+                                        (input)="search()" />
                                 </div>
                             </div>
                         </div>
@@ -45,8 +47,10 @@
                                         <td>{{ permission.updatedByName || 'N/A' }}</td>
                                         <td>{{ permission.updatedOn | date: 'MMM d, y' }}</td>
                                         <td>
-                                            <i class='bx bx-edit text-primary rapid-action-icon rapid-action-icon-xl' (click)="openEditModal($event, permission, editPermissionModal)"></i>
-                                            <i class='bx bx-trash text-danger rapid-action-icon rapid-action-icon-xl' (click)="openDeleteConfirmationModal($event, permission, deleteConfirmModal)"></i>
+                                            <i class="fa-solid fa-pen-to-square text-primary rapid-action-icon rapid-action-icon-xl"
+                                                (click)="openEditModal($event, permission, editPermissionModal)"></i>
+                                            <i class="fa-solid fa-trash text-danger rapid-action-icon rapid-action-icon-xl"
+                                                (click)="openDeleteConfirmationModal($event, permission, deleteConfirmModal)"></i>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -56,15 +60,15 @@
                     <div class="row">
                         <div class="rapid-pagination" *ngIf="permissions.length > 0">
                             <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="totalItems"
-                            (pageChange)="pageChanged($event)"></ngb-pagination>
+                                (pageChange)="pageChanged($event)"></ngb-pagination>
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
     </div>
 </div>
- 
+
 <ng-template #editPermissionModal let-modal>
     <div class="modal-header">
         <h5 class="modal-title" *ngIf="editMode">Edit Permission</h5>
@@ -77,24 +81,27 @@
                 <label for="permissionName" class="form-label">Permission Name</label>
                 <input type="text" formControlName="name" class="form-control" id="permissionName">
                 <div *ngIf="editForm.get('name')?.invalid && (editForm.get('name')?.dirty || editForm.get('name')?.touched)"
-                                     class="text-danger">
-                                    <small *ngIf="editForm.get('name')?.errors?.['required']">Permission Name is required.</small>
-                                </div>
+                    class="text-danger">
+                    <small *ngIf="editForm.get('name')?.errors?.['required']">Permission Name is required.</small>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="permissionCode" class="form-label">Code</label>
                 <textarea formControlName="code" class="form-control" id="permissionCode"></textarea>
                 <div *ngIf="editForm.get('code')?.invalid && (editForm.get('code')?.dirty || editForm.get('code')?.touched)"
-                                     class="text-danger">
-                                    <small *ngIf="editForm.get('code')?.errors?.['required']">Permission Code is required.</small>
-                                    <small *ngIf="editForm.get('code')?.errors?.['pattern']">Permission Code must be lowercase letters & _ only.</small>
-                                </div>
+                    class="text-danger">
+                    <small *ngIf="editForm.get('code')?.errors?.['required']">Permission Code is required.</small>
+                    <small *ngIf="editForm.get('code')?.errors?.['pattern']">Permission Code must be lowercase letters &
+                        _ only.</small>
+                </div>
             </div>
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn custom-dark-btn" *ngIf="!editMode" (click)="savePermission(modal)" [disabled]="editForm.pristine">Save Permission</button>
-        <button type="button" class="btn custom-dark-btn" *ngIf="editMode" (click)="updatePermission(modal)" [disabled]="editForm.pristine">Update Permission</button>
+        <button type="button" class="btn custom-dark-btn" *ngIf="!editMode" (click)="savePermission(modal)"
+            [disabled]="editForm.pristine">Save Permission</button>
+        <button type="button" class="btn custom-dark-btn" *ngIf="editMode" (click)="updatePermission(modal)"
+            [disabled]="editForm.pristine">Update Permission</button>
         <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
     </div>
 </ng-template>
@@ -111,4 +118,4 @@
         <button type="button" class="btn custom-dark-btn" (click)="modal.close('confirm')">Delete</button>
         <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
     </div>
-</ng-template> 
+</ng-template>

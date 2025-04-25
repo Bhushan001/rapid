@@ -1,0 +1,33 @@
+<!-- admin-dashboard.component.html -->
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>Admin Dashboard</h1>
+        <button class="refresh-btn" (click)="refreshData()">
+            <i class="fas fa-sync-alt"></i>
+        </button>
+    </div>
+
+    <div *ngIf="loading" class="loading-container">
+        <div class="loading-spinner"></div>
+        <p>Loading dashboard data...</p>
+    </div>
+
+    <div *ngIf="!loading" class="metrics-grid">
+        <div *ngFor="let metric of metrics" class="metric-card" [ngStyle]="{'border-top': '4px solid ' + metric.color}">
+            <div class="metric-icon" [ngStyle]="{'background-color': metric.color + '22'}">
+                <i class="fas" [ngClass]="metric.icon"></i>
+            </div>
+            <div class="metric-content">
+                <h3 class="metric-value">{{metric.value}}</h3>
+                <p class="metric-title">{{metric.title}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!loading && metrics.length === 0" class="no-data">
+        <i class="fas fa-info-circle"></i>
+        <p>No metrics available.</p>
+    </div>
+
+    <!-- Recent Activity Section -->
+     <app-recent-activity [activities]="recentActivities" [loading]="activitiesLoading"></app-recent-activity>

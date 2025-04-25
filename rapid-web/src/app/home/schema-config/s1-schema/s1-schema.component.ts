@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbModal, NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { S1Schema } from '../../model/s1-schema.model';
 import { ToastService } from '../../../services/toast.service';
 import { S1SchemaService } from '../services/s1schema.service';
 import { RequestSchemaService } from '../services/request-schema.service';
-import { RequestSchema } from '../../model/request-schema.model';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { S1Schema } from '../../../model/s1-schema.model';
+import { RequestSchema } from '../../../model/request-schema.model';
 
 @Component({
   selector: 'app-s1-schema',

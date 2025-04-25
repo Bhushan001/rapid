@@ -10,7 +10,8 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="rapid-toolbar">
-                                <button type="button" class="btn btn-primary custom-dark-btn" (click)="openCreateModal(createSchemaModal)">
+                                <button type="button" class="btn btn-primary custom-dark-btn"
+                                    (click)="openCreateModal(createSchemaModal)">
                                     Create Request Schema
                                 </button>
                                 <div class="rapid-search">
@@ -47,9 +48,9 @@
                                         <td>{{ requestSchema.updatedByName || 'N/A' }}</td>
                                         <td>{{ requestSchema.updatedOn | date: 'MMM d, y' }}</td>
                                         <td>
-                                            <i class='bx bx-edit text-primary rapid-action-icon rapid-action-icon-xl'
+                                            <i class="fa-solid fa-pen-to-square text-primary rapid-action-icon rapid-action-icon-xl"
                                                 (click)="openEditModal($event, requestSchema, createSchemaModal)"></i>
-                                            <i class='bx bx-trash text-danger rapid-action-icon rapid-action-icon-xl'
+                                            <i class="fa-solid fa-trash text-danger rapid-action-icon rapid-action-icon-xl"
                                                 (click)="openDeleteConfirmationModal($event, requestSchema, deleteConfirmModal)"></i>
                                         </td>
                                     </tr>
@@ -59,8 +60,9 @@
                     </div>
                     <div class="row">
                         <div class="rapid-pagination">
-                            <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="requestSchemas.length"
-                            (pageChange)="pageChanged($event)"></ngb-pagination>
+                            <ngb-pagination [(page)]="page" [pageSize]="pageSize"
+                                [collectionSize]="requestSchemas.length"
+                                (pageChange)="pageChanged($event)"></ngb-pagination>
                         </div>
                     </div>
                 </div>
@@ -80,9 +82,10 @@
                 <label for="schemaName" class="form-label">Schema Name</label>
                 <input type="text" formControlName="name" class="form-control" id="schemaName">
                 <div *ngIf="requestSchemaForm.get('name')?.invalid && (requestSchemaForm.get('name')?.dirty || requestSchemaForm.get('name')?.touched)"
-                     class="text-danger">
+                    class="text-danger">
                     <small *ngIf="requestSchemaForm.get('name')?.errors?.['required']">Schema Name is required.</small>
-                    <small *ngIf="requestSchemaForm.get('name')?.errors?.['pattern']">Schema Name must contain uppercase letters, digits & _ only.</small>
+                    <small *ngIf="requestSchemaForm.get('name')?.errors?.['pattern']">Schema Name must contain uppercase
+                        letters, digits & _ only.</small>
                 </div>
             </div>
             <div class="mb-3">
@@ -92,9 +95,6 @@
             <div class="mb-3">
                 <label for="schema">Schema (JSON File):</label>
                 <input type="file" id="schema" (change)="onFileChange($event)">
-                <!-- <div *ngIf="!file">
-                    <p>Please select a JSON file.</p>
-                </div> -->
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn custom-dark-btn" [disabled]="requestSchemaForm.pristine">Save</button>

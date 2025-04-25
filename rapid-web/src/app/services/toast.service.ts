@@ -1,15 +1,6 @@
 // src/app/services/ngb-toast.service.ts
 import { Injectable } from '@angular/core';
-
-export interface Toast {
-    header: string;
-    body: string;
-    classname: string;
-    delay?: number;
-    icon?: string;
-    position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'center'; // <-- THIS LINE is important
-    showCloseButton?: boolean;
-  }
+import { Toast } from '../model/toast.model';
 
 @Injectable({ providedIn: 'root' })
 export class ToastService {
@@ -25,12 +16,12 @@ export class ToastService {
   };
 
   private toastIconMap: { [key: string]: string } = {
-    success: 'bx bx-check-circle',
-    danger: 'bx bx-x-circle',
-    warning: 'bx bx-error',
-    info: 'bx bx-info-circle',
-    error: 'bx bx-error-circle',
-    primary: 'bx bx-star'
+    success: 'fa-solid fa-check-circle',
+    danger: 'fa-solid fa-xmark-circle',
+    warning: 'fa-solid fa-triangle-exclamation',
+    info: 'fa-solid fa-circle-info',
+    error: 'fa-solid fa-exclamation-circle',
+    primary: 'fa-solid fa-star'
   };
 
   /**

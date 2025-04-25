@@ -4,15 +4,13 @@ import { CommonModule } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { JsonViewerComponent } from './json-viewer/json-viewer.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { RequestSchema } from '../../model/request-schema.model';
-import { S1Schema } from '../../model/s1-schema.model';
 import { RequestSchemaService } from '../../schema-config/services/request-schema.service';
 import { S1SchemaService } from '../../schema-config/services/s1schema.service';
 import { MappingService } from '../../schema-config/services/mapping.service';
 import { ToastService } from '../../../services/toast.service';
-import { Mapping } from '../../model/mapping.model';
-
-
+import { RequestSchema } from '../../../model/request-schema.model';
+import { S1Schema } from '../../../model/s1-schema.model';
+import { Mapping } from '../../../model/mapping.model';
 
 @Component({
   selector: 'app-mapping',

@@ -1,30 +1,12 @@
 import { Injectable } from "@angular/core";
 import { environment } from "../../../../environments/environment";
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { ApiResponse } from "../../../home/model/request-schema.model";
 import { Observable } from "rxjs";
-import { PageableResponse } from "../../../home/model/pageable.model";
+import { ApiResponse } from "../../../model/request-schema.model";
+import { PageableResponse } from "../../../model/pageable.model";
+import { Permission } from "../../../model/permission.model";
+import { CustomErrorResponse } from "../../../model/custom-error.response.model";
 
-export interface Permission {
-    id?: string; // UUID, optional for create
-    name: string;
-    code: string;
-    permissions: any;
-    createdBy?: string;
-    createdByName?: string;
-    createdOn?: any;
-    updatedBy?: string;
-    updatedByName?: string;
-    updatedOn?: any;
-    // Add other permission properties as needed
-}
-
-export interface CustomErrorResponse {
-    statusCode: number;
-    status: string;
-    errorCode: string;
-    message: string;
-}
 
 @Injectable({
     providedIn: 'root',

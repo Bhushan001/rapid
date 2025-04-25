@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { ToastService, Toast } from '../../../services/toast.service';
+import { ToastService } from '../../../services/toast.service';
 import { CommonModule } from '@angular/common';
 import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
+import { Toast } from '../../../model/toast.model';
 
 @Component({
   selector: 'app-toast-container',

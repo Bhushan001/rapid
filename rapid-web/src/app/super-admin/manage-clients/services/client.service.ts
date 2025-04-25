@@ -2,27 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { PageableResponse } from '../../../home/model/pageable.model';
-
-interface ApiResponse<T> {
-  statusCode: number;
-  status: string;
-  data: T;
-}
-
-export interface CustomErrorResponse {
-  statusCode: number;
-  status: string;
-  errorCode: string;
-  message: string;
-}
-
-interface Client {
-  clientId?: string; // UUID, optional for create
-  clientName: string;
-  clientDescription: string;
-  // Add other client properties as needed
-}
+import { PageableResponse } from '../../../model/pageable.model';
+import { CustomErrorResponse } from '../../../model/custom-error.response.model';
+import { ApiResponse } from '../../../model/request-schema.model';
+import { ClientRequest } from '../../../model/client.request.mode';
+import { Client } from '../../../model/client.model';
 
 @Injectable({
   providedIn: 'root',
@@ -32,11 +16,11 @@ export class ClientService {
 
   constructor(private http: HttpClient) { }
 
-  createClient(client: Client): Observable<ApiResponse<Client> | CustomErrorResponse> {
+  createClient(client: ClientRequest): Observable<ApiResponse<Client> | CustomErrorResponse> {
     return this.http.post<ApiResponse<Client> | CustomErrorResponse>(this.apiUrl, client);
   }
 
-  updateClient(clientId: string, client: Client): Observable<ApiResponse<Client>> {
+  updateClient(clientId: string, client: ClientRequest): Observable<ApiResponse<Client>> {
     return this.http.put<ApiResponse<Client>>(`${this.apiUrl}/${clientId}`, client);
   }
 

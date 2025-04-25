@@ -1,17 +1,13 @@
 <div class="entity-section">
-  <!-- Header Section -->
   <div class="entity-header d-flex align-items-center justify-content-between mb-3">
     <div class="d-flex align-items-center">
-      <i class="bx bx-briefcase fs-3 me-2 text-primary"></i>
+      <i class="fa-solid fa-briefcase fs-3 me-2 text-primary"></i>
       <h5 class="mb-0 fw-bold">Workspaces</h5>
     </div>
-    <!-- Add Workspace Button with Tooltip -->
     <button type="button" class="btn p-0" ngbTooltip="Add Workspace" (click)="openAddWorkspaceModal()">
-      <i class="bx bx-plus fs-3 text-success"></i>
+      <i class="fa-solid fa-plus fs-3 text-success"></i>
     </button>
   </div>
-
-  <!-- Existing Workspace Cards -->
 
   <div class="list-container">
     <div class="list-section">
@@ -25,11 +21,12 @@
             <div class="small text-secondary">Created On: {{ workspace.createdOn }}</div>
           </div>
           <div class="d-flex align-items-center">
-            <i class="bx bx-edit-alt me-2 text-primary workspace-icon"
+            <i class="fa-solid fa-pen-to-square me-2 text-primary workspace-icon"
               (click)="openEditWorkspaceModal($event, workspace)"></i>
-            <i class="bx bx-trash me-2 text-danger workspace-icon"
+            <i class="fa-solid fa-trash me-2 text-danger workspace-icon"
               (click)="openDeleteConfirmationModal($event, workspace, deleteConfirmModal)"></i>
-            <i class="bx bx-show text-secondary workspace-icon" (click)="viewWorkspaceDetails($event, workspace)"></i>
+            <i class="fa-solid fa-eye me-2 text-secondary workspace-icon"
+              (click)="viewWorkspaceDetails($event, workspace)"></i>
           </div>
         </div>
       </div>
@@ -47,7 +44,6 @@
     </div>
     <div class="modal-body">
       <form [formGroup]="addWorkspaceForm" (ngSubmit)="onSubmit()">
-        <!-- Workspace Name Field -->
         <div class="mb-3">
           <label for="workspaceName" class="form-label">Workspace Name</label>
           <input type="text" id="workspaceName" class="form-control" formControlName="name">
@@ -58,7 +54,6 @@
           </div>
         </div>
 
-        <!-- Workspace Description Field -->
         <div class="mb-3">
           <label for="workspaceDescription" class="form-label">Description</label>
           <textarea id="workspaceDescription" class="form-control" formControlName="description"></textarea>
@@ -69,7 +64,6 @@
           </div>
         </div>
 
-        <!-- Modal Footer Inside Form -->
         <div class="modal-footer">
           <button type="submit" *ngIf="!editingWorkspace" class="btn custom-dark-btn"
             [disabled]="addWorkspaceForm.invalid">Add Workspace</button>
@@ -94,3 +88,4 @@
       <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
     </div>
   </ng-template>
+</div>

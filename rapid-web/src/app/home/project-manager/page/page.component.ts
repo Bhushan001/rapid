@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { Page } from '../../model/page.model';
 import { ToastService } from '../../../services/toast.service';
 import { PageService } from '../services/page.service';
+import { Page } from '../../../model/page.model';
 
 @Component({
   selector: 'app-page',

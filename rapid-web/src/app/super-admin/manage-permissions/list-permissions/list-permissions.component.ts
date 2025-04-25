@@ -2,8 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbModal, NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { Permission, PermissionService } from '../services/permission.service';
+import { PermissionService } from '../services/permission.service';
 import { ToastService } from '../../../services/toast.service';
+import { Permission } from '../../../model/permission.model';
 
 @Component({
   selector: 'app-list-permissions',

@@ -2,45 +2,7 @@
 
 // Reset and Base Styles
 
-html,
-body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-}
 
-body {
-    font-family: sans-serif; // Will be overridden by theme variables
-    line-height: 1.5;
-}
-
-*,
-::before,
-::after {
-    box-sizing: border-box;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-ul,
-ol {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-    margin: 0 0 1rem 0;
-}
 
 .rapid-container {
     padding: 10px;

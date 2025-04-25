@@ -1,7 +1,7 @@
 <div class="auth-wrapper">
     <div class="app-header text-center mb-4">
         <h1 class="rapid-brand">
-            <i class='bx bx-bolt'></i> <span>Rapid</span>
+            <i class="fa-solid fa-bolt"></i> <span>Rapid</span>
         </h1>
         <p class="tagline">Welcome back! Login to continue.</p>
     </div>
@@ -10,7 +10,7 @@
         <div class="mb-3">
             <label class="form-label fw-bold">Username or Email</label>
             <div class="input-group">
-                <span class="input-group-text"><i class="bx bx-user"></i></span>
+                <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
                 <input type="text" class="form-control" formControlName="username" placeholder="Enter your username">
             </div>
             <div class="text-danger small"
@@ -22,11 +22,11 @@
         <div class="mb-3">
             <label class="form-label fw-bold">Password</label>
             <div class="input-group">
-                <span class="input-group-text"><i class="bx bx-lock"></i></span>
+                <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
                 <input [type]="showPassword ? 'text' : 'password'" class="form-control" formControlName="password"
                     placeholder="Enter your password">
                 <button type="button" class="btn btn-outline-secondary" (click)="togglePassword()">
-                    <i [class]="showPassword ? 'bx bx-show' : 'bx bx-hide'"></i>
+                    <i [class]="showPassword ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'"></i>
                 </button>
             </div>
             <div class="text-danger small"
@@ -40,11 +40,12 @@
         </div>
 
         <button type="submit" class="btn signup-btn w-100" [disabled]="loginForm.invalid">
-            <i class="bx bx-log-in-circle me-1"></i> Login
+            <i class="fa-solid fa-right-to-bracket me-1"></i> Login
         </button>
 
         <div class="mt-3 text-center">
-            <p class="small">Don't have an account? <a routerLink="/auth/sign-up" class="text-decoration-none">Sign up</a></p>
+            <p class="small">Don't have an account? <a routerLink="/auth/sign-up" class="text-decoration-none">Sign
+                    up</a></p>
         </div>
 
     </form>

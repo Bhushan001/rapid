@@ -10,7 +10,8 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="rapid-toolbar">
-                                <button type="button" class="btn btn-primary custom-dark-btn" (click)="openCreateModal(createSchemaModal)">
+                                <button type="button" class="btn btn-primary custom-dark-btn"
+                                    (click)="openCreateModal(createSchemaModal)">
                                     Create S1 Schema
                                 </button>
                                 <div class="rapid-search">
@@ -47,9 +48,9 @@
                                         <td>{{ s1Schema.updatedByName || 'N/A' }}</td>
                                         <td>{{ s1Schema.updatedOn | date: 'MMM d, y' }}</td>
                                         <td>
-                                            <i class='bx bx-edit text-primary rapid-action-icon rapid-action-icon-xl'
+                                            <i class="fa-solid fa-pen-to-square text-primary rapid-action-icon rapid-action-icon-xl"
                                                 (click)="openEditModal($event, s1Schema, createSchemaModal)"></i>
-                                            <i class='bx bx-trash text-danger rapid-action-icon rapid-action-icon-xl'
+                                            <i class="fa-solid fa-trash text-danger rapid-action-icon rapid-action-icon-xl"
                                                 (click)="openDeleteConfirmationModal($event, s1Schema, deleteConfirmModal)"></i>
                                         </td>
                                     </tr>
@@ -60,7 +61,7 @@
                     <div class="row">
                         <div class="rapid-pagination">
                             <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="s1Schemas.length"
-                            (pageChange)="pageChanged($event)"></ngb-pagination>
+                                (pageChange)="pageChanged($event)"></ngb-pagination>
                         </div>
                     </div>
                 </div>
@@ -80,9 +81,10 @@
                 <label for="schemaName" class="form-label">Schema Name</label>
                 <input type="text" formControlName="name" class="form-control" id="schemaName">
                 <div *ngIf="s1SchemaForm.get('name')?.invalid && (s1SchemaForm.get('name')?.dirty || s1SchemaForm.get('name')?.touched)"
-                     class="text-danger">
+                    class="text-danger">
                     <small *ngIf="s1SchemaForm.get('name')?.errors?.['required']">Schema Name is required.</small>
-                    <small *ngIf="s1SchemaForm.get('name')?.errors?.['pattern']">Schema Name must contain uppercase letters, digits & _ only.</small>
+                    <small *ngIf="s1SchemaForm.get('name')?.errors?.['pattern']">Schema Name must contain uppercase
+                        letters, digits & _ only.</small>
                 </div>
             </div>
             <div class="mb-3">
@@ -91,19 +93,17 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Request Schema</label>
-                <ng-select [items]="requestSchemas" bindLabel="name" bindValue="id"
-                    formControlName="requestSchemaId" placeholder="Select Request Schema">
+                <ng-select [items]="requestSchemas" bindLabel="name" bindValue="id" formControlName="requestSchemaId"
+                    placeholder="Select Request Schema">
                 </ng-select>
-                <div *ngIf="f['requestSchemaId'].touched && f['requestSchemaId'].invalid" class="text-danger small mt-1">
+                <div *ngIf="f['requestSchemaId'].touched && f['requestSchemaId'].invalid"
+                    class="text-danger small mt-1">
                     Client is required.
                 </div>
             </div>
             <div class="mb-3">
                 <label for="schema">Schema (JSON File):</label>
                 <input type="file" id="schema" (change)="onFileChange($event)">
-                <!-- <div *ngIf="!file">
-                    <p>Please select a JSON file.</p>
-                </div> -->
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn custom-dark-btn" [disabled]="s1SchemaForm.pristine">Save</button>

@@ -10,7 +10,8 @@
                     <div class="row">
                         <div class="col-4">
                             <div class="rapid-toolbar">
-                                <button type="button" class="btn btn-primary custom-dark-btn" (click)="openCreateModal(editClientModal)">
+                                <button type="button" class="btn btn-primary custom-dark-btn"
+                                    (click)="openCreateModal(editClientModal)">
                                     Create Client
                                 </button>
                                 <div class="rapid-search">
@@ -45,8 +46,10 @@
                                         <td>{{ client.updatedByName || 'N/A' }}</td>
                                         <td>{{ client.updatedOn | date: 'MMM d, y' }}</td>
                                         <td>
-                                            <i class='bx bx-edit text-primary rapid-action-icon rapid-action-icon-xl' (click)="openEditModal($event, client, editClientModal)"></i>
-                                            <i class='bx bx-trash text-danger rapid-action-icon rapid-action-icon-xl' (click)="openDeleteConfirmationModal($event, client, deleteConfirmModal)"></i>
+                                            <i class="fa-solid fa-pen-to-square text-primary rapid-action-icon rapid-action-icon-xl"
+                                                (click)="openEditModal($event, client, editClientModal)"></i>
+                                            <i class="fa-solid fa-trash text-danger rapid-action-icon rapid-action-icon-xl"
+                                                (click)="openDeleteConfirmationModal($event, client, deleteConfirmModal)"></i>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -56,15 +59,15 @@
                     <div class="row">
                         <div class="rapid-pagination" *ngIf="clients.length > 0">
                             <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="totalItems"
-                            (pageChange)="pageChanged($event)"></ngb-pagination>
+                                (pageChange)="pageChanged($event)"></ngb-pagination>
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
     </div>
 </div>
- 
+
 <ng-template #editClientModal let-modal>
     <div class="modal-header">
         <h5 class="modal-title" *ngIf="editMode">Edit Client</h5>
@@ -77,10 +80,11 @@
                 <label for="clientName" class="form-label">Client Name</label>
                 <input type="text" formControlName="name" class="form-control" id="clientName">
                 <div *ngIf="editForm.get('name')?.invalid && (editForm.get('name')?.dirty || editForm.get('name')?.touched)"
-                                     class="text-danger">
-                                    <small *ngIf="editForm.get('name')?.errors?.['required']">Client Name is required.</small>
-                                    <small *ngIf="editForm.get('name')?.errors?.['pattern']">Client Name must be uppercase letters only.</small>
-                                </div>
+                    class="text-danger">
+                    <small *ngIf="editForm.get('name')?.errors?.['required']">Client Name is required.</small>
+                    <small *ngIf="editForm.get('name')?.errors?.['pattern']">Client Name must be uppercase letters
+                        only.</small>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="clientDescription" class="form-label">Description</label>
@@ -89,8 +93,10 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn custom-dark-btn" *ngIf="!editMode" (click)="saveClient(modal)" [disabled]="editForm.pristine">Save Client</button>
-        <button type="button" class="btn custom-dark-btn" *ngIf="editMode" (click)="updateClient(modal)" [disabled]="editForm.pristine">Update Client</button>
+        <button type="button" class="btn custom-dark-btn" *ngIf="!editMode" (click)="saveClient(modal)"
+            [disabled]="editForm.pristine">Save Client</button>
+        <button type="button" class="btn custom-dark-btn" *ngIf="editMode" (click)="updateClient(modal)"
+            [disabled]="editForm.pristine">Update Client</button>
         <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
     </div>
 </ng-template>
@@ -107,4 +113,4 @@
         <button type="button" class="btn custom-dark-btn" (click)="modal.close('confirm')">Delete</button>
         <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
     </div>
-</ng-template> 
+</ng-template>

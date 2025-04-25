@@ -4,7 +4,8 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, FormsM
 import { NgbModal, NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { Role, RoleService } from '../services/role.service';
 import { ToastService } from '../../../services/toast.service';
-import { Permission, PermissionService } from '../../manage-permissions/services/permission.service';
+import { PermissionService } from '../../manage-permissions/services/permission.service';
+import { Permission } from '../../../model/permission.model';
 
 @Component({
   selector: 'app-list-roles',

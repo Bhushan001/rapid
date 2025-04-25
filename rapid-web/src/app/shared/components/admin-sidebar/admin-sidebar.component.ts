@@ -53,9 +53,6 @@ export class AdminSidebarComponent {
   }
 
   getIconClass(icon: string): string {
-    if (icon) {
-      return `bx ${icon.replace('fa fa-', 'bxs-').replace('fa-', 'bx-')}`;
-    }
-    return '';
+    return icon;
   }
 }

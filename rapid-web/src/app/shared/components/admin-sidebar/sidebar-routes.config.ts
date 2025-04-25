@@ -5,7 +5,7 @@ export const ADMINROUTES: RouteInfo[] = [
   {
     path: '/admin/home',
     title: 'Home',
-    icon: 'bx bx-home', // Simplified home icon
+    icon: 'fa-solid fa-home',
     class: 'sub',
     badge: '',
     badgeClass: '',
@@ -17,7 +17,7 @@ export const ADMINROUTES: RouteInfo[] = [
   {
     path: '',
     title: 'Clients',
-    icon: 'bx bx-buildings', // Changed to buildings for clients
+    icon: 'fa-solid fa-building',
     class: 'sub',
     badge: '',
     badgeClass: '',
@@ -28,7 +28,7 @@ export const ADMINROUTES: RouteInfo[] = [
       {
         path: '/admin/manage-clients/list-clients',
         title: 'List Clients',
-        icon: 'bx bx-list-ol', // Changed to ordered list for listing clients
+        icon: 'fa-solid fa-list-ol',
         class: '',
         badge: '',
         badgeClass: '',
@@ -42,7 +42,7 @@ export const ADMINROUTES: RouteInfo[] = [
   {
     path: '',
     title: 'Users',
-    icon: 'bx bx-user-circle', // Changed to user-circle for user management
+    icon: 'fa-solid fa-user-circle',
     class: 'sub',
     badge: '',
     badgeClass: '',
@@ -53,7 +53,7 @@ export const ADMINROUTES: RouteInfo[] = [
       {
         path: '/admin/manage-users/list-users',
         title: 'List Users',
-        icon: 'bx bx-user-voice', // Changed to user-voice/user-account for listing users.
+        icon: 'fa-solid fa-users',
         class: '',
         badge: '',
         badgeClass: '',
@@ -67,7 +67,7 @@ export const ADMINROUTES: RouteInfo[] = [
   {
     path: '',
     title: 'Roles',
-    icon: 'bx bx-user-circle', // Changed to user-circle for user management
+    icon: 'fa-solid fa-user-tag',
     class: 'sub',
     badge: '',
     badgeClass: '',
@@ -78,7 +78,7 @@ export const ADMINROUTES: RouteInfo[] = [
       {
         path: '/admin/manage-roles/list-roles',
         title: 'List Roles',
-        icon: 'bx bx-user-voice', // Changed to user-voice/user-account for listing users.
+        icon: 'fa-solid fa-list-check',
         class: '',
         badge: '',
         badgeClass: '',
@@ -92,7 +92,7 @@ export const ADMINROUTES: RouteInfo[] = [
   {
     path: '',
     title: 'Permissions',
-    icon: 'bx bx-user-circle', // Changed to user-circle for user management
+    icon: 'fa-solid fa-shield-halved',
     class: 'sub',
     badge: '',
     badgeClass: '',
@@ -103,7 +103,7 @@ export const ADMINROUTES: RouteInfo[] = [
       {
         path: '/admin/manage-permissions/list-permissions',
         title: 'List Permissions',
-        icon: 'bx bx-user-voice', // Changed to user-voice/user-account for listing users.
+        icon: 'fa-solid fa-check-double',
         class: '',
         badge: '',
         badgeClass: '',

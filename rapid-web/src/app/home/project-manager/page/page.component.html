@@ -1,18 +1,14 @@
 <div class="entity-section">
-  <!-- Header Section -->
   <div class="entity-header d-flex align-items-center justify-content-between mb-3">
     <div class="d-flex align-items-center">
-      <i class="bx bx-file fs-3 me-2 text-primary"></i>
+      <i class="fa-regular fa-file fs-3 me-2 text-primary"></i>
       <h5 class="mb-0 fw-bold">Pages</h5>
     </div>
-    <!-- Add Page Button with Tooltip -->
     <button type="button" class="btn p-0" ngbTooltip="Add Page" *ngIf="selectedProject !== null"
       (click)="openAddPageModal()">
-      <i class="bx bx-plus fs-3 text-success"></i>
+      <i class="fa-solid fa-plus fs-3 text-success"></i>
     </button>
   </div>
-
-  <!-- Existing Page Cards -->
 
   <div class="list-container">
     <div class="list-section">
@@ -26,10 +22,11 @@
             <div class="small text-secondary">Created On: {{ page.createdOn }}</div>
           </div>
           <div class="d-flex align-items-center">
-            <i class="bx bx-edit-alt me-2 text-primary page-icon" (click)="openEditPageModal($event, page)"></i>
-            <i class="bx bx-trash me-2 text-danger page-icon"
+            <i class="fa-solid fa-pen-to-square me-2 text-primary page-icon"
+              (click)="openEditPageModal($event, page)"></i>
+            <i class="fa-solid fa-trash me-2 text-danger page-icon"
               (click)="openDeleteConfirmationModal($event, page, deletePageConfirmModal)"></i>
-            <i class="bx bx-show text-secondary page-icon" (click)="viewPageDetails($event, page)"></i>
+            <i class="fa-solid fa-eye me-2 text-secondary page-icon" (click)="viewPageDetails($event, page)"></i>
           </div>
         </div>
       </div>
@@ -40,7 +37,6 @@
     </div>
   </div>
 
-  <!-- Add Page Modal -->
   <ng-template #addPageModal let-modal>
     <div class="modal-header">
       <h4 class="modal-title">Add New Page</h4>
@@ -48,7 +44,6 @@
     </div>
     <div class="modal-body">
       <form [formGroup]="addPageForm" (ngSubmit)="onPageSubmit()">
-        <!-- Page Name Field -->
         <div class="mb-3">
           <label for="pageName" class="form-label">Page Name</label>
           <input type="text" id="pageName" class="form-control" formControlName="name">
@@ -58,7 +53,6 @@
           </div>
         </div>
 
-        <!-- Page Description Field -->
         <div class="mb-3">
           <label for="pageDescription" class="form-label">Description</label>
           <textarea id="pageDescription" class="form-control" formControlName="description"></textarea>
@@ -68,7 +62,6 @@
           </div>
         </div>
 
-        <!-- Modal Footer Inside Form -->
         <div class="modal-footer">
           <button type="submit" *ngIf="!editingPage" class="btn custom-dark-btn" [disabled]="addPageForm.invalid">Add
             Page</button>

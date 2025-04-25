@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Mapping } from '../../model/mapping.model';
 import { environment } from '../../../../environments/environment';
-import { PageableResponse } from '../../model/pageable.model';
+import { Mapping } from '../../../model/mapping.model';
+import { PageableResponse } from '../../../model/pageable.model';
 
 @Injectable({
     providedIn: 'root'

@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { environment } from "../../../../environments/environment";
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { ApiResponse } from "../../../home/model/request-schema.model";
 import { Observable } from "rxjs";
-import { PageableResponse } from "../../../home/model/pageable.model";
+import { ApiResponse } from "../../../model/request-schema.model";
+import { PageableResponse } from "../../../model/pageable.model";
 
 export interface Role {
     id?: string; // UUID, optional for create

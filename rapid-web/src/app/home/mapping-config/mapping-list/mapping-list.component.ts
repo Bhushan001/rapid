@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal, NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { Mapping } from '../../model/mapping.model';
 import { ToastService } from '../../../services/toast.service';
 import { MappingService } from '../../schema-config/services/mapping.service';
+import { Mapping } from '../../../model/mapping.model';
 
 @Component({
   selector: 'app-mapping-list',

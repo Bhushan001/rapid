@@ -24,22 +24,22 @@
                     <div class="row">
                         <div class="table-container">
                             <div *ngIf="loading" class="loading-spinner">
-                                <i class="bx bx-loader bx-spin"></i> Loading...
+                                <i class="fa-solid fa-spinner fa-spin"></i> Loading...
                             </div>
                             <table *ngIf="!loading" class="table rapid-table">
                                 <thead>
                                     <tr>
-                                        <th><i class="bx bx-id-card"></i> Username</th>
-                                        <th><i class="bx bx-user"></i> First Name</th>
-                                        <th><i class="bx bx-user"></i> Last Name</th>
-                                        <th><i class="bx bx-globe"></i> Country</th>
-                                        <th><i class="bx bx-shield-alt-2"></i> Role</th>
-                                        <th><i class="bx bx-building-house"></i> Client Name</th>
-                                        <th><i class="bx bx-calendar-event"></i> Created On</th>
-                                        <th><i class="bx bx-user-plus"></i> Created By</th>
-                                        <th><i class="bx bx-calendar-check"></i> Updated On</th>
-                                        <th><i class="bx bx-user-check"></i> Updated By</th>
-                                        <th><i class="bx bx-cog"></i>Actions</th>
+                                        <th><i class="fa-solid fa-id-card"></i> Username</th>
+                                        <th><i class="fa-solid fa-user"></i> First Name</th>
+                                        <th><i class="fa-solid fa-user"></i> Last Name</th>
+                                        <th><i class="fa-solid fa-globe"></i> Country</th>
+                                        <th><i class="fa-solid fa-shield-halved"></i> Role</th>
+                                        <th><i class="fa-solid fa-building"></i> Client Name</th>
+                                        <th><i class="fa-solid fa-calendar-alt"></i> Created On</th>
+                                        <th><i class="fa-solid fa-user-plus"></i> Created By</th>
+                                        <th><i class="fa-solid fa-calendar-check"></i> Updated On</th>
+                                        <th><i class="fa-solid fa-user-check"></i> Updated By</th>
+                                        <th><i class="fa-solid fa-cog"></i>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -56,9 +56,9 @@
                                         <td>{{ user.updatedByName }}</td>
                                         <td>
                                             <i
-                                                class='bx bx-edit text-primary rapid-action-icon rapid-action-icon-xl'></i>
+                                                class='fa-solid fa-pen-to-square text-primary rapid-action-icon rapid-action-icon-xl'></i>
                                             <i
-                                                class='bx bx-trash text-danger rapid-action-icon rapid-action-icon-xl'></i>
+                                                class='fa-solid fa-trash text-danger rapid-action-icon rapid-action-icon-xl'></i>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -85,19 +85,6 @@
     </div>
     <div class="modal-body">
         <form [formGroup]="userForm">
-            <!-- <div class="mb-3">
-                <label for="clientName" class="form-label">Client Name</label>
-                <input type="text" formControlName="clientName" class="form-control" id="clientName">
-                <div *ngIf="userForm.get('clientName')?.invalid && (userForm.get('clientName')?.dirty || userForm.get('clientName')?.touched)"
-                                     class="text-danger">
-                                    <small *ngIf="userForm.get('clientName')?.errors?.['required']">Client Name is required.</small>
-                                    <small *ngIf="userForm.get('clientName')?.errors?.['pattern']">Client Name must be uppercase letters only.</small>
-                                </div>
-            </div>
-            <div class="mb-3">
-                <label for="clientDescription" class="form-label">Description</label>
-                <textarea formControlName="clientDescription" class="form-control" id="clientDescription"></textarea>
-            </div> -->
         </form>
     </div>
     <div class="modal-footer">

@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { Project } from '../../model/project.model';
 import { ToastService } from '../../../services/toast.service';
 import { ProjectService } from '../services/project.service';
+import { Project } from '../../../model/project.model';
 
 @Component({
   selector: 'app-project',

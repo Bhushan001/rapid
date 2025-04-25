@@ -5,7 +5,7 @@ export const ROUTES: RouteInfo[] = [
   {
     path: '',
     title: 'Home',
-    icon: 'bx bx-home', // Changed to bx-home for a simple home icon
+    icon: 'fa-solid fa-home',
     class: 'sub',
     badge: '',
     badgeClass: '',
@@ -15,7 +15,7 @@ export const ROUTES: RouteInfo[] = [
       {
         path: '/home/project-manager',
         title: 'Project Manager',
-        icon: 'bx bx-task', // Changed to bx-task for project management
+        icon: 'fa-solid fa-tasks',
         class: '',
         badge: '',
         badgeClass: '',
@@ -30,7 +30,7 @@ export const ROUTES: RouteInfo[] = [
   {
     path: '',
     title: 'Schema',
-    icon: 'bx bx-layer', // Changed to bx-layer for schema representation
+    icon: 'fa-solid fa-layer-group',
     class: 'sub',
     badge: '',
     badgeClass: '',
@@ -41,7 +41,7 @@ export const ROUTES: RouteInfo[] = [
       {
         path: '/home/schema/request-schema',
         title: 'Request Schema',
-        icon: 'bx bx-spreadsheet', // Changed to bx-file-request for request schema
+        icon: 'fa-solid fa-file-lines',
         class: '',
         badge: '',
         badgeClass: '',
@@ -53,7 +53,7 @@ export const ROUTES: RouteInfo[] = [
       {
         path: '/home/schema/s1-schema',
         title: 'S1 Schema',
-        icon: 'bx bx-data', // Changed to bx-data for data schema representation
+        icon: 'fa-solid fa-database',
         class: '',
         badge: '',
         badgeClass: '',
@@ -67,7 +67,7 @@ export const ROUTES: RouteInfo[] = [
   {
     path: '',
     title: 'Mapping',
-    icon: 'bx bx-transfer-alt', // Changed to bx-transfer-alt for mapping
+    icon: 'fa-solid fa-right-left',
     class: 'sub',
     badge: '',
     badgeClass: '',
@@ -76,7 +76,7 @@ export const ROUTES: RouteInfo[] = [
       {
         path: '/home/mapping/create-mapping',
         title: 'Create Mapping',
-        icon: 'bx bx-plus-circle', // Changed to bx-plus-circle for creating new mapping
+        icon: 'fa-solid fa-plus-circle',
         class: '',
         badge: '',
         badgeClass: '',
@@ -88,7 +88,7 @@ export const ROUTES: RouteInfo[] = [
       {
         path: '/home/mapping/mapping-list',
         title: 'List Mappings',
-        icon: 'bx bx-list-ul', // Changed to bx-list-ul for listing items
+        icon: 'fa-solid fa-list-ul',
         class: '',
         badge: '',
         badgeClass: '',

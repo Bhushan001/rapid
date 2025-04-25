@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RequestSchema } from '../../model/request-schema.model';
 import { NgbModal, NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from '../../../services/toast.service';
 import { RequestSchemaService } from '../services/request-schema.service';
+import { RequestSchema } from '../../../model/request-schema.model';
 
 @Component({
   selector: 'app-request-schema',

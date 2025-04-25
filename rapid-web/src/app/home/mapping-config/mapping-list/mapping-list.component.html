@@ -42,8 +42,9 @@
                                         <td>{{ mapping.updatedByName || 'N/A' }}</td>
                                         <td>{{ mapping.updatedOn | date: 'MMM d, y' }}</td>
                                         <td>
-                                            <i class='bx bx-edit text-primary rapid-action-icon rapid-action-icon-xl'></i>
-                                            <i class='bx bx-trash text-danger rapid-action-icon rapid-action-icon-xl'
+                                            <i
+                                                class="fa-solid fa-pen-to-square text-primary rapid-action-icon rapid-action-icon-xl"></i>
+                                            <i class="fa-solid fa-trash text-danger rapid-action-icon rapid-action-icon-xl"
                                                 (click)="openDeleteConfirmationModal($event, mapping, deleteConfirmModal)"></i>
                                         </td>
                                     </tr>
@@ -54,7 +55,7 @@
                     <div class="row">
                         <div class="rapid-pagination">
                             <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="mappings.length"
-                            (pageChange)="pageChanged($event)"></ngb-pagination>
+                                (pageChange)="pageChanged($event)"></ngb-pagination>
                         </div>
                     </div>
                 </div>

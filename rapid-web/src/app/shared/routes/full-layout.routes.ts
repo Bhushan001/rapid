@@ -1,8 +1,4 @@
 import { Routes } from '@angular/router';
-import { ContentComponent } from '../../content/content.component';
-import { GridSystemComponent } from '../../content/grid-system/grid-system.component';
-import { TypographyComponent } from '../../content/typography/typography.component';
-import { TextUtilitiesComponent } from '../../content/text-utilities/text-utilities.component';
 import { HomeComponent } from '../../home/home.component';
 import { ProjectManagerComponent } from '../../home/project-manager/project-manager.component';
 import { SchemaConfigComponent } from '../../home/schema-config/schema-config.component';
@@ -58,15 +54,6 @@ export const Full_ROUTES: Routes = [
           }
         ]
       }
-    ]
-  },
-  {
-    path: 'content',
-    component: ContentComponent,
-    children: [
-      { path: 'grid-system', component: GridSystemComponent },
-      { path: 'typography', component: TypographyComponent },
-      { path: 'text-utilities', component: TextUtilitiesComponent }
     ]
   },
   { path: 'unauthorized', component: UnauthorizedComponent }
