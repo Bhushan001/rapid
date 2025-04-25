@@ -1,6 +1,7 @@
-interface DashboardMetric {
-  title: string;
-  value: number;
-  icon: string;
-  color: string;
+export interface ActivityItem {
+  id: number;
+  description: string;
+  timestamp: string;
+  user?: string;
+  icon?: string;
 }
