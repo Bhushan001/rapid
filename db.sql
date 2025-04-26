@@ -6,6 +6,10 @@ use rapid_db;
 
 show tables;
 
+select * from rapid_db.rapid_clients;
+select * from rapid_db.rapid_users;
+select * from rapid_db.rapid_roles ;
+select * from rapid_db.user_roles ;
 select * from rapid_db.rapid_permissions rp;
 select * from rapid_db.rapid_role_permissions rrp ;
 
