@@ -1,36 +1,38 @@
-<div class="mapping-container">
-  <div class="row" style="display: flex;" *ngIf="requestSchemas.length > 0">
-    <div class="col-md-3">
-      <ng-select [(ngModel)]="selectedRequestSchemaId" [items]="requestSchemas" bindLabel="name" bindValue="id"
-        placeholder="Select Request Schema" (change)="onSelectRequestSchema()" style="margin-right: 10px;">
-      </ng-select>
+<div class="card mapping-card">
+  <div class="mapping-container">
+    <div class="row" style="display: flex;" *ngIf="requestSchemas.length > 0">
+      <div class="col-md-3">
+        <ng-select [(ngModel)]="selectedRequestSchemaId" [items]="requestSchemas" bindLabel="name" bindValue="id"
+          placeholder="Select Request Schema" (change)="onSelectRequestSchema()" style="margin-right: 10px;">
+        </ng-select>
+      </div>
+  
+      <div class="col-md-3">
+        <ng-select [(ngModel)]="selectedS1SchemaId" [items]="s1Schemas" bindLabel="name" bindValue="id"
+          placeholder="Select S1 Schema" (change)="onSelectS1Schema()" [disabled]="!selectedRequestSchemaId">
+        </ng-select>
+      </div>
+      <div class="col-md-2 offset-4">
+        <button class="btn custom-dark-btn" (click)="openMappingModal(showMappingModal)" *ngIf="getMappingKeys().length">
+          Show Mapping
+          <span class="mapping-count">{{ getMappingKeys().length }}</span>
+        </button>
+      </div>
     </div>
-
-    <div class="col-md-3">
-      <ng-select [(ngModel)]="selectedS1SchemaId" [items]="s1Schemas" bindLabel="name" bindValue="id"
-        placeholder="Select S1 Schema" (change)="onSelectS1Schema()" [disabled]="!selectedRequestSchemaId">
-      </ng-select>
-    </div>
-    <div class="col-md-2 offset-4">
-      <button class="btn custom-dark-btn" (click)="openMappingModal(showMappingModal)" *ngIf="getMappingKeys().length">
-        Show Mapping
-        <span class="mapping-count">{{ getMappingKeys().length }}</span>
-      </button>
+  
+    <div class="row">
+      <div class="col-md-6 json-editor" *ngIf="selectedRequestSchemaId">
+        <app-json-viewer [data]="selectedRequestSchema" (pathClicked)="handlePathClick($event, true)"
+          [highlightedPath]="selectedLeftPath" [mappedPaths]="mappedPaths"></app-json-viewer>
+      </div>
+      <div class="col-md-6 json-editor" *ngIf="selectedS1SchemaId">
+        <app-json-viewer [data]="selectedS1Schema" (pathClicked)="handlePathClick($event, false)"
+          [highlightedPath]="selectedRightPath" [mappedPaths]="mappedPaths"></app-json-viewer>
+      </div>
     </div>
   </div>
-
-  <div class="row">
-    <div class="col-md-6 json-editor" *ngIf="selectedRequestSchemaId">
-      <app-json-viewer [data]="selectedRequestSchema" (pathClicked)="handlePathClick($event, true)"
-        [highlightedPath]="selectedLeftPath" [mappedPaths]="mappedPaths"></app-json-viewer>
-    </div>
-    <div class="col-md-6 json-editor" *ngIf="selectedS1SchemaId">
-      <app-json-viewer [data]="selectedS1Schema" (pathClicked)="handlePathClick($event, false)"
-        [highlightedPath]="selectedRightPath" [mappedPaths]="mappedPaths"></app-json-viewer>
-    </div>
-  </div>
+  
 </div>
-
 <ng-template #showMappingModal let-modal>
   <div class="modal-header">
     <h5 class="modal-title">Mappings</h5>
@@ -40,7 +42,6 @@
   <div class="modal-body">
     <div class="mapping-form-section">
       <form [formGroup]="mappingForm">
-
         <div class="row">
           <div class="col-md-6">
             <label for="schemaName" class="form-label">Mapping Name</label>
@@ -80,7 +81,8 @@
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn custom-dark-btn" (click)="saveMapping(modal)" [disabled]="!mappingForm.valid">Save Mapping</button>
+    <button type="button" class="btn custom-dark-btn" (click)="saveMapping(modal)" [disabled]="!mappingForm.valid">Save
+      Mapping</button>
     <button type="button" class="btn custom-dark-btn" (click)="modal.dismiss()">Close</button>
   </div>
 </ng-template>

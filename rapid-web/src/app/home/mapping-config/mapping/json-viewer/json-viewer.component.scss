@@ -1,16 +1,13 @@
 .json-viewer {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  padding: 15px;
-  border-radius: 8px;
-  overflow-x: auto;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
   color: #333;
+  padding: 2px;
 }
 
 .key {
   cursor: pointer;
-  font-weight: 600;
   margin-right: 8px;
-  color: #1e88e5;
   transition: color 0.3s ease;
 }
 
@@ -32,19 +29,17 @@
 
 ul {
   list-style-type: none;
-  padding-left: 20px;
   margin-top: 2px;
   margin-bottom: 2px;
 }
 
 li {
-  margin-bottom: 5px;
+  margin-bottom: 1px;
   line-height: 1.4;
 }
 
 ul ul {
   border-left: 1px solid #ddd;
-  padding-left: 15px;
   margin-left: 5px;
 }
 
@@ -55,9 +50,11 @@ ul ul {
 }
 
 .highlighted {
-  background-color: yellow; /* Or any highlight color */
+  background-color: yellow;
+  /* Or any highlight color */
 }
-.clickable{
+
+.clickable {
   cursor: pointer;
 }
 
@@ -67,30 +64,34 @@ ul ul {
 }
 
 .key.highlighted {
-  background-color: lightgreen; /* Green for first click */
+  background-color: lightgreen;
+  /* Green for first click */
 }
 
 .key.mapped {
-  background-color: lightgrey; /* Grey for mapped items */
+  background-color: lightgrey;
+  /* Grey for mapped items */
 }
 
-.key.clickable{
-    cursor: pointer;
+.key.clickable {
+  cursor: pointer;
 }
 
 li {
-  padding: 2px 5px;
+  padding: 2px 1px;
   border-radius: 3px;
 }
 
 li.highlighted {
-  background-color: lightgreen; /* Green for first click */
+  background-color: lightgreen;
+  /* Green for first click */
 }
 
 li.mapped {
-  background-color: lightgrey; /* Grey for mapped items */
+  background-color: lightgrey;
+  /* Grey for mapped items */
 }
 
-.key.clickable{
-    cursor: pointer;
+.key.clickable {
+  cursor: pointer;
 }

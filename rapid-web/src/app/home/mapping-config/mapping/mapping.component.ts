@@ -20,7 +20,7 @@ import { Mapping } from '../../../model/mapping.model';
     ReactiveFormsModule,
     NgSelectModule,
     JsonViewerComponent
-  ],
+],
   templateUrl: './mapping.component.html',
   styleUrl: './mapping.component.scss'
 })
@@ -168,5 +168,6 @@ export class MappingComponent implements OnInit {
       );
     }
   }
+
 
 }

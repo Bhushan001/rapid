@@ -10,9 +10,7 @@ export class RolesGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const requiredRoles: string[] = route.data['roles'] || [];
-    console.log("Roles Needed for User to access this route");    
-    console.log(requiredRoles);    
+    const requiredRoles: string[] = route.data['roles'] || [];   
     if (requiredRoles.length === 0) {
       return true; // No specific roles required
     }

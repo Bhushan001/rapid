@@ -1,3 +1,8 @@
+.mapping-card{
+    margin: 10px;
+    padding: 5px;
+}
+
 .mapping-container {
     padding-top: 5px;
     padding-bottom: 5px;
@@ -111,7 +116,7 @@ ng-select:not(.ng-select-focused) .ng-select-container .ng-value-container:empty
 
 .json-viewer {
     font-family: monospace;
-    padding: 10px;
+    padding: 5px;
     background-color: #f8f8f8;
     border: 1px solid #ddd;
     overflow-x: auto;
@@ -152,6 +157,10 @@ li {
 .mapping-table-section {
     overflow: auto;
     height: 350px;
+}
+
+.mapping-form-section {
+    padding-bottom: 10px;
 }
 
 .mapping-table {
