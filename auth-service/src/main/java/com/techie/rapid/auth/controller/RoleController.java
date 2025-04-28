@@ -30,6 +30,12 @@ public class RoleController {
     private final RoleService roleService;
     private final PermissionService permissionService;
 
+    /**
+     * Create a new role.
+     *
+     * @param role the role to create
+     * @return the created role
+     */
     @PostMapping
     public ResponseEntity<ApiResponse<RoleDto>> createRole(@RequestBody Role role) {
         RoleDto roleDto = roleService.createRole(role);
@@ -37,6 +43,12 @@ public class RoleController {
         return ResponseEntity.status(201).body(response);
     }
 
+    /**
+     * Get all role DTOs
+     *
+     * @param roleId the ID of the role to retrieve
+     * @return the role with the specified ID
+     */
     @GetMapping("/dtos")
     public ResponseEntity<ApiResponse<List<RoleDto>>> getAllRoleDtos() {
         List<RoleDto> roleDtos = roleService.getAllRoleDtos();
@@ -44,6 +56,12 @@ public class RoleController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Get all roles in Page
+     *
+     * @param roleId the ID of the role to retrieve
+     * @return the role with the specified ID
+     */
     @GetMapping()
     public ResponseEntity<ApiResponse<Page<RoleDto>>> getAllRoles(@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
         Page<RoleDto> roleDtosPage = roleService.getAllRoles(pageable);
@@ -51,6 +69,12 @@ public class RoleController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Update a role by ID.
+     *
+     * @param roleId the ID of the role to retrieve
+     * @return the role with the specified ID
+     */
     @PutMapping("/{roleId}")
     public ResponseEntity<ApiResponse<RoleDto>> updateRole(@PathVariable UUID roleId, @RequestBody RoleRequest request) {
         RoleDto updatedRoleDto = permissionService.addOrUpdatePermissionsToRole(roleId, request);

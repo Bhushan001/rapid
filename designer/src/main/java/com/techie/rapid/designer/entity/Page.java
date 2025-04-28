@@ -26,9 +26,6 @@ public class Page extends Auditable {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "owner_id", nullable = false, columnDefinition = "BINARY(16)")
-    private UUID ownerId;
-
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "project_id") //This is the correct placement for join column.

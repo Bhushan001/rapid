@@ -27,9 +27,6 @@ public class Workspace extends Auditable {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "owner_id", nullable = false, columnDefinition = "BINARY(16)")
-    private UUID ownerId;
-
     @OneToMany(mappedBy = "workspace")
     @JsonManagedReference
     private List<Project> projects;
