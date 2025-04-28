@@ -24,16 +24,39 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * JwtFilter is a custom filter that processes JWT tokens in incoming HTTP requests.
+ * It extracts the token from the Authorization header, validates it, and sets the authentication context.
+ */
 @Component
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
 
+    /**
+     * The secret key used for signing the JWT tokens.
+     */
     @Value("${jwt.secret}")
     private String jwtSecret;
 
+    /**
+     * The JWT utility class used for token operations.
+     */
     private final JwtUtil jwtUtil;
+    /**
+     * The custom user details service used for loading user-specific data.
+     */
     private final CustomUserDetailsService userDetailsService;
 
+    /**
+     * This method is called for each request to filter the JWT token.
+     * It extracts the token from the Authorization header, validates it, and sets the authentication context.
+     *
+     * @param request  the HTTP request
+     * @param response the HTTP response
+     * @param filterChain the filter chain
+     * @throws ServletException if an error occurs during filtering
+     * @throws IOException      if an I/O error occurs
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 

@@ -27,8 +27,18 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserController {
 
+    /**
+     * The UserService instance used to handle user-related operations.
+     */
     private final UserService userService;
 
+    /**
+     * Get all users in Page
+     *
+     * @param authentication the authentication object
+     * @param pageable       the pagination information
+     * @return a page of user DTOs
+     */
     @GetMapping()
     public ResponseEntity<ApiResponse<Page<UserDto>>> getAllUsers(Authentication authentication, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
         Page<UserDto> userDtosPage = userService.getAllUsersByPage(pageable);

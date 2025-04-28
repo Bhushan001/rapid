@@ -10,18 +10,22 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+// This service is responsible for creating a UserProfile object from a User entity.
 @Service
 @RequiredArgsConstructor
 public class UserProfileCreator {
 
+
     private final UserRoleService userRoleService;
 
+    // This method maps a list of Role objects to a list of their corresponding role names (codes).
     private List<String> mapRolesToNames(List<Role> roles) {
         return roles.stream()
                 .map(Role::getCode)
                 .collect(Collectors.toList());
     }
 
+    // This method fetches all unique permissions for a list of roles.
     private List<String> fetchPermissionsForRoles(List<Role> roles) {
         return roles.stream()
                 .flatMap(role -> role.getPermissions().stream()) // Stream of Permission objects
@@ -30,6 +34,7 @@ public class UserProfileCreator {
                 .collect(Collectors.toList());
     }
 
+    // This method creates a UserProfile object from a User entity.
     public UserProfile createUserProfile(User user) {
         List<Role> userRoles = user.getRoles().stream().collect(Collectors.toList());
         List<String> roleNames = mapRolesToNames(userRoles);

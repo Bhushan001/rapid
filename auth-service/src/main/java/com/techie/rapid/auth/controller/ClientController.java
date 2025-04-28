@@ -21,7 +21,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ClientController {
 
+    /**
+     * Client service to handle client-related operations.
+     */
     private final ClientService clientService;
+
 
     @GetMapping
     public ResponseEntity<ApiResponse<Page<ClientDto>>> getAllClientsPage(@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {

@@ -28,11 +28,18 @@ import org.springframework.stereotype.Service;
 import javax.management.relation.RoleNotFoundException;
 import java.util.*;
 import java.util.stream.Collectors;
-
+/*
+ * The UserService class is responsible for managing user-related operations,
+ * including user registration, login, and retrieval of user information.
+ * It interacts with the UserRepository, RoleRepository, and ClientRepository
+ * to perform these operations.
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class UserService {
+
+    // Injecting dependencies using constructor injection
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final ClientRepository clientRepository;
@@ -41,6 +48,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
+    // Method to retrieve all users with pagination
     public Page<UserDto> getAllUsersByPage(Pageable pageable) {
         Page<User> usersPage = userRepository.findAll(pageable);
         List<UserDto> userDtos = usersPage.getContent().stream().map(user -> {
@@ -71,6 +79,7 @@ public class UserService {
         return new PageImpl<>(userDtos, pageable, usersPage.getTotalElements());
     }
 
+    // Method to retrieve a user by ID
     public UserDto getUserDtoById(UUID userId) {
         User user = userRepository.findById(userId).orElse(null);
         if (user == null) {
@@ -79,6 +88,7 @@ public class UserService {
         return convertToDto(user);
     }
 
+    // Method to retrieve a user by clientId
     public Client getClientDtoById(UUID clientId) {
         Client client = clientRepository.findById(clientId).orElse(null);
         if (client == null) {
@@ -87,6 +97,10 @@ public class UserService {
         return client;
     }
 
+    /**
+     * Method to register a user by with roleCode
+     * @return an Optional containing the User if found, or empty if not found
+     */
     public UserDto registerUser(User user, String roleCode) throws UserAlreadyExistsException, RoleNotFoundException {
         // Check for duplicate username
         Optional<User> existingUser = userRepository.findByUsername(user.getUsername());
@@ -106,6 +120,7 @@ public class UserService {
         return convertToDto(savedUser);
     }
 
+    // Method to convert a user entity to a UserDto
     private UserDto convertToDto(User user) {
         if (user == null) {
             return null; // Or throw an exception
@@ -114,6 +129,7 @@ public class UserService {
         return dto;
     }
 
+    // Method to login a user
     public LoginResponse login(LoginRequest loginRequest) {
         User user = findAndValidateUser(loginRequest); // Use the optimized method from the previous response
 
@@ -129,6 +145,7 @@ public class UserService {
         return new LoginResponse(userProfile, token);
     }
 
+    // Method to retrieve a user and validate their credentials
     private User findAndValidateUser(LoginRequest loginRequest) {
         return findByUsername(loginRequest.getUsername()).orElseThrow(() -> new UserNotFoundException(loginRequest.getUsername()));
     }

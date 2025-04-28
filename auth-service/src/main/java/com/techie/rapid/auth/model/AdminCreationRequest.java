@@ -6,6 +6,11 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.util.UUID;
 
+/**
+ * DTO for creating a new admin user.
+ * This class is used to transfer data from the client to the server.
+ * It contains fields that are necessary for creating a new admin user.
+ */
 @Data
 public class AdminCreationRequest {
 

@@ -8,6 +8,10 @@ import lombok.EqualsAndHashCode;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Represents a role entity in the system.
+ * This entity is used to manage roles that can be assigned to users.
+ */
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data

@@ -10,6 +10,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * RoleRepository is a Spring Data JPA repository interface for managing Role entities.
+ * It extends JpaRepository to provide basic CRUD operations.
+ * The repository is annotated with @Repository to indicate that it's a Spring Data repository.
+ */
 public interface RoleRepository extends JpaRepository<Role, UUID> {
     Optional<Role> findByName(String roleName);
 

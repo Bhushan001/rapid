@@ -11,6 +11,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Configuration class for enabling JPA auditing and providing an AuditorAware implementation.
+ * This class is responsible for setting up the auditor aware bean that retrieves the current user's ID
+ * from the security context.
+ */
 @Configuration
 @EnableJpaAuditing
 public class PersistenceConfig {

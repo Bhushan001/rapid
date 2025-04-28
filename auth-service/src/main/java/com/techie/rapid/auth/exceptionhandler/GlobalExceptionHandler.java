@@ -25,6 +25,7 @@ public class GlobalExceptionHandler {
     private static final Map<Class<? extends Exception>, ErrorDetails> EXCEPTION_MAP = new HashMap<>();
 
     static {
+        // General Exceptions
         EXCEPTION_MAP.put(GeneralException.class, new ErrorDetails(ErrorConstants.GENERAL_ERROR_CODE, HttpStatus.BAD_REQUEST));
         // Entity Already Exists Exceptions
         EXCEPTION_MAP.put(ClientAlreadyExistsException.class, new ErrorDetails(ErrorConstants.CLIENT_ALREADY_EXISTS_ERROR_CODE, HttpStatus.BAD_REQUEST));
@@ -41,6 +42,7 @@ public class GlobalExceptionHandler {
         EXCEPTION_MAP.put(UserNotAuthenticatedException.class, new ErrorDetails(ErrorConstants.USER_NOT_AUTHENTICATED_ERROR_CODE, HttpStatus.UNAUTHORIZED));
     }
 
+    // Handle specific exceptions
     @ExceptionHandler(Exception.class) // Or a common base exception from your commons library
     public ResponseEntity<CustomErrorResponse> handleAllExceptions(Exception ex) {
         ErrorDetails errorDetails = EXCEPTION_MAP.get(ex.getClass());

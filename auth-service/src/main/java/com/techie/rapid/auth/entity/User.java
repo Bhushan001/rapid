@@ -8,6 +8,10 @@ import java.time.LocalDate;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * Represents a User entity in the system.
+ * This entity is used to manage Users that can be assigned roles.
+ */
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data

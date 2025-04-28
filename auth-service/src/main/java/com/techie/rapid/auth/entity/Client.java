@@ -6,6 +6,10 @@ import lombok.EqualsAndHashCode;
 
 import java.util.UUID;
 
+/**
+ * Represents a client entity in the system.
+ * This entity is used to manage clients that can access the system.
+ */
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data

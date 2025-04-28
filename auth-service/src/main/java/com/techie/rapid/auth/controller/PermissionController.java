@@ -18,6 +18,10 @@ import java.util.List;
 @RequestMapping("/api/permissions")
 @RequiredArgsConstructor
 public class PermissionController {
+    /**
+     * The PermissionService instance used to handle permission-related operations.
+     */
+    private final PermissionService permissionService;
 
     @GetMapping()
     public ResponseEntity<ApiResponse<Page<PermissionDto>>> getAllPermissions(Pageable pageable) {
@@ -26,8 +30,7 @@ public class PermissionController {
         return ResponseEntity.ok(response);
     }
 
-    private final PermissionService permissionService;
-
+    
     @PostMapping
     public ResponseEntity<ApiResponse<PermissionDto>> createPermission(@RequestBody Permission permission) {
         PermissionDto permissionDto = permissionService.CreatePermission(permission);

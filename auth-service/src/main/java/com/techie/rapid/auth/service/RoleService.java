@@ -18,14 +18,26 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
+/**
+ * This service class is responsible for handling role-related operations.
+ * It interacts with the RoleRepository to perform CRUD operations on roles.
+ * It also converts Role entities to RoleDto objects for API responses.
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class RoleService {
+
+    // Injecting the RoleRepository and UserService dependencies
     private final UserService userService;
     private final RoleRepository roleRepository;
 
+    /**
+     * Converts a Role entity to a RoleDto object.
+     *
+     * @param role the Role entity to convert
+     * @return the converted RoleDto object
+     */
     public List<RoleDto> getAllRoleDtos() {
         List<Role> roles = roleRepository.findAll();
         if (roles.isEmpty()) {
@@ -34,6 +46,12 @@ public class RoleService {
         return roles.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
+    /**
+     * Retrieves all roles with pagination and converts them to RoleDto objects.
+     *
+     * @param pageable the pagination information
+     * @return a Page of RoleDto objects
+     */
     public Page<RoleDto> getAllRoles(Pageable pageable) {
         Page<Role> rolesPage = roleRepository.findAllWithPermissions(pageable);
         List<RoleDto> roleDtos = rolesPage.getContent().stream().map(role -> {
@@ -58,6 +76,12 @@ public class RoleService {
         return new PageImpl<>(roleDtos, pageable, rolesPage.getTotalElements());
     }
 
+    /**
+     * Converts a Role entity to a RoleDto object.
+     *
+     * @param role the Role entity to convert
+     * @return the converted RoleDto object
+     */
     RoleDto convertToDto(Role role) {
         if (role == null) {
             return null; // Or throw an exception
@@ -91,6 +115,12 @@ public class RoleService {
         return dto;
     }
 
+    /**
+     * Creates a new role and saves it to the database.
+     *
+     * @param role the Role entity to create
+     * @return the created RoleDto object
+     */
     public RoleDto createRole(Role role) {
         try {
             Role savedRole = roleRepository.save(role);
@@ -102,6 +132,13 @@ public class RoleService {
         }
     }
 
+    /**
+     * Updates an existing role in the database.
+     *
+     * @param roleId the ID of the role to update
+     * @param role   the Role entity with updated information
+     * @return the updated RoleDto object
+     */
     public Optional<Role> getRoleById(UUID roleId) {
         return roleRepository.findById(roleId);
     }

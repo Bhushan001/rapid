@@ -26,16 +26,26 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * Service class for managing permissions.
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class PermissionService {
 
+    // Injecting dependencies
     private final RoleService roleService;
     private final UserService userService;
     private final RoleRepository roleRepository;
     private final PermissionRepository permissionRepository;
 
+    /**
+     * Creates a new permission.
+     *
+     * @param permission the permission to create
+     * @return the created permission
+     */
     public PermissionDto createPermission(Permission permission) {
         try {
             Permission savedPermission = permissionRepository.save(permission);
@@ -45,6 +55,12 @@ public class PermissionService {
         }
     }
 
+    /**
+     * Retrieves a permission by role ID.
+     *
+     * @param id the ID of the permission
+     * @return the permission
+     */
     public Set<PermissionDto> getPermissionDtosByRoleId(UUID roleId) {
         Role role = roleService.getRoleById(roleId).orElseThrow(() -> new RoleNotFoundException(roleId));
         // Assuming you have a conversion method for Permission to PermissionDto
@@ -85,6 +101,7 @@ public class PermissionService {
         return permissionDto;
     }
 
+
     public List<Permission> getPermissionsByIds(List<UUID> permissionIds) {
         List<Permission> permissions = permissionRepository.findAllById(permissionIds);
         if (permissions.isEmpty()) {
@@ -93,6 +110,12 @@ public class PermissionService {
         return permissions;
     }
 
+    /**
+     * Retrieves permissions by RoleId.
+     *
+     * @param id the ID of the role
+     * @return the permission
+     */
     public Page<PermissionDto> getPermissionsByRoleId(UUID roleId, Pageable pageable) {
         Page<Permission> permissionsPage = permissionRepository.findAll(pageable);
         List<PermissionDto> permissionDtos = permissionsPage.getContent().stream().map(permission -> {
@@ -117,6 +140,13 @@ public class PermissionService {
         return new PageImpl<>(permissionDtos, pageable, permissionsPage.getTotalElements());
     }
 
+    /**
+     * Adds or updates permissions to a role.
+     *
+     * @param roleId  the ID of the role
+     * @param request  the request containing permission IDs
+     * @return the updated role
+     */
     public RoleDto addOrUpdatePermissionsToRole(UUID roleId, RoleRequest request) {
         Role role = roleService.getRoleById(roleId).orElseThrow(() -> new RoleNotFoundException(roleId));
 
@@ -158,11 +188,23 @@ public class PermissionService {
         }
     }
 
+    /**
+     * Retrieves all permissions Sorted by names
+     *
+     * @param id the ID of the permission
+     * @return the permission
+     */
     public List<PermissionDto> getAllPermissionsSortedByName() {
         List<Permission> permissions = permissionRepository.findAll();
         return permissions.stream().map(this::convertToDto).sorted((p1, p2) -> p1.getName().compareToIgnoreCase(p2.getName())).collect(Collectors.toList());
     }
 
+    /**
+     * Retrieves all permissions with pagination.
+     *
+     * @param pageable the pagination information
+     * @return a page of permissions
+     */
     public Page<PermissionDto> getAllPermissionsPage(Pageable pageable) {
         Page<Permission> permissionsPage = permissionRepository.findAll(pageable);
         List<PermissionDto> permissionDtos = permissionsPage.getContent().stream().map(permission -> {

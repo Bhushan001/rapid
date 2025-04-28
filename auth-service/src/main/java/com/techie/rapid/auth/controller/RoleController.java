@@ -90,8 +90,9 @@ public class RoleController {
         return ResponseEntity.ok(response);
     }
 
+
     @GetMapping("/{roleId}/permissions")
-    public ResponseEntity<ApiResponse<Page<PermissionDto>>> getAllRoles(@PathVariable UUID roleId, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+    public ResponseEntity<ApiResponse<Page<PermissionDto>>> getAllPermissions(@PathVariable UUID roleId, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
         Page<PermissionDto> permissionDtosPage = permissionService.getPermissionsByRoleId(roleId, pageable);
         ApiResponse<Page<PermissionDto>> response = new ApiResponse<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), permissionDtosPage);
         return ResponseEntity.ok(response);

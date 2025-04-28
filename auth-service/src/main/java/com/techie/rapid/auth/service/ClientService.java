@@ -18,14 +18,24 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * Service class for managing clients.
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class ClientService {
 
+    // Injected dependencies
     private final UserService userService;
     private final ClientRepository clientRepository;
 
+    /**
+     * Creates a new client.
+     *
+     * @param client the client to create
+     * @return the created client DTO
+     */
     public ClientDto createClient(Client client) {
         try {
             Client savedClient = clientRepository.save(client);
@@ -77,6 +87,7 @@ public class ClientService {
         }
         return dto;
     }
+
 
     public Optional<Client> getClientById(UUID clientId) {
         return clientRepository.findById(clientId);

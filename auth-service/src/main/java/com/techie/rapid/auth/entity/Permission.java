@@ -9,6 +9,10 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * Represents a permission entity in the system.
+ * This entity is used to manage permissions that can be assigned to roles.
+ */
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data

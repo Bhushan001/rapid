@@ -4,7 +4,10 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
-
+/**
+ * Data Transfer Object for Client entity.
+ * This class is used to transfer client data between layers.
+ */
 @Data
 public class ClientDto {
     private UUID id;
