@@ -67,38 +67,251 @@
     /* Adjust size as needed */
 }
 
+/* common.css */
 
-button.btn.custom-dark-btn {
-    background-color: #343a40;
-    color: white;
+/* Base styles for a clean and professional look */
+.entity-section.card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    background-color: #fff;
+  }
+  
+  .entity-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .entity-header h5 {
+    color: #333;
+    font-size: 1.25rem;
+    margin-bottom: 0;
+  }
+  
+  .entity-header .btn {
+    background: none;
     border: none;
-    margin-right: 1rem;
-}
-
-button.btn.custom-dark-btn:hover {
-    background-color: #495057;
-}
-
-button.btn-secondary {
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .entity-header i {
+    color: #007bff; /* Primary color for icons */
+  }
+  
+  .entity-header .fa-plus {
+    color: #28a745; /* Success color for add icon */
+  }
+  
+  .list-container {
+    padding: 15px 20px;
+  }
+  
+  .list-section {
+    margin-bottom: 15px;
+  }
+  
+  .entity-card {
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .entity-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .entity-card strong {
+    font-weight: 600;
+    color: #222;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .entity-card .small {
+    font-size: 0.875rem;
+    color: #6c757d;
+    display: block;
+    margin-bottom: 3px;
+  }
+  
+  .entity-card .text-secondary {
+    color: #6c757d !important;
+  }
+  
+  .pagination-section {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  /* Modal styles */
+  .modal-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .modal-title {
+    font-size: 1.25rem;
+    color: #333;
+  }
+  
+  .modal-body {
+    padding: 1rem 1.5rem;
+  }
+  
+  .modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #dee2e6;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .modal-footer .btn {
+    margin-left: 0.5rem;
+  }
+  
+  .form-label {
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 0.3rem;
+    display: block;
+  }
+  
+  .form-control {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  
+  .form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #007bff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+  
+  .text-danger {
+    color: #dc3545 !important;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+  
+  .btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  
+  .btn-secondary {
+    color: #fff;
     background-color: #6c757d;
-    color: white;
-}
-
-/* Custom Modal Styling */
-.modal-content {
-    border-radius: 10px;
-    border: none;
-}
-
-.modal-header {
+    border-color: #6c757d;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #545b62;
+    border-color: #4e555b;
+  }
+  
+  .btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
+  
+  .btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+  }
+  
+  
+  .btn-close:hover {
+    opacity: 0.75;
+  }
+  
+  .btn-close:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+  
+  .custom-dark-btn {
+    color: #fff;
     background-color: #343a40;
-    color: white;
-}
+    border-color: #343a40;
+  }
+  
+  .custom-dark-btn:hover {
+    background-color: #1d2124;
+    border-color: #1a1e21;
+  }
+  
+  .custom-dark-btn:focus,
+  .custom-dark-btn.focus {
+    box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5);
+  }
+  
+  .custom-dark-btn:disabled,
+  .custom-dark-btn.disabled {
+    color: #fff;
+    background-color: #343a40;
+    border-color: #343a40;
+  }
 
-.modal-body {
-    background-color: #f8f9fa;
-}
 
-.modal-footer {
-    background-color: #f8f9fa;
-}
+  .pagination-section  .page-link {
+    background-color: #343a40 !important;
+    color: #fff !important;
+    border-color: #343a40 !important;
+    border-radius: 0.25rem;
+    margin: 0 2px;
+  }
+  
+  .pagination-section  .page-link:hover {
+    background-color: #495057 !important;
+    color: #fff !important;
+  }
+  
+  .pagination-section  .page-item.active .page-link {
+    background-color: #212529 !important;
+    border-color: #212529 !important;
+    color: #fff !important;
+  }
+  
+  .pagination-section .page-item.disabled .page-link {
+    background-color: #6c757d !important;
+    border-color: #6c757d !important;
+    color: #fff !important;
+  }
+  
+  .pagination-section  .page-link:disabled,
+  .pagination-section  .page-link.disabled {
+    background-color: #6c757d !important;
+    color: #fff !important;
+    cursor: not-allowed;
+  }
+  
+  .pagination-section ::ng-deep .page-item:first-child .page-link,
+  .pagination-section ::ng-deep .page-item:last-child .page-link {
+    border-radius: 4px;
+    /* Maintain rounded corners */
+  }

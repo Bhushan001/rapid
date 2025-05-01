@@ -1,5 +1,6 @@
 package com.techie.rapid.designer.service;
 
+import com.techie.rapid.designer.entity.Project;
 import com.techie.rapid.designer.entity.Workspace;
 import com.techie.rapid.designer.repository.PageRepository;
 import com.techie.rapid.designer.repository.ProjectRepository;
@@ -69,6 +70,13 @@ public class WorkspaceService {
     }
 
     public void deleteWorkspace(UUID id) {
+        Workspace workspace = workspaceRepository.findById(id).orElseThrow(() -> new WorkspaceNotFoundException(id));
+        List<Project> projects = projectRepository.findByWorkspace(workspace);
+        for (Project project : projects) {
+            pageRepository.deleteAllByProject(project);
+        }
+        projectRepository.deleteByWorkspace(workspace);
+        workspaceRepository.delete(workspace);
     }
 
     private WorkspaceDto covertToDto(Workspace workspace) {

@@ -10,6 +10,7 @@ import { MappingListComponent } from '../../home/mapping-config/mapping-list/map
 import { AuthGuard } from '../../auth/guards/auth.guard';
 import { RolesGuard } from '../../auth/guards/roles.guard';
 import { UnauthorizedComponent } from '../../home/unauthorized/unauthorized.component';
+import { DesignerComponent } from '../../home/designer/designer.component';
 
 export const Full_ROUTES: Routes = [
   {
@@ -19,6 +20,12 @@ export const Full_ROUTES: Routes = [
       {
         path: 'project-manager', 
         component: ProjectManagerComponent,        
+        data: { roles: ['USER'] },
+        canActivate:[AuthGuard, RolesGuard],
+      },
+      {
+        path: 'designer', 
+        component: DesignerComponent,        
         data: { roles: ['USER'] },
         canActivate:[AuthGuard, RolesGuard],
       },

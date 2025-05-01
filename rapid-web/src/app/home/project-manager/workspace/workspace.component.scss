@@ -1,65 +1,30 @@
-.custom-dark-btn {
-  background-color: #343a40;
-  color: #fff;
-  border-color: #343a40;
-}
-
-.custom-dark-btn:hover {
-  background-color: #495057;
-  color: #fff;
-}
-
-.custom-dark-btn:disabled,
-.custom-dark-btn.disabled {
-  background-color: #6c757d;
-  color: #fff;
-  cursor: not-allowed;
-}
-
 .workspace-icon {
   cursor: pointer;
+  margin-left: 8px;
+  font-size: 1rem;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.workspace-icon:hover {
+  opacity: 1;
+}
+
+.workspace-icon.text-primary {
+  color: #343a40 !important;
+}
+
+.workspace-icon.text-danger {
+  color: #dc3545 !important;
+}
+
+.workspace-icon.text-secondary {
+  color: #6c757d !important;
 }
 
 .selected-workspace {
-  background-color: rgb(160 232 126 / 37%) !important;
-  border: 2px solid #dee2e6;
-  transition: ease-out 0.3s ease;
+  background-color: #e9ecef !important;
+  /* Light gray for selected item */
+  border-color: #007bff !important;
 }
 
-/* Force styles with ::ng-deep */
-::ng-deep .list-container .pagination-section .page-link {
-  background-color: #343a40 !important;
-  color: #fff !important;
-  border-color: #343a40 !important;
-  border-radius: 0.25rem;
-  margin: 0 2px;
-}
-
-::ng-deep .list-container .pagination-section .page-link:hover {
-  background-color: #495057 !important;
-  color: #fff !important;
-}
-
-::ng-deep .list-container .pagination-section .page-link:disabled,
-::ng-deep .list-container .pagination-section .page-link.disabled {
-  background-color: #6c757d !important;
-  color: #fff !important;
-  cursor: not-allowed;
-}
-
-::ng-deep .list-container .pagination-section .page-item.active .page-link {
-  background-color: #212529 !important;
-  border-color: #212529 !important;
-  color: #fff !important;
-}
-
-::ng-deep .list-container .pagination-section .page-item.disabled .page-link {
-  background-color: #6c757d !important;
-  border-color: #6c757d !important;
-  color: #fff !important;
-}
-
-::ng-deep .list-container .pagination-section .page-item:first-child .page-link,
-::ng-deep .list-container .pagination-section .page-item:last-child .page-link {
-  border-radius: 0.25rem;
-}

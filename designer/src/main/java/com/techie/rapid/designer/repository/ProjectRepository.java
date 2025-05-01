@@ -15,4 +15,6 @@ public interface ProjectRepository extends JpaRepository<Project, UUID> {
     List<Project> findByWorkspace(Workspace workspace);
     void deleteByWorkspace(Workspace workspace);
     Page<Project> findByWorkspaceId(UUID workspaceId, Pageable pageable);
+
+    void deleteAllByWorkspace(Workspace workspace);
 }

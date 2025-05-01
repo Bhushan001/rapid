@@ -70,7 +70,7 @@ public class PageService {
         return covertToDto(pageRepository.save(page));
     }
 
-    public void deletePage(UUID pageId, UUID projectId) {
+    public void deletePage(UUID projectId, UUID pageId) {
         Page page = pageRepository.findById(pageId).orElseThrow(() -> new PageNotFoundException(pageId));
         if (!page.getProject().getId().equals(projectId)) {
             throw new PageNotFoundException(page.getId());

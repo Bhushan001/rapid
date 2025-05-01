@@ -21,7 +21,7 @@ public class UserClientService {
     public UserDto getUserById(UUID userId) {
         // Replace with your User microservice URL
         String jwtToken = getJwtTokenFromContext();
-        String userMicroserviceUrl = "http://localhost:8081/api/users";
+        String userMicroserviceUrl = "http://localhost:9081/api/users";
         String url = userMicroserviceUrl + "/" + userId;
 
         HttpHeaders headers = new HttpHeaders();

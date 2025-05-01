@@ -1,6 +1,8 @@
 package com.techie.rapid.designer.repository;
 
 import com.techie.rapid.designer.entity.Page;
+import com.techie.rapid.designer.entity.Project;
+import com.techie.rapid.designer.entity.Workspace;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -14,4 +16,6 @@ public interface PageRepository extends JpaRepository<Page, UUID> {
     Optional<Page> findFirstByProjectId(UUID projectId);
     void deleteByProjectId(UUID projectId);
     org.springframework.data.domain.Page<Page> findByProjectId(UUID projectId, Pageable pageable);
+
+    void deleteAllByProject(Project project);
 }

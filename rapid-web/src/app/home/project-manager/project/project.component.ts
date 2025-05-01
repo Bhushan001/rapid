@@ -70,7 +70,7 @@ export class ProjectComponent implements OnInit {
     this._projectService.getProjectsByWorkspaceId(workspaceId, this.page - 1, this.pageSize).subscribe(
       (res: any) => {
         this.projects = res.body.content;
-        this.totalItems = res.body.totalElements;
+        this.totalItems = res.body.page.totalElements;
       }
     );
   }

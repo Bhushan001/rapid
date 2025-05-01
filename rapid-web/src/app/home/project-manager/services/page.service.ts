@@ -9,7 +9,7 @@ import { Page } from '../../../model/page.model';
   providedIn: 'root'
 })
 export class PageService {
-  private apiUrl = environment.designerUrl + '/api/projects';
+  private apiUrl = environment.designerUrl + '/projects';
 
   constructor(private http: HttpClient) { }
 

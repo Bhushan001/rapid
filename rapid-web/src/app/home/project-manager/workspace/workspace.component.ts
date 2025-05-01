@@ -59,7 +59,7 @@ export class WorkspaceComponent {
     this._workspaceService.getWorkspaces(this.page - 1, this.pageSize).subscribe(
       (res: any) => {        
         this.workspaces = res.body.content;
-        this.totalItems = res.body.totalElements;        
+        this.totalItems = res.body.page.totalElements;        
       }
     );
   }

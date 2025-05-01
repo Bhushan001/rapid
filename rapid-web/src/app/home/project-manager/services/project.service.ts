@@ -9,7 +9,7 @@ import { PageableResponse } from '../../../model/pageable.model';
   providedIn: 'root'
 })
 export class ProjectService {
-  private apiUrl = environment.designerUrl + '/api/workspaces';
+  private apiUrl = environment.designerUrl + '/workspaces';
 
   constructor(private http: HttpClient) { }
 

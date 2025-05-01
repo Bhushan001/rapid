@@ -24,6 +24,18 @@ export const ROUTES: RouteInfo[] = [
         isSubMenuOpen: false,
         showSubMenu: false
       },
+      {
+        path: '/home/designer',
+        title: 'Designer',
+        icon: 'fa-solid fa-palette',
+        class: '',
+        badge: '',
+        badgeClass: '',
+        isExternalLink: false,
+        submenu: [],
+        isSubMenuOpen: false,
+        showSubMenu: false
+      }
     ],
     isSubMenuOpen: false
   },

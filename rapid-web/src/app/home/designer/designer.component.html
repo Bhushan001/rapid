@@ -1,0 +1,44 @@
+<div class="button-container">
+  
+</div>
+
+<div style="display: flex; width: 100%;">
+    <div class="sidebar">
+        Sidebar
+    </div>
+    <div class="main-content">
+        <div id="page" #page>
+            <div id="page-tooltip" #pageTooltip class="tooltip">
+                <button data-type="block" title="Add Block" (click)="addBlock(pageRef.nativeElement)">
+                    <i class="fa-solid fa-cube"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar">
+        Right Sidebar
+    </div>
+</div>
+
+<ng-template #tooltipContainer let-tooltip>
+
+</ng-template>
+
+<ng-template #blockTooltipTemplate let-block>
+    <div class="tooltip">
+        <button data-type="section" title="Add Section" (click)="addSection(block)">
+            <i class="fa-solid fa-layer-group"></i>
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #sectionTooltipTemplate let-section>
+    <div class="tooltip">
+        <button data-type="row" title="Add Row" (click)="addRow(section)">
+            <i class="fa-solid fa-table-list"></i>
+        </button>
+        <button data-type="column" title="Add Column" (click)="addColumn(section)">
+            <i class="fa-solid fa-table-columns"></i>
+        </button>
+    </div>
+</ng-template>

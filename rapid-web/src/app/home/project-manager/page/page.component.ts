@@ -71,7 +71,7 @@ export class PageComponent implements OnInit {
     this._pageService.getPagesByProjectId(projectId, this.page - 1, this.pageSize).subscribe(
       (res: any) => {
         this.pages = res.body.content;
-        this.totalItems = res.body.totalElements;     
+        this.totalItems = res.body.page.totalElements;     
       }
     );
   }

@@ -51,8 +51,8 @@ public class PageController {
     }
 
     @DeleteMapping("/{pageId}")
-    public ResponseEntity<ApiResponse<String>> deletePage(@PathVariable UUID workspaceId, @PathVariable UUID projectId) {
-        pageService.deletePage(projectId, workspaceId);
+    public ResponseEntity<ApiResponse<String>> deletePage(@PathVariable UUID projectId, @PathVariable UUID pageId) {
+        pageService.deletePage(projectId, pageId);
         ApiResponse<String> response = new ApiResponse<>(HttpStatus.OK.value(), // or HttpStatus.ACCEPTED.value()
                 HttpStatus.OK.getReasonPhrase(), // or HttpStatus.ACCEPTED.getReasonPhrase()
                 MessageConstants.PAGE_DELETED_MESSAGE);

@@ -1,26 +1,22 @@
-<div class="container-fluid p-4 project-manager-layout">
-  <div class="row mb-4">
-    <div class="col text-center">
-      <h2 class="fw-bold"><i class="fa-solid fa-layer-group me-2"></i> Project Manager</h2>
-    </div>
+<div class="project-manager-layout container-fluid p-4">
+  <div class="mb-4 text-center">
+    <h2 class="fw-bold"><i class="fa-solid fa-layer-group me-2"></i> Project Manager</h2>
   </div>
 
   <div class="row">
-    <div class="col-4 pe-3 border-end border-secondary">
+    <div class="col-lg-4 pe-lg-3 border-end border-secondary">
       <app-workspace (selectWorkspace)="onWorkspaceSelect($event)" (workspaceCreated)="onWorkspaceCreate($event)"
-        (workspaceDeleted)="onWorkspaceDelete($event)">
-      </app-workspace>
+        (workspaceDeleted)="onWorkspaceDelete($event)"></app-workspace>
     </div>
 
-    <div class="col-4 col-4 px-3 border-end border-secondary">
+    <div class="col-lg-4 px-lg-3 border-end border-secondary">
       <app-project [selectedWorkspace]="selectedWorkspace" [selectedProject]="selectedProject"
-        (selectProject)="onProjectSelect($event)">
-      </app-project>
+        (selectProject)="onProjectSelect($event)"></app-project>
     </div>
 
-    <div class="col-4 ps-3">
-      <app-page [selectedProject]="selectedProject" [selectedPage]="selectedPage" (selectPage)="onPageSelect($event)">
-      </app-page>
+    <div class="col-lg-4 ps-lg-3">
+      <app-page [selectedProject]="selectedProject" [selectedPage]="selectedPage"
+        (selectPage)="onPageSelect($event)"></app-page>
     </div>
   </div>
 </div>
