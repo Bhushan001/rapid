@@ -59,10 +59,44 @@
 
 .tooltip-container {
     position: absolute;
+    top: 5px;
+    /* adjust as needed */
+    right: 5px;
+    /* adjust as needed */
     z-index: 10;
-    color: white;
-    padding: 5px;
-    border-radius: 4px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.dropped-element:hover .tooltip-container {
+    opacity: 1;
+    visibility: visible;
+}
+
+.block-tooltip {
+    top: -2%;
+    left: 1%;
+}
+
+.section-tooltip {
+    top: -1%;
+    left: -1%;
+}
+
+.row-tooltip {
+    top: 4%;
+    left: 1%;
+}
+
+.col-tooltip {
+    top: -2%;
+    left: 96%;
+}
+
+.tooltip.show {
+    opacity: var(--bs-tooltip-opacity);
+    position: absolute;
 }
 
 .tooltip button {

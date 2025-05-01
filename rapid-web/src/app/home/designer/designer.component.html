@@ -1,44 +1,58 @@
-<div class="button-container">
-  
-</div>
-
 <div style="display: flex; width: 100%;">
     <div class="sidebar">
-        Sidebar
+      <h5>Component List</h5>
+      <ul>
+        <li draggable="true" (dragstart)="startDrag('h1-header')">h1-header</li>
+      </ul>
     </div>
+  
     <div class="main-content">
-        <div id="page" #page>
-            <div id="page-tooltip" #pageTooltip class="tooltip">
-                <button data-type="block" title="Add Block" (click)="addBlock(pageRef.nativeElement)">
-                    <i class="fa-solid fa-cube"></i>
-                </button>
-            </div>
+      <div id="page" #page>
+        <div id="page-tooltip" #pageTooltip class="tooltip">
+          <button data-type="block" title="Add Block" (click)="addBlock(pageRef.nativeElement)">
+            <i class="fa-solid fa-cube"></i>
+          </button>
         </div>
+      </div>
     </div>
-    <div class="sidebar">
-        Right Sidebar
+  
+    <div class="sidebar">Right Sidebar</div>
+  </div>
+  
+  <ng-template #tooltipContainer></ng-template>
+  
+  <ng-template #blockTooltipTemplate let-block>
+    <div class="tooltip show section-tooltip">
+      <button data-type="section" title="Add Section" (click)="addSection(block)">
+        <i class="fa-solid fa-layer-group"></i>
+      </button>
     </div>
-</div>
-
-<ng-template #tooltipContainer let-tooltip>
-
-</ng-template>
-
-<ng-template #blockTooltipTemplate let-block>
-    <div class="tooltip">
-        <button data-type="section" title="Add Section" (click)="addSection(block)">
-            <i class="fa-solid fa-layer-group"></i>
-        </button>
+  </ng-template>
+  
+  <ng-template #sectionTooltipTemplate let-section>
+    <div class="tooltip show row-tooltip">
+      <button data-type="row" title="Add Row" (click)="addRow(section)">
+        <i class="fa-solid fa-table-list"></i>
+      </button>
+      <button data-type="column" title="Add Column" (click)="addColumn(section)">
+        <i class="fa-solid fa-table-columns"></i>
+      </button>
     </div>
-</ng-template>
-
-<ng-template #sectionTooltipTemplate let-section>
-    <div class="tooltip">
-        <button data-type="row" title="Add Row" (click)="addRow(section)">
-            <i class="fa-solid fa-table-list"></i>
-        </button>
-        <button data-type="column" title="Add Column" (click)="addColumn(section)">
-            <i class="fa-solid fa-table-columns"></i>
-        </button>
+  </ng-template>
+  
+  <ng-template #rowTooltipTemplate let-row>
+    <div class="tooltip show col-tooltip">
+      <button data-type="column" title="Add Column" (click)="addColumn(row)">
+        <i class="fa-solid fa-table-columns"></i>
+      </button>
     </div>
-</ng-template>
+  </ng-template>
+  
+  <ng-template #columnTooltipTemplate let-column>
+    <div class="tooltip show col-tooltip">
+      <button data-type="column" title="Add Column" (click)="addColumn(column)">
+        <i class="fa-solid fa-table-columns"></i>
+      </button>
+    </div>
+  </ng-template>
+  

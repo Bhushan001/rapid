@@ -1,116 +1,76 @@
 import { CommonModule } from '@angular/common';
-import { ApplicationRef, Component, ComponentFactoryResolver, ElementRef, Injector, Renderer2, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef,
+  ComponentFactoryResolver,
+  AfterViewInit,
+  Injector,
+  EmbeddedViewRef
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Subject } from 'rxjs';
-
+import { H1HeaderComponent } from './library/headers/h1-header/h1-header.component';
 
 @Component({
   selector: 'app-designer',
-  imports: [
-    CommonModule,
-    FormsModule
-  ],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './designer.component.html',
-  styleUrl: './designer.component.scss'
+  styleUrls: ['./designer.component.scss']
 })
-export class DesignerComponent {
+export class DesignerComponent implements AfterViewInit {
   @ViewChild('page') pageRef!: ElementRef;
   @ViewChild('pageTooltip') pageTooltipRef!: ElementRef;
   @ViewChild('blockTooltipTemplate') blockTooltipTemplate!: TemplateRef<any>;
   @ViewChild('sectionTooltipTemplate') sectionTooltipTemplate!: TemplateRef<any>;
-  @ViewChild('tooltipContainer', { read: ViewContainerRef }) tooltipContainer!: ViewContainerRef; // For dynamically created tooltips
+  @ViewChild('rowTooltipTemplate') rowTooltipTemplate!: TemplateRef<any>;
+  @ViewChild('columnTooltipTemplate') columnTooltipTemplate!: TemplateRef<any>;
+  @ViewChild('tooltipContainer', { read: ViewContainerRef }) tooltipContainer!: ViewContainerRef;
 
   private borderColors = ['red', 'green', 'orange', 'purple', 'blue', 'brown'];
   private colorIndex = 0;
-  private currentPage: HTMLElement | null = null;
+  private draggedComponent: string | null = null;
+
+  // Mapping elements to their dynamic containers
+  private containerMap = new Map<HTMLElement, ViewContainerRef>();
+
+  constructor(
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private injector: Injector
+  ) {}
 
   ngAfterViewInit() {
-    this.pageRef.nativeElement.addEventListener('mouseenter', () => this.showTooltip(this.pageTooltipRef.nativeElement, this.currentPage!));
-    this.pageRef.nativeElement.addEventListener('mouseleave', () => this.hideTooltip(this.pageTooltipRef.nativeElement));
+    this.pageRef.nativeElement.addEventListener('mouseenter', () =>
+      this.showTooltip(this.pageTooltipRef.nativeElement, this.pageRef.nativeElement)
+    );
+    this.pageRef.nativeElement.addEventListener('mouseleave', () =>
+      this.hideTooltip(this.pageTooltipRef.nativeElement)
+    );
   }
 
-  addBlock(parent: HTMLElement) {
-    const newBlock = this.createElement('div', {
-      width: '100%',
-      height: '20%',
-      display: 'block',
-      border: `2px dotted ${this.getNextBorderColor()}`,
-      boxSizing: 'border-box',
-      position: 'relative' // For positioning the block tooltip
-    });
-    parent.appendChild(newBlock);
-    this.attachTooltip(newBlock, this.blockTooltipTemplate);
+  startDrag(componentName: string) {
+    this.draggedComponent = componentName;
   }
 
-  addSection(parent: HTMLElement) {
-    const newSection = this.createElement('div', {
-      width: '98%',
-      height: '96%',
-      margin: '5px',
-      display: 'inline-block',
-      border: `2px dashed ${this.getNextBorderColor()}`,
-      boxSizing: 'border-box',
-      position: 'relative' // For positioning the section tooltip
-    });
-    parent.appendChild(newSection);
-    this.attachTooltip(newSection, this.sectionTooltipTemplate);
+  allowDrop(event: DragEvent) {
+    event.preventDefault();
   }
 
-  addRow(parent: HTMLElement) {
-    const newRow = this.createElement('div', {
-      width: '98%',
-      height: '48%',
-      display: 'flex',
-      flexDirection: 'row',
-      border: `2px dotted ${this.getNextBorderColor()}`,
-      boxSizing: 'border-box'
-    });
-    parent.appendChild(newRow);
-  }
-
-  addColumn(parent: HTMLElement) {
-    const newColumn = this.createElement('div', {
-      width: '48%',
-      height: '98%',
-      display: 'flex',
-      flexDirection: 'column',
-      border: `2px dashed ${this.getNextBorderColor()}`,
-      boxSizing: 'border-box'
-    });
-    parent.appendChild(newColumn);
-  }
-
-  private createElement(tag: string, styles: Partial<CSSStyleDeclaration>): HTMLElement {
-    const element = document.createElement(tag);
-    for (const key in styles) {
-      if (styles.hasOwnProperty(key) && styles[key] !== undefined) {
-        element.style[key] = styles[key]!; // Non-null assertion because we checked for undefined
-      }
+  drop(event: DragEvent, targetElement: HTMLElement) {
+    event.preventDefault();
+  
+    if (this.draggedComponent === 'h1-header') {
+      const factory = this.componentFactoryResolver.resolveComponentFactory(H1HeaderComponent);
+      const compRef = this.tooltipContainer.createComponent(factory, undefined, this.injector);
+  
+      // Append the actual component's root node to the DOM element
+      const rootNode = (compRef.hostView as EmbeddedViewRef<any>).rootNodes[0];
+      targetElement.appendChild(rootNode);
     }
-    return element;
-  }
-
-  private attachTooltip(element: HTMLElement, template: TemplateRef<any>) {
-    element.addEventListener('mouseenter', (event) => {
-      const tooltip = document.createElement('div');
-      tooltip.classList.add('tooltip-container'); // Add a class for styling      
-      this.tooltipContainer.createEmbeddedView(template, { $implicit: element })
-        .rootNodes.forEach(
-          node => {
-            node.classList.add("show");
-            tooltip.appendChild(node)
-          }
-        );
-      element.appendChild(tooltip);
-      this.positionTooltip(tooltip, event.target as HTMLElement);
-    });
-
-    element.addEventListener('mouseleave', () => {
-      const tooltip = document.querySelector('.tooltip-container');
-      if (tooltip) {
-        tooltip.remove();
-      }
-    });
+  
+    this.draggedComponent = null;
   }
 
   private showTooltip(tooltipElement: HTMLElement, targetElement: HTMLElement) {
@@ -122,16 +82,98 @@ export class DesignerComponent {
     tooltipElement.classList.remove('show');
   }
 
-  private positionTooltip(tooltipElement: HTMLElement, targetElement: HTMLElement) {    
-    // const rect = targetElement.getBoundingClientRect();
-    // tooltipElement.style.position = 'absolute';
-    // tooltipElement.style.top = `${rect.top + window.scrollY + rect.height + 5}px`;
-    // tooltipElement.style.left = `${rect.left + window.scrollX + rect.width / 2 - tooltipElement.offsetWidth / 2}px`;
+  private positionTooltip(tooltip: HTMLElement, target: HTMLElement) {
+    // Add positioning logic here
   }
 
   private getNextBorderColor(): string {
     const color = this.borderColors[this.colorIndex % this.borderColors.length];
     this.colorIndex++;
     return color;
+  }
+
+  private createElement(
+    tag: string,
+    styles: Partial<CSSStyleDeclaration>,
+    tooltipTemplate: TemplateRef<any>
+  ): HTMLElement {
+    const element = document.createElement(tag);
+    Object.assign(element.style, styles);
+    element.style.boxSizing = 'border-box';
+    element.style.position = 'relative';
+  
+    // Add tooltip
+    const embeddedView = this.tooltipContainer.createEmbeddedView(tooltipTemplate, {
+      $implicit: element
+    });
+    embeddedView.detectChanges();
+  
+    embeddedView.rootNodes.forEach((node) => {      
+      node.classList.add("show");
+      element.appendChild(node);
+    });
+    embeddedView.detectChanges();
+    // Add placeholder for dynamic components
+    this.containerMap.set(element, this.tooltipContainer);
+  
+    return element;
+  }
+
+  addBlock(parent: HTMLElement) {
+    const block = this.createElement('div', {
+      width: '204mm',
+      height: '292mm',
+      padding: '5px',
+      display: 'block',
+      border: `2px dotted ${this.getNextBorderColor()}`
+    }, this.blockTooltipTemplate);
+
+    block.addEventListener('dragover', this.allowDrop);
+    block.addEventListener('drop', (event) => this.drop(event, block));
+    parent.appendChild(block);
+  }
+
+  addSection(parent: HTMLElement) {
+    const section = this.createElement('div', {
+      width: '100%',
+      height: '24%',
+      padding: '5px',
+      display: 'inline-block',
+      border: `2px dashed ${this.getNextBorderColor()}`
+    }, this.sectionTooltipTemplate);
+
+    section.addEventListener('dragover', this.allowDrop);
+    section.addEventListener('drop', (event) => this.drop(event, section));
+    parent.appendChild(section);
+  }
+
+  addRow(parent: HTMLElement) {
+    const row = this.createElement('div', {
+      width: '98%',
+      height: '48%',
+      display: 'flex',
+      padding: '5px',
+      flexDirection: 'row',
+      border: `2px dotted ${this.getNextBorderColor()}`
+    }, this.rowTooltipTemplate);
+
+    row.addEventListener('dragover', this.allowDrop);
+    row.addEventListener('drop', (event) => this.drop(event, row));
+    parent.appendChild(row);
+  }
+
+  addColumn(parent: HTMLElement) {
+    const column = this.createElement('div', {
+      width: '48%',
+      height: '98%',
+      display: 'flex',
+      padding: '5px',
+      flexDirection: 'column',
+      border: `2px dashed ${this.getNextBorderColor()}`
+    }, this.columnTooltipTemplate);
+
+    column.addEventListener('dragover', this.allowDrop);
+    column.addEventListener('drop', (event) => this.drop(event, column));
+    parent.appendChild(column);
   }
 }
