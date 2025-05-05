@@ -1,0 +1,13 @@
+<div class="form-group">
+    <label class="form-label">{{ label }}</label>
+    <div *ngFor="let option of options">
+        <div class="form-check">
+            <input class="form-check-input" type="radio" [id]="option.value" [name]="name" [value]="option.value"
+                [checked]="selectedValue === option.value" [disabled]="disabled"
+                (change)="onRadioChange(option.value)" />
+            <label class="form-check-label" [for]="option.value">
+                {{ option.label }}
+            </label>
+        </div>
+    </div>
+</div>

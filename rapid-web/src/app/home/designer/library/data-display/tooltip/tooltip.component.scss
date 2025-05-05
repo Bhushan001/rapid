@@ -1,0 +1,50 @@
+.tooltip-container {
+    position: absolute;
+    z-index: 9999;
+}
+
+.tooltip-content {
+    position: absolute;
+    background-color: #333;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+
+    &.top {
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    &.bottom {
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    &.left {
+        top: 50%;
+        right: 100%;
+        transform: translateY(-50%);
+    }
+
+    &.right {
+        top: 50%;
+        left: 100%;
+        transform: translateY(-50%);
+    }
+
+    &.tooltip-content {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+ng-content {
+    cursor: pointer;
+}

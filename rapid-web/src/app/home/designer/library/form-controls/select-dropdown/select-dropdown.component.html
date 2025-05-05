@@ -1,0 +1,10 @@
+<div class="form-group">
+    <label *ngIf="label" [for]="name" class="form-label">{{ label }}</label>
+    <select class="form-select" [id]="name" [name]="name" [disabled]="disabled" [value]="value"
+        (change)="onValueChange($event)">
+        <option value="" disabled selected hidden>{{ placeholder }}</option>
+        <option *ngFor="let opt of options" [value]="opt.value">
+            {{ opt.label }}
+        </option>
+    </select>
+</div>

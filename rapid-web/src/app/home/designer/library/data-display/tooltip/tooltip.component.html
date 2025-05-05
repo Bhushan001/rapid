@@ -1,0 +1,6 @@
+<div class="tooltip-container" *ngIf="tooltipVisible">
+    <div class="tooltip-content" [ngClass]="position">
+        {{ tooltipText }}
+    </div>
+</div>
+<ng-content></ng-content> <!-- Allow content (e.g., button or text) to trigger the tooltip -->

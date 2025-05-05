@@ -1,8 +1,119 @@
-<div style="display: flex; width: 100%;">
+<app-container title="My Dashboard Section" [padding]="true" [fluid]="true">
+  <app-card title="Credit Card Summary" subtitle="Visa Classic" icon="fas fa-credit-card" [contentLines]="[
+      'Card No: XXXX-XXXX-1234',
+      'Due Amount: ₹12,500',
+      'Payment Due: 15th May'
+    ]"></app-card>
+  <app-tabs [tabs]="[
+    { label: 'Account Summary', content: 'Balance: ₹45,000.00' },
+    { label: 'Transactions', content: 'Last 5 transactions listed here.' },
+    { label: 'Settings', content: 'You can update account preferences.' }
+  ]"></app-tabs>
+
+  <app-accordion [items]="[
+    {
+      title: 'Account Details',
+      content: 'Your savings account is active since Jan 2020.'
+    },
+    {
+      title: 'Nominee Info',
+      content: 'Nominee: John Doe, Relationship: Brother'
+    },
+    {
+      title: 'Branch Info',
+      content: 'Branch: Connaught Place, IFSC: HDFC0001234'
+    }
+  ]"></app-accordion>
+
+  <button class="btn btn-primary" (click)="openModal()">Open Modal</button>
+
+  <app-modal [title]="'Edit Account'" [show]="showModal" (close)="closeModal()">
+    <form>
+      <div class="mb-3">
+        <label for="accountName" class="form-label">Account Name</label>
+        <input type="text" id="accountName" class="form-control" placeholder="Enter name" />
+      </div>
+      <button class="btn btn-success" type="submit">Save Changes</button>
+    </form>
+  </app-modal>
+
+  <app-input-text label="Account Holder Name" placeholder="Enter name" [value]="accountName" [required]="true"
+    name="accountName" (valueChange)="accountName = $event"></app-input-text>
+
+
+  <app-select-dropdown label="Account Type" [options]="accountTypes" [(value)]="selectedAccountType"
+    placeholder="Choose type" name="accountType"></app-select-dropdown>
+
+  <app-checkbox label="Accept Terms and Conditions" [checked]="isChecked" name="terms"
+    (change)="onCheckboxChange($event)"></app-checkbox>
+
+  <app-radio label="Select Account Type" [name]="'accountType'" [options]="accountOptions"
+    [selectedValue]="selectedAccountType" (valueChange)="onAccountTypeChange($event)"></app-radio>
+
+  <app-textarea label="Description" placeholder="Enter a detailed description" [(value)]="description" [required]="true"
+    name="description" (valueChange)="onDescriptionChange($event)"></app-textarea>
+
+  <app-slider label="Account Balance" [min]="0" [max]="10000" [step]="100" [(value)]="balance" [disabled]="false"
+    name="accountBalance" (valueChange)="onBalanceChange($event)"></app-slider>
+
+  <app-table [columns]="tableColumns" [data]="tableData"></app-table>
+
+  <app-list-group [items]="listItems" [showAction]="true" (itemClicked)="onItemClicked($event)"></app-list-group>
+
+
+  <app-badge label="New" color="success" [visibility]="isBadgeVisible"></app-badge>
+
+  <app-badge label="Out of Stock" color="danger" [visibility]="!isBadgeVisible"></app-badge>
+
+  <button (click)="toggleBadgeVisibility()">Toggle Badge Visibility</button>
+
+
+  <button app-tooltip [tooltipText]="'This is a tooltip'" position="top">
+    Hover me to see the tooltip
+  </button>
+
+  <button app-tooltip [tooltipText]="'Another tooltip'" position="bottom">
+    Hover me to see another tooltip
+  </button>
+
+  <app-bar-chart [chartData]="data" [chartLabels]="labels" [chartBackgroundColor]="colors">
+  </app-bar-chart>
+
+  <app-login-block></app-login-block>
+
+  <app-progress-bar [value]="75" label="Loading..." color="success">
+  </app-progress-bar>
+
+  <app-profile-block [name]="'Alice Smith'" [email]="'alice.smith@bank.com'"
+    [avatarUrl]="'https://i.pravatar.cc/100?img=5'" [showEdit]="true" [showLogout]="true">
+  </app-profile-block>
+
+  <app-otp-field [length]="6" [isPassword]="false" (otpComplete)="handleOtp($event)">
+  </app-otp-field>
+
+
+
+</app-container>
+
+ng generate component charts/pie-chart
+ng generate component user-controls/otp-field
+ng generate component user-controls/notification-center
+ng generate component custom-widgets/account-selector
+ng generate component custom-widgets/transaction-wizard
+ng generate component custom-widgets/currency-input
+ng generate component custom-widgets/ifsc-autofill
+ng generate component navigation/topbar
+ng generate component navigation/footer
+ng generate component navigation/breadcrumbs
+
+
+
+<!-- <div style="display: flex; width: 100%;">
     <div class="sidebar">
       <h5>Component List</h5>
       <ul>
         <li draggable="true" (dragstart)="startDrag('h1-header')">h1-header</li>
+        <li draggable="true" (dragstart)="startDrag('app-card')">Card</li>
       </ul>
     </div>
   
@@ -55,4 +166,4 @@
       </button>
     </div>
   </ng-template>
-  
+   -->

@@ -1,0 +1,7 @@
+<div class="form-group">
+    <label *ngIf="label" [for]="name" class="form-label">
+        {{ label }} <span *ngIf="required" class="text-danger">*</span>
+    </label>
+    <textarea class="form-control" [id]="name" [name]="name" [placeholder]="placeholder" [value]="value"
+        [disabled]="disabled" [rows]="rows" (input)="onInputChange($event)"></textarea>
+</div>

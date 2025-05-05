@@ -1,0 +1,13 @@
+<ul class="nav nav-tabs mb-3">
+    <li class="nav-item" *ngFor="let tab of tabs; let i = index" (click)="setActiveTab(i)">
+        <a class="nav-link" [class.active]="i === activeTabIndex" href="javascript:void(0)">
+            {{ tab.label }}
+        </a>
+    </li>
+</ul>
+
+<div class="tab-content p-3 border rounded bg-white">
+    <div *ngIf="tabs[activeTabIndex]">
+        {{ tabs[activeTabIndex].content }}
+    </div>
+</div>

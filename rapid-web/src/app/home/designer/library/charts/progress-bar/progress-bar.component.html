@@ -1,0 +1,8 @@
+<div class="progress-bar-wrapper">
+    <div class="progress">
+        <div class="progress-bar" [class]="barClass" role="progressbar" [style.width]="progressBarWidth"
+            [attr.aria-valuenow]="value" aria-valuemin="0" aria-valuemax="100">
+            {{ label || value + '%' }}
+        </div>
+    </div>
+</div>

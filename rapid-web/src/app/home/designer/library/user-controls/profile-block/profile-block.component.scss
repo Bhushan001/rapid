@@ -1,0 +1,20 @@
+.profile-block {
+    max-width: 300px;
+    margin: 1rem auto;
+    border-radius: 0.75rem;
+    background-color: #fff;
+
+    .avatar {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+    }
+
+    h5 {
+        font-weight: 600;
+    }
+
+    button {
+        min-width: 80px;
+    }
+}

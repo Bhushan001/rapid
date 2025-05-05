@@ -1,0 +1,10 @@
+<div class="profile-block card text-center shadow-sm p-3">
+    <img [src]="avatarUrl" alt="Avatar" class="avatar rounded-circle mb-3" />
+    <h5 class="mb-1">{{ name }}</h5>
+    <p class="text-muted mb-3">{{ email }}</p>
+
+    <div class="d-flex justify-content-center gap-2" *ngIf="showEdit || showLogout">
+        <button *ngIf="showEdit" class="btn btn-sm btn-outline-primary" (click)="onEdit()">Edit</button>
+        <button *ngIf="showLogout" class="btn btn-sm btn-outline-danger" (click)="onLogout()">Logout</button>
+    </div>
+</div>

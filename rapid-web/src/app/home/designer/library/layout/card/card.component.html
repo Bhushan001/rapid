@@ -1,0 +1,14 @@
+<div class="card shadow-sm mb-3">
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <div>
+            <i *ngIf="icon" [class]="icon + ' me-2'"></i>
+            <strong>{{ title }}</strong>
+            <small *ngIf="subtitle" class="text-muted d-block">{{ subtitle }}</small>
+        </div>
+    </div>
+    <div class="card-body">
+        <ul class="mb-0 ps-3">
+            <li *ngFor="let line of contentLines">{{ line }}</li>
+        </ul>
+    </div>
+</div>

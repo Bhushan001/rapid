@@ -1,0 +1,19 @@
+.form-group {
+    margin-bottom: 1rem;
+
+    .form-label {
+        font-weight: 500;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    input.form-control {
+        border-radius: 0.375rem;
+        transition: border-color 0.2s ease;
+
+        &:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, 0.25);
+        }
+    }
+}

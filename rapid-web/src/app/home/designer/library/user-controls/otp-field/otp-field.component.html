@@ -1,0 +1,5 @@
+<div class="otp-field-container">
+    <input *ngFor="let val of otpValues; let i = index" #otpInput type="{{ isPassword ? 'password' : 'text' }}"
+        class="form-control otp-input" maxlength="1" [(ngModel)]="otpValues[i]" (input)="onInput($event, i)"
+        (keydown)="onKeyDown($event, i)" />
+</div>

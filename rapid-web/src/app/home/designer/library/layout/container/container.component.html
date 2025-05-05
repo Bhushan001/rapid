@@ -1,0 +1,7 @@
+<div [ngClass]="fluid ? 'container-fluid' : 'container'" [class.p-4]="padding">
+    <div *ngIf="title" class="container-title mb-3">
+        <h4 class="mb-0">{{ title }}</h4>
+        <hr />
+    </div>
+    <ng-content></ng-content>
+</div>

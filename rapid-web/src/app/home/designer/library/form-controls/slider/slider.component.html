@@ -1,0 +1,10 @@
+<div class="form-group">
+    <label *ngIf="label" [for]="name" class="form-label">
+        {{ label }}
+    </label>
+    <input type="range" class="form-range" [id]="name" [name]="name" [min]="min" [max]="max" [step]="step"
+        [value]="value" [disabled]="disabled" (input)="onSliderChange($event)" />
+    <div class="slider-value">
+        <span>{{ value }}</span>
+    </div>
+</div>
